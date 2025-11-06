@@ -3,68 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Órdenes de Servicio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <title>Modulo Orden servicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-light">
+<body>
+    <container class="container-sm d-flex justify-content-center mt-5">
+        <div class="card">
+            <div class="card-body" style="width: 1200px;">
+                <h3>Modulo Orden servicio</h3>
+                <hr>
+                
+                <!-- Formulario de búsqueda -->
+                <form name="cliente" action="{{ url('/orden_servicio') }}" method="GET">
+                    <div class="text-end mb-3">
+                        <button type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo</button>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" 
+                                       placeholder="Buscar por cliente, moto o Fecha entrada" 
+                                       name="search" 
+                                       value="{{ request('search') }}">
+                            </div>
+                        </div>
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-body">
-            <h3 class="mb-4 text-center">Órdenes de Servicio</h3>
+                        <div class="col-md-6 text-end">
+                            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i> Buscar</button>
+                            <a href="{{ url('/orden_servicio') }}" class="btn btn-warning"><i class="fas fa-list"></i> Reset</a>
+                        </div>
+                    </div>
+                </form>
 
-            <table class="table table-bordered table-striped text-center align-middle">
-                <thead class="table-primary">
-                    <tr>
-                        <th>ID_ORDEN_SERVICIO</th>
-                        <th>ID_CLIENTES</th>
-                        <th>ID_ADMINISTRADOR</th>
-                        <th>ID_TECNICOS</th>
-                        <th>ID_MOTOS</th>
-                        <th>Fecha_inicio</th>
-                        <th>Fecha_estimada</th>
-                        <th>Fecha_fin</th>
-                        <th>Estado</th>
-                        <th>Acciones</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($datos as $orden_servicio)
+                <!-- Tabla de clientes -->
+                @if($datos->count() > 0)
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-primary">
                         <tr>
-                            <td>{{ $orden_servicio->ID_ORDEN_SERVICIO }}</td>
-                            <td>{{ $orden_servicio->ID_CLIENTES }}</td>
-                            <td>{{ $orden_servicio->ID_ADMINISTRADOR }}</td>
-                            <td>{{ $orden_servicio->ID_TECNICOS }}</td>
-                            <td>{{ $orden_servicio->ID_MOTOS }}</td>
-                            
-                            <td>{{ $orden_servicio->Fecha_inicio }}</td>
-                            <td>{{ $orden_servicio->Fecha_estimada }}</td>
-                            <td>{{ $orden_servicio->Fecha_fin }}</td>
-                            
-                            <td>{{ $orden_servicio->Estado }}</td>
-                            
+                            <th>ID_ORDEN_SERVICIO</th>
+                            <th>ID_CLIENTES</th>
+                            <th>ID_ADMINISTRADOR</th>
+                            <th>ID_TECNICOS</th>
+                            <th>ID_MOTOS</th>
+                            <th>Fecha_inicio</th>
+                            <th>Fecha_estimada</th>
+                            <th>Fecha_fin</th>
+                            <th>Estado</th>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($datos as $item)
+                        <tr>
+                            <td>{{ $item->ID_ORDEN_SERVICIO }}</td>
+                            <td>{{ $item->ID_CLIENTES }}</td>
+                            <td>{{ $item->ID_ADMINISTRADOR }}</td>
+                            <td>{{ $item->ID_TECNICOS }}</td>
+                            <td>{{ $item->ID_MOTOS  }}</td>
+                            <td>{{ $item->Fecha_inicio }}</td>
+                            <td>{{ $item->Fecha_estimada }}</td>	
+                            <td>{{ $item->Fecha_fin }}</td>
+                            <td>{{ $item->Estado }}</td>
                             <td>
-                                <button class="btn btn-success btn-sm">
-                                    <i class="fas fa-pen"></i> Editar
+                                <button type="button" class="btn btn-success btn-sm">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </button>
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Eliminar
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
                                 </button>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="10" class="text-center text-muted">
-                                No hay órdenes de servicio registradas.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                        @endforeach
+                    </tbody>
+                </table>
 
+                <!-- Paginación -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <!-- Botón Anterior -->
+                        <li class="page-item {{ $datos->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" 
+                               href="{{ $datos->previousPageUrl() }}{{ request('search') ? '&search=' . request('search') : '' }}">
+                                Atras
+                            </a>
+                        </li>
+                        
+                        <!-- Números de página -->
+                        @for ($i = 1; $i <= $datos->lastPage(); $i++)
+                            <li class="page-item {{ $datos->currentPage() == $i ? 'active' : '' }}">
+                                <a class="page-link" 
+                                   href="{{ $datos->url($i) }}{{ request('search') ? '&search=' . request('search') : '' }}">
+                                    {{ $i }}
+                                </a>
+                            </li>
+                        @endfor
+                        
+                        <!-- Botón Siguiente -->
+                        <li class="page-item {{ !$datos->hasMorePages() ? 'disabled' : '' }}">
+                            <a class="page-link" 
+                               href="{{ $datos->nextPageUrl() }}{{ request('search') ? '&search=' . request('search') : '' }}">
+                                Siguiente
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Información de registros -->
+                <div class="text-muted mt-2">
+                    Mostrando {{ $datos->firstItem() }} a {{ $datos->lastItem() }} de {{ $datos->total() }} registros
+                </div>
+
+                @else
+                <div class="alert alert-info text-center mt-3">
+                    <i class="fas fa-info-circle"></i> 
+                    @if(request('search'))
+                        No se encontraron clientes con ese tipo de dato "{{ request('search') }}"
+                    @else
+                        No hay clientes registrados.
+                    @endif
+                </div>
+                @endif
+            </div>
+        </div>
+    </container>
 </body>
 </html>

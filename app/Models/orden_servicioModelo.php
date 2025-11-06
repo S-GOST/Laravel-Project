@@ -9,12 +9,6 @@ class orden_servicioModelo extends Model
         // Nombre exacto de la tabla en MySQL
     protected $table = 'orden_servicio';
 
-    // Clave primaria
-    protected $primaryKey = 'ID_ORDEN_SERVICIO';
-
-    // Si no tienes created_at / updated_at
-    public $timestamps = false;
-
     // Campos asignables
     protected $fillable = [
         'ID_CLIENTES',
@@ -27,4 +21,5 @@ class orden_servicioModelo extends Model
         'Estado',
         'Descripcion'
     ];
+        public $timestamps = false;
 }
