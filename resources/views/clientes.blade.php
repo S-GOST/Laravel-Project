@@ -81,10 +81,11 @@
                             <td>{{ $item->TipoDocumento }}</td>
                             <td>{{ $item->Correo }}</td>
                             <td>{{ $item->Telefono }}</td>
-                            <td>
+                            <td class="d-flex gap-2">
+                                {{-- Botón Editar --}}
                                 <button
                                     type="button"
-                                    class="btn btn-success"
+                                    class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
                                     data-id="{{ $item->ID_CLIENTES }}"
@@ -93,8 +94,17 @@
                                     data-tipo="{{ $item->TipoDocumento }}"
                                     data-correo="{{ $item->Correo }}"
                                     data-telefono="{{ $item->Telefono }}">
-                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
+
+                                {{-- Botón Eliminar --}}
+                                <form action="{{ route('clientes.destroy', $item->ID_CLIENTES) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -246,6 +256,15 @@ document.addEventListener('DOMContentLoaded', function() {
         form.action = '/clientes/' + id;
     });
 });
+
+// Confirmación de eliminación
+function confirmarEliminar(e) {
+    if (!confirm('¿Estás seguro de eliminar este cliente?')) {
+        e.preventDefault();
+        return false;
+    }
+    return true;
+}
 </script>
 </body>
 </html>

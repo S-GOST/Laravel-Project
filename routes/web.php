@@ -12,12 +12,13 @@ Route::get('/prueba', function () {
     return 'esta es otra ruta';
 });
 
-Route::get('/administradores', [administradoresController::class, 'index'])->name('administradores')->name('administradores.index');
-Route::post('/clientes', [clientesController::class, 'store'])->name('administradores.store');
+Route::get('/administradores', [administradoresController::class, 'index'])->name('administradores.index');
+Route::post('/administradores', [administradoresController::class, 'store'])->name('administradores.store');
 Route::get('/clientes', [clientesController::class, 'index'])->name('clientes.index');
 Route::post('/clientes', [clientesController::class, 'store'])->name('clientes.store');
 Route::get('/clientes/{or}/edit', [clientesController::class, 'edit'])->name('clientes.edit');
 Route::put('/clientes/{or}', [clientesController::class, 'update'])->name('clientes.update');
+Route::delete('/clientes/{id}', [clientesController::class, 'destroy'])->name('clientes.destroy');
 
 Route::get('/orden_servicio', [orden_servicioController::class, 'index'])->name('orden_servicio.index');
 Route::post('/orden_servicio', [orden_servicioController::class, 'store'])->name('orden_servicio.store');
