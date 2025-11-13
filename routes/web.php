@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\clientesController;
 use App\Http\Controllers\orden_servicioController;
 use App\Http\Controllers\AdministradoresController;
+use App\Http\Controllers\TecnicosController;
+use App\Http\Controllers\UbicacionController;
+
+
 use App\Http\Controllers\motosController;
 
 Route::get('/', function () {
@@ -42,3 +46,9 @@ Route::post('/ubicacion', [ubicacionController::class, 'store'])->name('ubicacio
 Route::get('/ubicacion/{or}/edit', [ubicacionController::class, 'edit'])->name('ubicacion.edit');
 Route::put('/ubicacion/{idM}', [ubicacionController::class, 'update'])->name('ubicacion.update');
 Route::delete('/ubicacion/{idM}', [ubicacionController::class, 'destroy'])->name('ubicacion.destroy');
+
+Route::get('/tecnicos', [tecnicosController::class, 'index'])->name('tecnicos.index');
+Route::post('/tecnicos', [tecnicosController::class, 'store'])->name('tecnicos.store');
+Route::get('/tecnicos/{or}/edit', [tecnicosController::class, 'edit'])->name('tecnicos.edit');
+Route::put('/tecnicos/{idM}', [tecnicosController::class, 'update'])->name('tecnicos.update');
+Route::delete('/Tecnicos/{idM}', [tecnicosController::class, 'destroy'])->name('tecnicos.destroy');

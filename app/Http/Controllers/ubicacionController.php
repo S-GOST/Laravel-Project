@@ -12,7 +12,7 @@ class ubicacionController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $query = DB::table('motos');
+        $query = DB::table('ubicacion');
 
         if($search){
             $query->where(function($q) use ($search){
@@ -44,7 +44,7 @@ class ubicacionController extends Controller
     public function update(Request $request, $idU)
     {
         $request->validate([
-            'ID_UBICACION' => 'required|unique:ubicacion,ID_UBICACION,' . $idU . ',ID_MOTOS',
+            'ID_UBICACION' => 'required|unique:ubicacion,ID_UBICACION,' . $idU . ',ID_UBICACION',
             'Departamento' => 'required',
             'Ciudad' => 'required',
             'Direccion' => 'required|required',
