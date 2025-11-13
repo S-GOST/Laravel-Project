@@ -34,5 +34,11 @@ Route::delete('/orden_servicio/{idA}', [orden_servicioController::class, 'destro
 Route::get('/motos', [motosController::class, 'index'])->name('motos.index');
 Route::post('/motos', [motosController::class, 'store'])->name('motos.store');
 Route::get('/motos/{or}/edit', [motosController::class, 'edit'])->name('motos.edit');
-Route::put('/motos/{or}', [motosController::class, 'update'])->name('motos.update');
+Route::put('/motos/{idM}', [motosController::class, 'update'])->name('motos.update');
 Route::delete('/motos/{idM}', [motosController::class, 'destroy'])->name('motos.destroy');
+
+Route::get('/ubicacion', [ubicacionController::class, 'index'])->name('ubicacion.index');
+Route::post('/ubicacion', [ubicacionController::class, 'store'])->name('ubicacion.store');
+Route::get('/ubicacion/{or}/edit', [ubicacionController::class, 'edit'])->name('ubicacion.edit');
+Route::put('/ubicacion/{idM}', [ubicacionController::class, 'update'])->name('ubicacion.update');
+Route::delete('/ubicacion/{idM}', [ubicacionController::class, 'destroy'])->name('ubicacion.destroy');
