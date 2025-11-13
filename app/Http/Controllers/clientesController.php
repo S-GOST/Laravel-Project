@@ -70,59 +70,11 @@ class clientesController extends Controller
     }
 
     // Destroy
-    public function destroy($id)
-    {
-        try {
-            $cliente = DB::table('clientes')->where('ID_CLIENTES', $id)->first();
-
-            if (!$cliente) {
-                return redirect()->back()->withErrors(['Cliente no encontrado']);
-            }
-
-            DB::transaction(function () use ($id) {
-                DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-                // Eliminar registros relacionados
-                DB::table('historial')
-                    ->whereIn('ID_COMPROBANTE', function($query) use ($id) {
-                        $query->select('ID_COMPROBANTE')
-                              ->from('comprobante')
-                              ->where('ID_CLIENTES', $id);
-                    })
-                    ->delete();
-
-                DB::table('comprobante')->where('ID_CLIENTES', $id)->delete();
-                DB::table('detalles_orden_servicio')
-                    ->whereIn('ID_ORDEN_SERVICIO', function($query) use ($id) {
-                        $query->select('ID_ORDEN_SERVICIO')
-                              ->from('orden_servicio')
-                              ->whereIn('ID_MOTOS', function($q) use ($id) {
-                                  $q->select('ID_MOTOS')
-                                    ->from('motos')
-                                    ->where('ID_CLIENTES', $id);
-                              });
-                    })
-                    ->delete();
-
-                DB::table('orden_servicio')
-                    ->whereIn('ID_MOTOS', function($query) use ($id) {
-                        $query->select('ID_MOTOS')
-                              ->from('motos')
-                              ->where('ID_CLIENTES', $id);
-                    })
-                    ->delete();
-
-                DB::table('motos')->where('ID_CLIENTES', $id)->delete();
-                DB::table('clientes')->where('ID_CLIENTES', $id)->delete();
-
-                DB::statement('SET FOREIGN_KEY_CHECKS=1');
-            });
+        public function destroy($id)
+        {
+            $cliente = clientesModelo::findOrFail($id);
+            $cliente->delete();
 
             return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
-            
-        } catch (\Exception $e) {
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-            return redirect()->back()->withErrors(['Error al eliminar el cliente: ' . $e->getMessage()]);
         }
-    }
 }

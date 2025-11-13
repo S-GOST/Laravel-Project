@@ -6,31 +6,72 @@ use App\Models\administradoresModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdministradoresController extends Controller
+class administradoresController extends Controller
 {
+    // Buscar y Paginar
     public function index(Request $request)
     {
-        // Obtener todos los administradores con paginación
-        $datos = administradoresModelo::paginate(10);
+        $search = $request->input('search');
+        $query = DB::table('administradores');
 
-        // Enviar los datos a la vista
-        return view('administradores')->with('datos', $datos);
+        if($search){
+            $query->where(function($q) use ($search){
+                $q->where('ID_ADMINISTRADOR', 'LIKE', "%{$search}%")
+                ->orwhere('Nombre', 'LIKE', "%{$search}%")
+                ->orwhere('ID_ADMINISTRADOR','LIKE', "%{$search}");
+            });
+        }
+        $datos = $query->paginate(10);
+        return view("administradores")->with("datos", $datos);
     }
 
-    public function store(Request $request)
-    {
-        // Validar campos
+    // Insertar Datos
+    public function store(Request $request){
         $request->validate([
-            'Nombre' => 'required|unique:administradores,Nombre',
-            'Correo' => 'required|email',
-            'Contrasena' => 'required',
-            'Telefono' => 'required'
+            'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR',
+            'Nombre' => 'required',
+            'Correo' => 'required',
+            'TipoDocumento' => 'required',
+            'Telefono' => 'required|numeric',
+        ],[
+            'ID_ADMINISTRADOR.unique' => 'El administrador con este documento ya existe en la plataforma.',
         ]);
 
-        // Crear registro
         administradoresModelo::create($request->all());
-
-        // Redirigir con mensaje
-        return redirect()->route('administradores.index')->with('success', 'Administrador registrado correctamente');
+        return redirect()->route('administradores.index')->with('success','Administrador Registrado en la Plataforma');
     }
+
+    // Update - Versión SEGURA (sin Rule)
+    public function update(Request $request, $documento)
+    {
+        $request->validate([
+            'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR,' . $documento . ',ID_ADMINISTRADOR',
+            'Nombre' => 'required',
+            'Correo' => 'required',
+            'TipoDocumento' => 'required',
+            'Telefono' => 'required|numeric',
+        ], [
+            'ID_ADMINISTRADOR.unique' => 'El administrador con este documento ya existe en la plataforma.',
+        ]);
+
+        $administrador = administradoresModelo::findOrFail($documento);
+        $administrador->update([
+            'ID_ADMINISTRADOR' => $request->ID_ADMINISTRADOR,
+            'Nombre' => $request->Nombre,
+            'Correo' => $request->Correo,
+            'TipoDocumento' => $request->TipoDocumento,
+            'Telefono' => $request->Telefono,
+        ]);
+
+        return redirect()->route('administradores.index')->with('success', 'Adminisstrador Actualizado en la Plataforma');
+    }
+
+    // Destroy
+        public function destroy($id)
+        {
+            $cliente = administradoresModelo::findOrFail($id);
+            $cliente->delete();
+
+            return redirect()->route('administradores.index')->with('success', 'Administrador eliminado correctamente');
+        }
 }

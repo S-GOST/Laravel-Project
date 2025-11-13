@@ -7,6 +7,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+    body {
+        background-color: #000000ff; 
+    }
+    
+    .card {
+        background-color: #E67514; 
+    }
+</style>
+
 </head>
 <body>
 <container class="container-sm d-flex justify-content-center mt-5">
@@ -53,7 +63,7 @@
 
                     <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-info"><i class="fas fa-search-plus"></i> Buscar</button>
-                        <a href="{{ url('/clientes') }}" class="btn btn-warning"><i class="fas fa-list"></i> Reset</a>
+                        <a href="{{ url('/clientes') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
                     </div>
                 </div>
             </form>
@@ -98,13 +108,14 @@
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('clientes.destroy', $item->ID_CLIENTES) }}" method="POST">
+                                <form action="{{ route('clientes.destroy', $item->ID_CLIENTES) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                     @endforeach
@@ -225,12 +236,15 @@
                             <i class="fa-solid fa-floppy-disk"></i> Guardar
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+        </div>
+    </div>
+</div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var editarModal = document.getElementById('EditarModal');
@@ -256,15 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
         form.action = '/clientes/' + id;
     });
 });
-
-// Confirmación de eliminación
-function confirmarEliminar(e) {
-    if (!confirm('¿Estás seguro de eliminar este cliente?')) {
-        e.preventDefault();
-        return false;
-    }
-    return true;
-}
 </script>
 </body>
 </html>

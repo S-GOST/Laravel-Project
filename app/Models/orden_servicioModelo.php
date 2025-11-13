@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\factories\HasFactory;
 
 class orden_servicioModelo extends Model
 {
     use HasFactory;
     protected $table = 'orden_servicio';
     protected $primaryKey = 'ID_ORDEN_SERVICIO';
-    public $incrementing = true;
+    public $incrementing = false;
     protected $keyType = 'int'; // o 'int' si documentoCliente es número
     public $timestamps = false;
     protected $fillable=[
