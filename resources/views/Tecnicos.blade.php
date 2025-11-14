@@ -78,6 +78,7 @@
                         <th>TipoDocumento</th>
                         <th>Correo</th>
                         <th>Telefono</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -99,12 +100,12 @@
                                     data-nombre="{{ $item->Nombre }}"
                                     data-tipo="{{ $item->TipoDocumento }}"
                                     data-correo="{{ $item->Correo }}"
-                                    data-telefono="{{ $item->Telefono }}
+                                    data-telefono="{{ $item->Telefono }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('Tecnicos.destroy', $item->ID_TECNICOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
+                                <form action="{{ route('tecnicos.destroy', $item->ID_TECNICOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -146,11 +147,7 @@
                         <input type="text" class="form-control" name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="TipoDocumento" class="form-label">TipoDocumento</label>
-                        <input type="email" class="form-control" name="Correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Correo" class="form-label">Correo</label>
+                        <label for="TipoDocumento" class="form-label">Tipo Documento</label>
                         <select class="form-select" name="TipoDocumento" required>
                             <option value="">[Seleccione]</option>
                             <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
@@ -159,6 +156,10 @@
                             <option value="Nit">NIT</option>
                             <option value="Rut">RUT</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Telefono" class="form-label">Correo</label>
+                        <input type="number" class="form-control" name="Telefono" required>
                     </div>
                     <div class="mb-3">
                         <label for="Telefono" class="form-label">Teléfono</label>
@@ -192,7 +193,7 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICO" name="ID_TECNICO" readonly>
+                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
@@ -200,12 +201,6 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">TipoDocumento</label>
-                        <input type="email" class="form-control" id="editTipoDocumento" name="TipoDocumento" required>
-                        <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Tipo Documento</label>
                         <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required>
                             <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
                             <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
@@ -213,6 +208,10 @@
                             <option value="Nit">NIT</option>
                             <option value="Rut">RUT</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
@@ -244,18 +243,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var id = button.getAttribute('data-id');
         var nombre = button.getAttribute('data-nombre');
-        var TipoDocumento = button.getAttribute('data-TipoDocumento');
-        var Correo = button.getAttribute('data-Correo');
+        var tipodocumento = button.getAttribute('data-tipodocumento');
+        var correo = button.getAttribute('data-correo');
         var telefono = button.getAttribute('data-telefono');
 
         document.getElementById('editID_TECNICOS').value = id;
         document.getElementById('editNombre').value = nombre;
-        document.getElementById('editTipoDocumento').value = TipoDocumento;
+        document.getElementById('editTipoDocumento').value = tipodocumento;
         document.getElementById('editCorreo').value = Correo;
         document.getElementById('editTelefono').value = telefono;
 
         var form = document.getElementById('editForm');
-        form.action = '/Tecnicos/' + id;
+        form.action = '/tecnicos/' + id;
     });
 });
 </script>

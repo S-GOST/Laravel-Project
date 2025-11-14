@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TecnicosModelo;
+use App\Models\tecnicosModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TecnicosController extends Controller
+class tecnicosController extends Controller
 {
     // Buscar y Paginar
     public function index(Request $request)
@@ -18,7 +18,7 @@ class TecnicosController extends Controller
             $query->where(function($q) use ($search){
                 $q->where('ID_TECNICOS', 'LIKE', "%{$search}%")
                 ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('ID_TECNICOS','LIKE', "%{$search}");
+                ->orwhere('correo','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);
@@ -28,7 +28,7 @@ class TecnicosController extends Controller
     // Insertar Datos
     public function store(Request $request){
         $request->validate([
-            'ID_TECNICOS' => 'required|unique:administradores,ID_ADMINISTRADOR',
+            'ID_TECNICOS' => 'required|unique:tecnicos,ID_TECNICOS',
             'Nombre' => 'required',
             'TipoDocumento' => 'required',
             'Correo' => 'required',
@@ -37,15 +37,15 @@ class TecnicosController extends Controller
             'ID_TECNICOS.unique' => 'El tecnico con este documento ya existe en la plataforma.',
         ]);
 
-        administradoresModelo::create($request->all());
-        return redirect()->route('tecnico.index')->with('success','Tecnico Registrado en la Plataforma');
+        tecnicosModelo::create($request->all());
+        return redirect()->route('tecnicos.index')->with('success','Tecnico Registrado en la Plataforma');
     }
 
     // Update - Versión SEGURA (sin Rule)
-    public function update(Request $request, $documento)
+    public function update(Request $request, $idT)
     {
         $request->validate([
-            'ID_TECNICOS' => 'required|unique:tecnicos,ID_TECNICOS,' . $documento . ',ID_TECNICOS',
+            'ID_TECNICOS' => 'required|unique:tecnicos,ID_TECNICOS,' . $idT . ',ID_TECNICOS',
             'Nombre' => 'required',
             'TipoDocumento' => 'required',
             'Correo' => 'required',
@@ -54,8 +54,8 @@ class TecnicosController extends Controller
             'ID_TECNICOS.unique' => 'El tecnico con este documento ya existe en la plataforma.',
         ]);
 
-        $Tecnicos = TecnicosModelo::findOrFail($documento);
-        $Tecnicos->update([
+        $idT = tecnicosModelo::findOrFail($idT);
+        $idT->update([
             'ID_TECNICOS' => $request->ID_TECNICOS,
             'Nombre' => $request->Nombre,
             'TipoDocumento' => $request->TipoDocumento,
@@ -67,9 +67,9 @@ class TecnicosController extends Controller
     }
 
     // Destroy
-        public function destroy($id)
+        public function destroy($idT)
         {
-            $tecnicos = TecnicosModelo::findOrFail($id);
+            $tecnicos = tecnicosModelo::findOrFail($idT);
             $tecnicos->delete();
 
             return redirect()->route('tecnicos.index')->with('success', 'Tecnico eliminado correctamente');

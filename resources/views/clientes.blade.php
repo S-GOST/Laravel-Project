@@ -74,7 +74,7 @@
                     <thead class="table-primary">
                     <tr>
                         <th>ID_CLIENTES</th>
-                        <th>ID_UBICACION</th>
+                        <th>Ubicacion</th>
                         <th>Nombre</th>
                         <th>TipoDocumento</th>
                         <th>Correo</th>
@@ -86,7 +86,7 @@
                     @foreach ($datos as $item)
                         <tr>
                             <td>{{ $item->ID_CLIENTES }}</td>
-                            <td>{{ $item->ID_UBICACION }}</td>
+                            <td>{{ $item->Ubicacion }}</td>
                             <td>{{ $item->Nombre }}</td>
                             <td>{{ $item->TipoDocumento }}</td>
                             <td>{{ $item->Correo }}</td>
@@ -99,7 +99,7 @@
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
                                     data-id="{{ $item->ID_CLIENTES }}"
-                                    data-ubicacion="{{ $item->ID_UBICACION }}"
+                                    data-ubicacion="{{ $item->Ubicacion }}"
                                     data-nombre="{{ $item->Nombre }}"
                                     data-tipo="{{ $item->TipoDocumento }}"
                                     data-correo="{{ $item->Correo }}"
@@ -146,8 +146,8 @@
                         <input type="text" class="form-control" name="ID_CLIENTES" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_UBICACION" class="form-label">ID_UBICACION</label>
-                        <input type="text" class="form-control" name="ID_UBICACION" required>
+                        <label for="Ubicacion" class="form-label">Ubicacion</label>
+                        <input type="text" class="form-control" name="Ubicacion" required>
                     </div>
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre</label>
@@ -198,18 +198,22 @@
                 <form id="editForm" method="POST">
                     @csrf
                     @method('PUT')
+
                     <div class="mb-3">
                         <label class="form-label">ID_CLIENTES</label>
                         <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" readonly>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">ID_UBICACION</label>
-                        <input type="text" class="form-control" id="editID_UBICACION" name="ID_UBICACION" required>
+                        <label class="form-label">Ubicacion</label>
+                        <input type="text" class="form-control" id="editUbicacion" name="Ubicacion" required>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="editNombre" name="Nombre" required>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Tipo Documento</label>
                         <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required>
@@ -220,23 +224,28 @@
                             <option value="Rut">RUT</option>
                         </select>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Correo</label>
                         <input type="email" class="form-control" id="editCorreo" name="Correo" required>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
                         <input type="number" class="form-control" id="editTelefono" name="Telefono" required>
                     </div>
+
                     <div class="modal-footer">
+
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar
                         </button>
+
                         <button type="submit" class="btn btn-primary">
                             <i class="fa-solid fa-floppy-disk"></i> Guardar
                         </button>
-                    </div>
 
+                    </div>
                 </form>
             </div>
         </div>
@@ -260,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var telefono = button.getAttribute('data-telefono');
 
         document.getElementById('editID_CLIENTES').value = id;
-        document.getElementById('editID_UBICACION').value = ubicacion;
+        document.getElementById('editUbicacion').value = ubicacion;
         document.getElementById('editNombre').value = nombre;
         document.getElementById('editTipoDocumento').value = tipo;
         document.getElementById('editCorreo').value = correo;

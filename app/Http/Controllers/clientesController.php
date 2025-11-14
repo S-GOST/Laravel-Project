@@ -18,7 +18,7 @@ class clientesController extends Controller
             $query->where(function($q) use ($search){
                 $q->where('ID_CLIENTES', 'LIKE', "%{$search}%")
                 ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('ID_UBICACION','LIKE', "%{$search}");
+                ->orwhere('Ubicacion','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);
@@ -29,7 +29,7 @@ class clientesController extends Controller
     public function store(Request $request){
         $request->validate([
             'ID_CLIENTES' => 'required|unique:clientes,ID_CLIENTES',
-            'ID_UBICACION' => 'required',
+            'Ubicacion' => 'required',
             'Nombre' => 'required',
             'TipoDocumento' => 'required',
             'Correo' => 'required',
@@ -47,7 +47,7 @@ class clientesController extends Controller
     {
         $request->validate([
             'ID_CLIENTES' => 'required|unique:clientes,ID_CLIENTES,' . $documento . ',ID_CLIENTES',
-            'ID_UBICACION' => 'required',
+            'Ubicacion' => 'required',
             'Nombre' => 'required',
             'TipoDocumento' => 'required',
             'Correo' => 'required',
@@ -59,7 +59,7 @@ class clientesController extends Controller
         $cliente = clientesModelo::findOrFail($documento);
         $cliente->update([
             'ID_CLIENTES' => $request->ID_CLIENTES,
-            'ID_UBICACION' => $request->ID_UBICACION,
+            'Ubicacion' => $request->Ubicacion,
             'Nombre' => $request->Nombre,
             'TipoDocumento' => $request->TipoDocumento,
             'Correo' => $request->Correo,
@@ -72,8 +72,8 @@ class clientesController extends Controller
     // Destroy
         public function destroy($id)
         {
-            $cliente = clientesModelo::findOrFail($id);
-            $cliente->delete();
+            $id = clientesModelo::findOrFail($id);
+            $id->delete();
 
             return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
         }

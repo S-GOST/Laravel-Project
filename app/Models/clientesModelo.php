@@ -15,7 +15,7 @@ class clientesModelo extends Model
     public $timestamps = false;
     protected $fillable=[
         'ID_CLIENTES',
-        'ID_UBICACION',
+        'Ubicacion',
         'Nombre',
         'TipoDocumento',
         'Correo',
