@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\clientesController;
 use App\Http\Controllers\orden_servicioController;
-use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\TecnicosController;
-
+use App\Http\Controllers\AdministradoresController;
+use App\Http\Controllers\comprobanteController;
+use App\Http\Controllers\informeController;
+use App\Http\Controllers\historialController;
 
 use App\Http\Controllers\motosController;
 
@@ -45,3 +47,24 @@ Route::post('/tecnicos', [tecnicosController::class, 'store'])->name('tecnicos.s
 Route::get('/tecnicos/{or}/edit', [tecnicosController::class, 'edit'])->name('tecnicos.edit');
 Route::put('/tecnicos/{idT}', [tecnicosController::class, 'update'])->name('tecnicos.update');
 Route::delete('/tecnicos/{idT}', [tecnicosController::class, 'destroy'])->name('tecnicos.destroy');
+
+
+Route::get('/comprobante', [comprobanteController::class, 'index'])->name('comprobante.index');
+Route::post('/comprobante', [comprobanteController::class, 'store'])->name('comprobante.store');
+Route::get('/comprobante/{or}/edit', [comprobanteController::class, 'edit'])->name('comprobante.edit');
+Route::put('/comprobante/{idT}', [comprobanteController::class, 'update'])->name('comprobante.update');
+Route::delete('/comprobante/{idT}', [conprobanteController::class, 'destroy'])->name('comprobante.destroy');
+
+
+Route::get('/informe', [informeController::class, 'index'])->name('informe.index');
+Route::post('/informe', [informeController::class, 'store'])->name('informe.store');
+Route::get('/informe/{or}/edit', [informeController::class, 'edit'])->name('informe.edit');
+Route::put('/informe/{idT}', [informeController::class, 'update'])->name('informe.update');
+Route::delete('/informe/{idT}', [informeController::class, 'destroy'])->name('informe.destroy');
+
+
+Route::get('/historial', [historialController::class, 'index'])->name('historial.index');
+Route::post('/historial', [historialController::class, 'store'])->name('historial.store');
+Route::get('/historial/{or}/edit', [historialController::class, 'edit'])->name('historial.edit');
+Route::put('/historial/{idT}', [historialController::class, 'update'])->name('historial.update');
+Route::delete('/historial/{idT}', [historialController::class, 'destroy'])->name('historial.destroy');
