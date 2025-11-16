@@ -193,7 +193,7 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">ID_ADMINISTRADOR</label>
-                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" readonly>
+                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ComprobanteModelo;
+use App\Models\comprobanteModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ComprobanteController extends Controller
+class comprobanteController extends Controller
 {
     // Buscar y Paginar
     public function index(Request $request)

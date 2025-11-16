@@ -100,13 +100,13 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_INFORME }}"
-                                    data-id="{{ $item->ID_DESTALLES_ORDEN_SERVICIO }}"
-                                    data-id="{{ $item->ID_ADMINISTRADOR}}"
-                                    data-id="{{ $item->ID_TECNICOS }}"
-                                    data-nombre="{{ $item->Descripcion }}"
-                                    data-correo="{{ $item->Fecha}}"
-                                    data-tipo="{{ $item->Estado}}">
+                                    data-idi="{{ $item->ID_INFORME }}"
+                                    data-idd="{{ $item->ID_DETALLES_ORDEN_SERVICIO }}"
+                                    data-ida="{{ $item->ID_ADMINISTRADOR}}"
+                                    data-idt="{{ $item->ID_TECNICOS }}"
+                                    data-descripcion="{{ $item->Descripcion }}"
+                                    data-fecha="{{ $item->Fecha}}"
+                                    data-estado="{{ $item->Estado}}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
@@ -142,18 +142,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('comprobante.store') }}" method="POST">
+                <form action="{{ route('informe.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="ID_INFORME" class="form-label">ID_INFORME</label>
                         <input type="text" class="form-control" name="ID_INFORME" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_INFORME" class="form-label">ID_INFORME</label>
-                        <input type="text" class="form-control" name="ID_INFORME" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ID_DETALLES_ORDEN_SERVICIO" class="form-label">ID_DESTALLES_ORDEN_SERVICIO</label>
+                        <label for="ID_DETALLES_ORDEN_SERVICIO" class="form-label">ID_DETALLES_ORDEN_SERVICIO</label>
                         <input type="text" class="form-control" name="ID_DETALLES_ORDEN_SERVICIO" required>
                     </div>
                     <div class="mb-3">
@@ -166,15 +162,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="Descripcion" class="form-label">Descripcion</label>
-                        <input type="datetime" class="form-control" name="Fecha_inicio" required>
+                        <input type="text" class="form-control" name="Descripcion" required>
                     </div>
                     <div class="mb-3">
                         <label for="Fecha" class="form-label">Fecha</label>
-                        <input type="datetime" class="form-control" name="Fecha_estimada" required>
+                        <input type="datetime" class="form-control" name="Fecha" required>
                     </div>
                      <div class="mb-3">
                         <label for="Estado" class="form-label">Estado</label>
-                        <input type="datetime" class="form-control" name="Fecha_fin" required>
+                        <input type="text" class="form-control" name="Estado" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -207,11 +203,7 @@
                         <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" readonly>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID_INFORME</label>
-                        <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">ID_DESTALLES_ORDEN_SERVICIO</label>
+                        <label class="form-label">ID_DETALLES_ORDEN_SERVICIO</label>
                         <input type="text" class="form-control" id="editID_DETALLES_ORDEN_SERVICIO" name="ID_DETALLES_ORDEN_SERVICIO" readonly>
                     </div>
                     <div class="mb-3">
@@ -224,7 +216,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion</label>
-                        <input type="datetime" class="form-control" id="editDescripcion" name="Descripcion" required>
+                        <input type="text" class="form-control" id="editDescripcion" name="Descripcion" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Fecha</label>
@@ -232,7 +224,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Estado</label>
-                        <input type="datetime" class="form-control" id="editEstado" name="Estado" required>
+                        <input type="text" class="form-control" id="editEstado" name="Estado" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -258,25 +250,24 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var Descripcion = button.getAttribute('data-Descripcion');
+        var idi = button.getAttribute('data-idi');
+        var idd = button.getAttribute('data-idd');
+        var ida = button.getAttribute('data-ida');
+        var idt = button.getAttribute('data-idt');
+        var descripcion = button.getAttribute('data-Descripcion');
         var fecha = button.getAttribute('data-fecha');
-        var Estado= button.getAttribute('data-Estado');
+        var estado= button.getAttribute('data-Estado');
 
-        document.getElementById('editID_INFORME').value = id;
-        document.getElementById('editID_DETALLES_ORDEN_SERVICiO').value = id;
-        document.getElementById('editID_ADMINISTRADOR').value = id;
-        document.getElementById('editID_TECNICOS').value = id;
+        document.getElementById('editID_INFORME').value = idi;
+        document.getElementById('editID_DETALLES_ORDEN_SERVICIO').value = idd;
+        document.getElementById('editID_ADMINISTRADOR').value = ida;
+        document.getElementById('editID_TECNICOS').value = idt;
         document.getElementById('editDescripcion').value = Descripcion;
         document.getElementById('editFecha').value = fecha;
         document.getElementById('editEstado').value = Estado;
 
         var form = document.getElementById('editForm');
-        form.action = '/informe/' + id;
+        form.action = '/informe/' + idi;
     });
 });
 </script>

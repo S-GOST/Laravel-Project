@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo orden_servicio</title>
+    <title>Módulo Detalles orden servicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,7 +22,7 @@
 <container class="container-sm d-flex justify-content-center mt-5">
     <div class="card">
         <div class="card-body" style="width: 1200px;">
-            <h3>Módulo orden_servicio</h3>
+            <h3>Módulo Detalles orden servicio</h3>
             <hr>
 
             {{-- Mensajes --}}
@@ -45,7 +45,7 @@
             @endif
 
             {{-- Buscar --}}
-            <form action="{{ url('/orden_servicio') }}" method="GET">
+            <form action="{{ url('/detalles_orden_servicio') }}" method="GET">
                 <div class="text-end mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarModal">
                         <i class="fa-solid fa-plus"></i> Nuevo
@@ -57,13 +57,13 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             <input type="text" class="form-control" name="search" value="{{ request('search') }}"
-                                   placeholder="Buscar por nombre o documento">
+                                   placeholder="Buscar por id detalles o por orden de servicio">
                         </div>
                     </div>
 
                     <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-info"><i class="fas fa-search-plus"></i> Buscar</button>
-                        <a href="{{ url('/orden_servicio') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
+                        <a href="{{ url('/motos') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
                     </div>
                 </div>
             </form>
@@ -73,30 +73,26 @@
                 <table class="table table-striped table-hover table-bordered">
                     <thead class="table-primary">
                     <tr>
+                        <th>ID_DETALLES_ORDEN_SERVICIO</th>
                         <th>ID_ORDEN_SERVICIO</th>
-                        <th>ID_CLIENTES</th>
-                        <th>ID_ADMINISTRADOR</th>
-                        <th>ID_TECNICOS</th>
-                        <th>ID_MOTOS</th>
-                        <th>Fecha_inicio</th>
-                        <th>Fecha_estimada</th>
-                        <th>Fecha_fin</th>
+                        <th>ID_SERVICIOS</th>
+                        <th>ID_PRODUCTOS</th>
+                        <th>Garantia</th>
                         <th>Estado</th>
+                        <th>Precio</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($datos as $item)
                         <tr>
+                            <td>{{ $item->ID_DETALLES_ORDEN_SERVICIO }}</td>
                             <td>{{ $item->ID_ORDEN_SERVICIO }}</td>
-                            <td>{{ $item->ID_CLIENTES }}</td>
-                            <td>{{ $item->ID_ADMINISTRADOR }}</td>
-                            <td>{{ $item->ID_TECNICOS }}</td>
-                            <td>{{ $item->ID_MOTOS }}</td>
-                            <td>{{ $item->Fecha_inicio }}</td>
-                            <td>{{ $item->Fecha_estimada }}</td>
-                            <td>{{ $item->Fecha_fin }}</td>
+                            <td>{{ $item->ID_SERVICIOS }}</td>
+                            <td>{{ $item->ID_PRODUCTOS }}</td>
+                            <td>{{ $item->Garantia }}</td>
                             <td>{{ $item->Estado }}</td>
+                            <td>{{ $item->Precio }}</td>
                             <td class="d-flex gap-2">
                                 {{-- Botón Editar --}}
                                 <button
@@ -104,20 +100,18 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_ORDEN_SERVICIO }}"
-                                    data-id="{{ $item->ID_CLIENTES }}"
-                                    data-id="{{ $item->ID_ADMINISTRADOR }}"
-                                    data-id="{{ $item->ID_TECNICOS }}"
-                                    data-id="{{ $item->ID_MOTOS }}"
-                                    data-nombre="{{ $item->Fecha_inicio }}"
-                                    data-correo="{{ $item->Fecha_estimada }}"
-                                    data-tipo="{{ $item->Fecha_fin }}"
-                                    data-telefono="{{ $item->Estado }}">
+                                    data-idd="{{ $item->ID_DETALLES_ORDEN_SERVICIO }}"
+                                    data-ido="{{ $item->ID_ORDEN_SERVICIO }}"
+                                    data-ids="{{ $item->ID_SERVICIOS }}"
+                                    data-idp="{{ $item->ID_PRODUCTOS }}"
+                                    data-Garantia="{{ $item->Garantia }}"
+                                    data-Estado="{{ $item->Estado }}"
+                                    data-Precio="{{ $item->Precio }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('orden_servicio.destroy', $item->ID_ORDEN_SERVICIO) }}" method="POST" onsubmit="return confirmarEliminar(event)">
+                                <form action="{{ route('detalles_orden_servicio.destroy', $item->ID_DETALLES_ORDEN_SERVICIO) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -132,7 +126,7 @@
                 </table>
             @else
                 <div class="alert alert-info text-center">
-                    <i class="fas fa-info-circle"></i> No hay orden_servicio registrados.
+                    <i class="fas fa-info-circle"></i> No hay motos registradas.
                 </div>
             @endif
         </div>
@@ -144,47 +138,39 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear orden_servicio</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Detalles orden servicio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('orden_servicio.store') }}" method="POST">
+                <form action="{{ route('detalles_orden_servicio.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="ID_ORDEN_SERVICIO" class="form-label">ID_ORDEN_SERVICIO</label>
-                        <input type="text" class="form-control" name="ID_ORDEN_SERVICIO" required>
+                        <label for="ID_DETALLES_ORDEN_SERVICIO" class="form-label">ID_DETALLES_ORDEN_SERVICIO</label>
+                        <input type="text" class="form-control" name="ID_DETALLES_ORDEN_SERVICIO" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_ORDEN_SERVICIO" class="form-label">ID_CLIENTES</label>
-                        <input type="text" class="form-control" name="ID_CLIENTES" required>
+                        <label class="form-label">ID_ORDEN_SERVICIO</label>
+                        <input type="text" class="form-control"  name="ID_ORDEN_SERVICIO" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_ADMINISTRADOR" class="form-label">ID_ADMINISTRADOR</label>
-                        <input type="text" class="form-control" name="ID_ADMINISTRADOR" required>
+                        <label class="form-label">ID_SERVICIOS</label>
+                        <input type="text" class="form-control" name="ID_SERVICIOS" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_TECNICOS" class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" name="ID_TECNICOS" required>
+                        <label class="form-label">ID_PRODUCTOS</label>
+                        <input type="text" class="form-control" name="ID_PRODUCTOS" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_MOTOS" class="form-label">ID_MOTOS</label>
-                        <input type="text" class="form-control" name="ID_MOTOS" required>
+                        <label class="form-label">Garantia</label>
+                        <input type="text" class="form-control" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Correo" class="form-label">Fecha_inicio</label>
-                        <input type="datetime" class="form-control" name="Fecha_inicio" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Fecha_estimada" class="form-label">Fecha_estimada</label>
-                        <input type="datetime" class="form-control" name="Fecha_estimada" required>
-                    </div>
-                     <div class="mb-3">
-                        <label for="Fecha_fin" class="form-label">Fecha_fin</label>
-                        <input type="datetime" class="form-control" name="Fecha_fin" required>
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" name="Estado" required>
                     </div>
                    <div class="mb-3">
-                        <label for="Estado" class="form-label">Estado</label>
-                        <input type="text" class="form-control" name="Estado" required>
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" name="Precio" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -205,7 +191,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar orden_servicio</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Detalles orden servicio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -213,36 +199,32 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
+                        <label class="form-label">ID_DETALLES_ORDEN_SERVICIO</label>
+                        <input type="text" class="form-control" id="editID_DETALLES_ORDEN_SERVICIO" name="ID_DETALLES_ORDEN_SERVICIO" required>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">ID_ORDEN_SERVICIO</label>
                         <input type="text" class="form-control" id="editID_ORDEN_SERVICIO" name="ID_ORDEN_SERVICIO" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID_CLIENTES</label>
-                        <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" required>
+                        <label class="form-label">ID_SERVICIOS</label>
+                        <input type="text" class="form-control" id="editID_SERVICIOS" name="ID_SERVICIOS" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID_ADMINISTRADOR</label>
-                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required>
+                        <label class="form-label">ID_PRODUCTOS</label>
+                        <input type="text" class="form-control" id="editID_PRODUCTOS" name="ID_PRODUCTOS" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
+                        <label class="form-label">Garantia</label>
+                        <input type="text" class="form-control" id="editGarantia" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID_MOTOS</label>
-                        <input type="text" class="form-control" id="editID_MOTOS" name="ID_MOTOS" required>
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="editEstado" name="Estado" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Fecha_inicio</label>
-                        <input type="datetime" class="form-control" id="editFecha_inicio" name="Fecha_inicio" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Fecha_estimada</label>
-                        <input type="datetime" class="form-control" id="editFecha_estimada" name="Fecha_estimada" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Fecha_fin</label>
-                        <input type="datetime" class="form-control" id="editFecha_fin" name="Fecha_fin" required>
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" id="editPrecio"  name="Precio" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -268,28 +250,24 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var fechaInicio = button.getAttribute('data-fechaInicio');
-        var fechaEstimada = button.getAttribute('data-fechaEstimada');
-        var fechaFin = button.getAttribute('data-fechaFin');
-        var estado = button.getAttribute('data-estado');
+        var idD = button.getAttribute('data-idd');
+        var idO = button.getAttribute('data-ido');
+        var idS = button.getAttribute('data-ids');
+        var idP = button.getAttribute('data-idp');
+        var Garantia = button.getAttribute('data-garantia');
+        var Estado = button.getAttribute('data-estado');
+        var Precio = button.getAttribute('data-precio');
 
-        document.getElementById('editID_ORDEN_SERVICIO').value = id;
-        document.getElementById('editID_CLIENTES').value = id;
-        document.getElementById('editID_ADMINISTRADOR').value = id;
-        document.getElementById('editID_TECNICOS').value = id;
-        document.getElementById('editID_MOTOS').value = id;
-        document.getElementById('editFecha_inicio').value = fechaInicio;
-        document.getElementById('editFecha_estimada').value = fechaEstimada;
-        document.getElementById('editFecha_fin').value = fechaFin;
-        document.getElementById('editEstado').value = estado;
+        document.getElementById('editID_DETALLES_ORDEN_SERVICIO').value = idD;
+        document.getElementById('editID_ORDEN_SERVICIO').value = idO;
+        document.getElementById('editID_SERVICIOS').value = idS;
+        document.getElementById('editID_PRODUCTOS').value = idP;
+        document.getElementById('editGarantia').value = Garantia;
+        document.getElementById('editEstado').value = Estado;
+        document.getElementById('editPrecio').value = Precio;
 
         var form = document.getElementById('editForm');
-        form.action = '/orden_servicio/' + id;
+        form.action = '/detalles_orden_servicio/' + idD;
     });
 });
 </script>

@@ -98,8 +98,8 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_MOTOS }}"
-                                    data-id="{{ $item->ID_CLIENTES }}"
+                                    data-idm="{{ $item->ID_MOTOS }}"
+                                    data-idc="{{ $item->ID_CLIENTES }}"
                                     data-Placa="{{ $item->Placa }}"
                                     data-Modelo="{{ $item->Modelo }}"
                                     data-Marca="{{ $item->Marca }}"
@@ -108,7 +108,7 @@
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('motos.destroy', $item->ID_CLIENTES) }}" method="POST" onsubmit="return confirmarEliminar(event)">
+                                <form action="{{ route('motos.destroy', $item->ID_MOTOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -239,15 +239,15 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
+        var idM = button.getAttribute('data-idm');
+        var idC = button.getAttribute('data-idc');
         var placa = button.getAttribute('data-placa');
         var modelo = button.getAttribute('data-modelo');
         var marca = button.getAttribute('data-marca');
         var recorrido = button.getAttribute('data-recorrido');
 
-        document.getElementById('editID_MOTOS').value = id;
-        document.getElementById('editID_CLIENTES').value = id;
+        document.getElementById('editID_MOTOS').value = idM;
+        document.getElementById('editID_CLIENTES').value = idC;
         document.getElementById('editPlaca').value = placa;
         document.getElementById('editModelo').value = modelo;
         document.getElementById('editMarca').value = marca;

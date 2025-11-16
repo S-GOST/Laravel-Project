@@ -79,7 +79,7 @@ class orden_servicioController extends Controller
     // Destroy
         public function destroy($idA)
         {
-            $idA = orden_servicioModelo::findOrFail($id);
+            $idA = orden_servicioModelo::findOrFail($idA);
             $idA->delete();
 
             return redirect()->route('orden_servicio.index')->with('success', 'Orden servicio eliminada correctamente');

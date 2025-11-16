@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InformeModelo;
+use App\Models\informeModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class  InformeController extends Controller
+class  informeController extends Controller
 {
     // Buscar y Paginar
     public function index(Request $request)
@@ -29,6 +29,9 @@ class  InformeController extends Controller
     public function store(Request $request){
         $request->validate([
             'ID_INFORME' => 'required|unique:informe,ID_INFORME',
+            'ID_DETALLES_ORDEN_SERVICIO' => 'required',
+            'ID_ADMINISTRADOR' => 'required',
+            'ID_TECNICOS' => 'required',
             'Descripcion' => 'required',
             'Fecha' => 'required',
             'Estado' => 'required',
@@ -36,15 +39,18 @@ class  InformeController extends Controller
             'ID_INFORME.unique' => 'El informe con este documento ya existe en la plataforma.',
         ]);
 
-        InformeModelo::create($request->all());
+        informeModelo::create($request->all());
         return redirect()->route('informe.index')->with('success','informe Registrado en la Plataforma');
     }
 
     // Update - Versión SEGURA (sin Rule)
-    public function update(Request $request, $documento)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'ID_INFORME' => 'required|unique:Informe,ID_INFORME,' . $documento . ',ID_INFORME',
+            'ID_INFORME' => 'required|unique:Informe,ID_INFORME,' . $id . ',ID_INFORME',
+            'ID_DETALLES_ORDEN_SERVICIO' => 'required',
+            'ID_ADMINISTRADOR' => 'required',
+            'ID_TECNICOS' => 'required',
             'Descripcion' => 'required',
             'Fecha' => 'required',
             'Estado' => 'required',
@@ -52,9 +58,12 @@ class  InformeController extends Controller
             'ID_INFORME.unique' => 'El informe con este documento ya existe en la plataforma.',
         ]);
 
-        $informe = InformeModelo::findOrFail($documento);
+        $informe = informeModelo::findOrFail($id);
         $informe->update([
             'ID_INFORME' => $request->ID_INFORME,
+            'ID_DETALLES_ORDEN_SERVICIO' => $request->ID_DETALLES_ORDEN_SERVICIO,
+            'ID_ADMINISTRADOR' => $request->ID_ADMINISTRADOR,
+            'ID_TECNICOS' => $request->ID_TECNICOS,
             'Descripcion' => $request->Descripcion,
             'Fecha' => $request->Fecha,
             'Estado' => $request->Estado,
@@ -64,9 +73,9 @@ class  InformeController extends Controller
     }
 
     // Destroy
-        public function destroy($id)
+        public function destroy($idI)
         {
-            $informe = informeModelo::findOrFail($id);
+            $informe = informeModelo::findOrFail($idI);
             $informe->delete();
 
             return redirect()->route('informe.index')->with('success', 'informe eliminado correctamente');

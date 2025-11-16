@@ -28,7 +28,7 @@ class motosController extends Controller
     // Insertar Datos
     public function store(Request $request){
         $request->validate([
-            'ID_MOTOS' => 'required|required',
+            'ID_MOTOS' => 'required|unique:motos,ID_MOTOS',
             'ID_CLIENTES' => 'required',
             'Placa' => 'required|string',
             'Modelo' => 'required|numeric',

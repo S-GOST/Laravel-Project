@@ -5,6 +5,8 @@ use App\Http\Controllers\clientesController;
 use App\Http\Controllers\orden_servicioController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\TecnicosController;
+use App\Http\Controllers\detalles_orden_servicioController;
+use App\Http\Controllers\informeController;
 
 
 use App\Http\Controllers\motosController;
@@ -37,11 +39,25 @@ Route::delete('/orden_servicio/{idA}', [orden_servicioController::class, 'destro
 Route::get('/motos', [motosController::class, 'index'])->name('motos.index');
 Route::post('/motos', [motosController::class, 'store'])->name('motos.store');
 Route::get('/motos/{or}/edit', [motosController::class, 'edit'])->name('motos.edit');
-Route::put('/motos/{idM}', [motosController::class, 'update'])->name('motos.update');
+Route::put('/motos/{or}', [motosController::class, 'update'])->name('motos.update');
 Route::delete('/motos/{idM}', [motosController::class, 'destroy'])->name('motos.destroy');
 
 Route::get('/tecnicos', [tecnicosController::class, 'index'])->name('tecnicos.index');
 Route::post('/tecnicos', [tecnicosController::class, 'store'])->name('tecnicos.store');
 Route::get('/tecnicos/{or}/edit', [tecnicosController::class, 'edit'])->name('tecnicos.edit');
-Route::put('/tecnicos/{idT}', [tecnicosController::class, 'update'])->name('tecnicos.update');
+Route::put('/tecnicos/{or}', [tecnicosController::class, 'update'])->name('tecnicos.update');
 Route::delete('/tecnicos/{idT}', [tecnicosController::class, 'destroy'])->name('tecnicos.destroy');
+
+
+Route::get('/detalles_orden_servicio', [detalles_orden_servicioController::class, 'index'])->name('detalles_orden_servicio.index');
+Route::post('/detalles_orden_servicio', [detalles_orden_servicioController::class, 'store'])->name('detalles_orden_servicio.store');
+Route::get('/detalles_orden_servicio/{id}/edit', [detalles_orden_servicioController::class, 'edit'])->name('detalles_orden_servicio.edit');
+Route::put('/detalles_orden_servicio/{id}', [detalles_orden_servicioController::class, 'update'])->name('detalles_orden_servicio.update');
+Route::delete('/detalles_orden_servicio/{idDOS}', [detalles_orden_servicioController::class, 'destroy'])->name('detalles_orden_servicio.destroy');
+
+
+Route::get('/informe', [informeController::class, 'index'])->name('informe.index');
+Route::post('/informe', [informeController::class, 'store'])->name('informe.store');
+Route::get('/informe/{id}/edit', [informeController::class, 'edit'])->name('informe.edit');
+Route::put('/informe/{id}', [informeController::class, 'update'])->name('informe.update');
+Route::delete('/informe/{idI}', [informeController::class, 'destroy'])->name('informe.destroy');
