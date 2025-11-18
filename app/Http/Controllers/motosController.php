@@ -56,8 +56,8 @@ class motosController extends Controller
             'ID_ORDEN_SERVICIO.unique' => 'La orden de servicio con este id ya existe en la plataforma.',
         ]);
 
-        $idM = motosModelo::findOrFail($idM);
-        $idM->update([
+        $moto = motosModelo::findOrFail($idM);
+        $moto->update([
             'ID_MOTOS' => $request->ID_MOTOS,
             'ID_CLIENTES' => $request->ID_CLIENTES,
             'Placa' => $request->Placa,
@@ -72,8 +72,8 @@ class motosController extends Controller
     // Destroy
         public function destroy($idM)
         {
-            $idM = motosModelo::findOrFail($idM);
-            $idM->delete();
+            $moto = motosModelo::findOrFail($idM);
+            $moto->delete();
 
             return redirect()->route('motos.index')->with('success', 'Moto eliminada correctamente');
         }

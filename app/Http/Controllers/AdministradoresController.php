@@ -18,7 +18,7 @@ class administradoresController extends Controller
             $query->where(function($q) use ($search){
                 $q->where('ID_ADMINISTRADOR', 'LIKE', "%{$search}%")
                 ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('ID_ADMINISTRADOR','LIKE', "%{$search}");
+                ->orwhere('TipoDocumento','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);
@@ -42,10 +42,10 @@ class administradoresController extends Controller
     }
 
     // Update - Versión SEGURA (sin Rule)
-    public function update(Request $request, $documento)
+    public function update(Request $request, $idA)
     {
         $request->validate([
-            'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR,' . $documento . ',ID_ADMINISTRADOR',
+            'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR,' . $idA . ',ID_ADMINISTRADOR',
             'Nombre' => 'required',
             'Correo' => 'required',
             'TipoDocumento' => 'required',
@@ -54,7 +54,7 @@ class administradoresController extends Controller
             'ID_ADMINISTRADOR.unique' => 'El administrador con este documento ya existe en la plataforma.',
         ]);
 
-        $administrador = administradoresModelo::findOrFail($documento);
+        $administrador = administradoresModelo::findOrFail($idA);
         $administrador->update([
             'ID_ADMINISTRADOR' => $request->ID_ADMINISTRADOR,
             'Nombre' => $request->Nombre,
@@ -67,10 +67,10 @@ class administradoresController extends Controller
     }
 
     // Destroy
-        public function destroy($id)
+        public function destroy($idA)
         {
-            $cliente = administradoresModelo::findOrFail($id);
-            $cliente->delete();
+            $administrador = administradoresModelo::findOrFail($idA);
+            $administrador->delete();
 
             return redirect()->route('administradores.index')->with('success', 'Administrador eliminado correctamente');
         }

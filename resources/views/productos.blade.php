@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Tecnicos</title>
+    <title>Módulo Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,7 +22,7 @@
 <container class="container-sm d-flex justify-content-center mt-5">
     <div class="card">
         <div class="card-body" style="width: 1200px;">
-            <h3>Módulo Tecnicos</h3>
+            <h3>Módulo Productos</h3>
             <hr>
 
             {{-- Mensajes --}}
@@ -45,7 +45,7 @@
             @endif
 
             {{-- Buscar --}}
-            <form action="{{ url('/tecnicos') }}" method="GET">
+            <form action="{{ url('/productos') }}" method="GET">
                 <div class="text-end mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarModal">
                         <i class="fa-solid fa-plus"></i> Nuevo
@@ -57,13 +57,13 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             <input type="text" class="form-control" name="search" value="{{ request('search') }}"
-                                   placeholder="Buscar por nombre o documento">
+                                   placeholder="Buscar por Nombre o Categoria">
                         </div>
                     </div>
 
                     <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-info"><i class="fas fa-search-plus"></i> Buscar</button>
-                        <a href="{{ url('/tecnicos') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
+                        <a href="{{ url('/productos') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
                     </div>
                 </div>
             </form>
@@ -73,22 +73,28 @@
                 <table class="table table-striped table-hover table-bordered">
                     <thead class="table-primary">
                     <tr>
-                        <th>ID_TECNICOS</th>
+                        <th>ID_PRODUCTOS</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
                         <th>Nombre</th>
-                        <th>TipoDocumento</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
+                        <th>Garantia</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($datos as $item)
                         <tr>
-                            <td>{{ $item->ID_TECNICOS }}</td>
+                            <td>{{ $item->ID_PRODUCTOS }}</td>
+                            <td>{{ $item->Categoria }}</td>
+                            <td>{{ $item->Marca }}</td>
                             <td>{{ $item->Nombre }}</td>
-                            <td>{{ $item->TipoDocumento }}</td>
-                            <td>{{ $item->Correo }}</td>
-                            <td>{{ $item->Telefono }}</td>
+                            <td>{{ $item->Garantia }}</td>
+                            <td>{{ $item->Precio }}</td>
+                            <td>{{ $item->Cantidad }}</td>
+                            <td>{{ $item->Estado }}</td>
                             <td class="d-flex gap-2">
                                 {{-- Botón Editar --}}
                                 <button
@@ -96,16 +102,19 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_TECNICOS }}"
+                                    data-idP="{{ $item->ID_PRODUCTOS }}"
+                                    data-categoria="{{ $item->Categoria }}"
+                                    data-marca="{{ $item->Marca }}"
                                     data-nombre="{{ $item->Nombre }}"
-                                    data-tipo="{{ $item->TipoDocumento }}"
-                                    data-correo="{{ $item->Correo }}"
-                                    data-telefono="{{ $item->Telefono }}">
+                                    data-garantia="{{ $item->Garantia }}"
+                                    data-precio="{{ $item->Precio }}"
+                                    data-cantidad="{{ $item->Cantidad }}"
+                                    data-estado="{{ $item->Estado }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('tecnicos.destroy', $item->ID_TECNICOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
+                                <form action="{{ route('productos.destroy', $item->ID_PRODUCTOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -120,7 +129,7 @@
                 </table>
             @else
                 <div class="alert alert-info text-center">
-                    <i class="fas fa-info-circle"></i> No hay tecnicos registrados.
+                    <i class="fas fa-info-circle"></i> No hay Productos registrados.
                 </div>
             @endif
         </div>
@@ -132,38 +141,43 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Tecnicos</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tecnicos.store') }}" method="POST">
+                <form action="{{ route('productos.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="ID_TECNICOS" class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" name="ID_TECNICOS" required>
+                        <label for="ID_PRODUCTOS" class="form-label">ID_PRODUCTOS</label>
+                        <input type="text" class="form-control" name="ID_PRODUCTOS" required>
+                    </div>
+                     <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <input type="text" class="form-control" name="Categoria" required>
+                    </div>
+                      <div class="mb-3">
+                        <label class="form-label">Marca</label>
+                        <input type="text" class="form-control" name="Marca" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="Nombre" required>
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control"  name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="TipoDocumento" class="form-label">Tipo Documento</label>
-                        <select class="form-select" name="TipoDocumento" required>
-                            <option value="">[Seleccione]</option>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                            <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
-                        </select>
+                        <label class="form-label">Garantia</label>
+                        <input type="number" class="form-control" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Correo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" name="Correo" required>
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-control" name="Precio" required>
+                    </div>
+                   <div class="mb-3">
+                        <label class="form-label">Cantidad</label>
+                        <input type="number" class="form-control" name="Cantidad" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Telefono" class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" name="Telefono" required>
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" name="Estado" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -184,7 +198,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Tecnico</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -192,30 +206,36 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
+                        <label class="form-label">ID_PRODUCTOS</label>
+                        <input type="text" class="form-control" id="editID_PRODUCTOS" name="ID_PRODUCTOS" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <input type="text" class="form-control" id="editCategoria" name="Categoria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Marca</label>
+                        <input type="text" class="form-control" id="editMarca" name="Marca" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="editNombre" name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">TipoDocumento</label>
-                        <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                            <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
-                        </select>
+                        <label class="form-label">Garantia</label>
+                        <input type="number" class="form-control" id="editGarantia" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="editPrecio" name="Precio" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" id="editTelefono" name="Telefono" required>
+                        <label class="form-label">cantidad</label>
+                        <input type="number" class="form-control" id="editCantidad" name="Cantidad" required>
+                    </div>
+                     <div class="mb-3">
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="editEstado" name="Estado" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -241,20 +261,26 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
+        var idP = button.getAttribute('data-idP');
+        var categoria = button.getAttribute('data-categoria');
+        var marca = button.getAttribute('data-marca');
         var nombre = button.getAttribute('data-nombre');
-        var tipodocumento = button.getAttribute('data-tipodocumento');
-        var correo = button.getAttribute('data-correo');
-        var telefono = button.getAttribute('data-telefono');
+        var garantia = button.getAttribute('data-garantia');
+        var precio = button.getAttribute('data-precio');
+        var cantidad = button.getAttribute('data-cantidad');
+        var estado = button.getAttribute('data-estado');
 
-        document.getElementById('editID_TECNICOS').value = id;
+        document.getElementById('editID_PRODUCTOS').value = idP;
+        document.getElementById('editCategoria').value = categoria;
+        document.getElementById('editMarca').value = marca;
         document.getElementById('editNombre').value = nombre;
-        document.getElementById('editTipoDocumento').value = tipodocumento;
-        document.getElementById('editCorreo').value = correo;
-        document.getElementById('editTelefono').value = telefono;
+        document.getElementById('editGarantia').value = garantia;
+        document.getElementById('editPrecio').value = precio;
+        document.getElementById('editCantidad').value = cantidad;
+        document.getElementById('editEstado').value = estado;
 
         var form = document.getElementById('editForm');
-        form.action = '/tecnicos/' + id;
+        form.action = '/productos/' + idP;
     });
 });
 </script>

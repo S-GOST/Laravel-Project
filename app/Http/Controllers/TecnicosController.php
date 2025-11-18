@@ -18,7 +18,7 @@ class tecnicosController extends Controller
             $query->where(function($q) use ($search){
                 $q->where('ID_TECNICOS', 'LIKE', "%{$search}%")
                 ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('correo','LIKE', "%{$search}");
+                ->orwhere('TipoDocumento','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);
@@ -54,8 +54,8 @@ class tecnicosController extends Controller
             'ID_TECNICOS.unique' => 'El tecnico con este documento ya existe en la plataforma.',
         ]);
 
-        $idT = tecnicosModelo::findOrFail($idT);
-        $idT->update([
+        $tecnico = tecnicosModelo::findOrFail($idT);
+        $tecnico->update([
             'ID_TECNICOS' => $request->ID_TECNICOS,
             'Nombre' => $request->Nombre,
             'TipoDocumento' => $request->TipoDocumento,
@@ -69,8 +69,8 @@ class tecnicosController extends Controller
     // Destroy
         public function destroy($idT)
         {
-            $tecnicos = tecnicosModelo::findOrFail($idT);
-            $tecnicos->delete();
+            $tecnico = tecnicosModelo::findOrFail($idT);
+            $tecnico->delete();
 
             return redirect()->route('tecnicos.index')->with('success', 'Tecnico eliminado correctamente');
         }

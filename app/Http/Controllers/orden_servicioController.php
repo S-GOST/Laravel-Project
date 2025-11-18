@@ -45,10 +45,10 @@ class orden_servicioController extends Controller
     }
 
     // Update - Versión SEGURA (sin Rule)
-    public function update(Request $request, $idA)
+    public function update(Request $request, $idO)
     {
         $request->validate([
-            'ID_ORDEN_SERVICIO' => 'required|unique:orden_servicio,ID_ORDEN_SERVICIO,' . $idA . ',ID_ORDEN_SERVICIO',
+            'ID_ORDEN_SERVICIO' => 'required|unique:orden_servicio,ID_ORDEN_SERVICIO,' . $idO . ',ID_ORDEN_SERVICIO',
             'ID_CLIENTES' => 'required',
             'ID_ADMINISTRADOR' => 'required',
             'ID_TECNICOS' => 'required',
@@ -60,8 +60,8 @@ class orden_servicioController extends Controller
             'ID_ORDEN_SERVICIO.unique' => 'La orden de servicio con este id ya existe en la plataforma.',
         ]);
 
-        $idA = orden_servicioModelo::findOrFail($idA);
-        $idA->update([
+        $idO = orden_servicioModelo::findOrFail($idO);
+        $idO->update([
             'ID_ORDEN_SERVICIO' => $request->ID_ORDEN_SERVICIO,
             'ID_CLIENTES' => $request->ID_CLIENTES,
             'ID_ADMINISTRADOR' => $request->ID_ADMINISTRADOR,
@@ -77,10 +77,10 @@ class orden_servicioController extends Controller
     }
 
     // Destroy
-        public function destroy($idA)
+        public function destroy($idO)
         {
-            $idA = orden_servicioModelo::findOrFail($idA);
-            $idA->delete();
+            $idO = orden_servicioModelo::findOrFail($idO);
+            $idO->delete();
 
             return redirect()->route('orden_servicio.index')->with('success', 'Orden servicio eliminada correctamente');
         }

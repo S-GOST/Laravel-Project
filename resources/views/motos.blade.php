@@ -162,7 +162,7 @@
                         <input type="text" class="form-control" name="Marca" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Kilometraje</label>
+                        <label class="form-label">Recorrido</label>
                         <input type="number" class="form-control" name="Recorrido" required>
                     </div>
                     <div class="modal-footer">
@@ -213,7 +213,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Recorrido</label>
-                        <input type="number" class="form-control" id="editRecorrido" name="Recorrido" required>
+                        <input type="text" class="form-control" id="editRecorrido" name="Recorrido" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editRecorrido').value = recorrido;
 
         var form = document.getElementById('editForm');
-        form.action = '/motos/' + id;
+        form.action = '/motos/' + idM;
     });
 });
 </script>

@@ -244,6 +244,10 @@
                         <label class="form-label">Fecha_fin</label>
                         <input type="datetime" class="form-control" id="editFecha_fin" name="Fecha_fin" required>
                     </div>
+                     <div class="mb-3">
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="editEstado" name="Estado" required>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar

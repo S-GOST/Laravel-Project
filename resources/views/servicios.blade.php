@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Tecnicos</title>
+    <title>Módulo Servicios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,7 +22,7 @@
 <container class="container-sm d-flex justify-content-center mt-5">
     <div class="card">
         <div class="card-body" style="width: 1200px;">
-            <h3>Módulo Tecnicos</h3>
+            <h3>Módulo Servicios</h3>
             <hr>
 
             {{-- Mensajes --}}
@@ -45,7 +45,7 @@
             @endif
 
             {{-- Buscar --}}
-            <form action="{{ url('/tecnicos') }}" method="GET">
+            <form action="{{ url('/servicios') }}" method="GET">
                 <div class="text-end mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarModal">
                         <i class="fa-solid fa-plus"></i> Nuevo
@@ -57,13 +57,13 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             <input type="text" class="form-control" name="search" value="{{ request('search') }}"
-                                   placeholder="Buscar por nombre o documento">
+                                   placeholder="Buscar por Nombre o Categoria">
                         </div>
                     </div>
 
                     <div class="col-md-6 text-end">
                         <button type="submit" class="btn btn-info"><i class="fas fa-search-plus"></i> Buscar</button>
-                        <a href="{{ url('/tecnicos') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
+                        <a href="{{ url('/servicios') }}" class="btn btn-warning"><i class="fas fa-list"></i> Restaurar</a>
                     </div>
                 </div>
             </form>
@@ -73,22 +73,24 @@
                 <table class="table table-striped table-hover table-bordered">
                     <thead class="table-primary">
                     <tr>
-                        <th>ID_TECNICOS</th>
+                        <th>ID_SERVICIOS</th>
                         <th>Nombre</th>
-                        <th>TipoDocumento</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
+                        <th>Categoria</th>
+                        <th>Garantia</th>
+                        <th>Estado</th>
+                        <th>Precio</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($datos as $item)
                         <tr>
-                            <td>{{ $item->ID_TECNICOS }}</td>
+                            <td>{{ $item->ID_SERVICIOS }}</td>
                             <td>{{ $item->Nombre }}</td>
-                            <td>{{ $item->TipoDocumento }}</td>
-                            <td>{{ $item->Correo }}</td>
-                            <td>{{ $item->Telefono }}</td>
+                            <td>{{ $item->Categoria }}</td>
+                            <td>{{ $item->Garantia }}</td>
+                            <td>{{ $item->Estado }}</td>
+                            <td>{{ $item->Precio }}</td>
                             <td class="d-flex gap-2">
                                 {{-- Botón Editar --}}
                                 <button
@@ -96,16 +98,17 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_TECNICOS }}"
-                                    data-nombre="{{ $item->Nombre }}"
-                                    data-tipo="{{ $item->TipoDocumento }}"
-                                    data-correo="{{ $item->Correo }}"
-                                    data-telefono="{{ $item->Telefono }}">
+                                    data-idS="{{ $item->ID_SERVICIOS }}"
+                                    data-idN="{{ $item->Nombre }}"
+                                    data-categoria="{{ $item->Categoria }}"
+                                    data-garantia="{{ $item->Garantia }}"
+                                    data-estado="{{ $item->Estado }}"
+                                    data-precio="{{ $item->Precio }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
                                 {{-- Botón Eliminar --}}
-                                <form action="{{ route('tecnicos.destroy', $item->ID_TECNICOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
+                                <form action="{{ route('servicios.destroy', $item->ID_SERVICIOS) }}" method="POST" onsubmit="return confirmarEliminar(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -120,7 +123,7 @@
                 </table>
             @else
                 <div class="alert alert-info text-center">
-                    <i class="fas fa-info-circle"></i> No hay tecnicos registrados.
+                    <i class="fas fa-info-circle"></i> No hay Servicios registrados.
                 </div>
             @endif
         </div>
@@ -132,38 +135,35 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Tecnicos</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Servicio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tecnicos.store') }}" method="POST">
+                <form action="{{ route('servicios.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="ID_TECNICOS" class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" name="ID_TECNICOS" required>
+                        <label for="ID_SERVICIOS" class="form-label">ID_SERVICIOS</label>
+                        <input type="text" class="form-control" name="ID_SERVICIOS" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="Nombre" required>
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control"  name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="TipoDocumento" class="form-label">Tipo Documento</label>
-                        <select class="form-select" name="TipoDocumento" required>
-                            <option value="">[Seleccione]</option>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                            <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
-                        </select>
+                        <label class="form-label">Categoria</label>
+                        <input type="text" class="form-control" name="Categoria" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Correo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" name="Correo" required>
+                        <label class="form-label">Garantia</label>
+                        <input type="text" class="form-control" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Telefono" class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" name="Telefono" required>
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" name="Estado" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-control" name="Precio" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -184,7 +184,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Tecnico</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Moto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -192,30 +192,28 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
+                        <label class="form-label">ID_SERVICIOS</label>
+                        <input type="text" class="form-control" id="editID_SERVICIOS" name="ID_SERVICIOS" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="editNombre" name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">TipoDocumento</label>
-                        <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                            <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
-                        </select>
+                        <label class="form-label">Categoria</label>
+                        <input type="text" class="form-control" id="editCategoria" name="Categoria" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
+                        <label class="form-label">Garantia</label>
+                        <input type="text" class="form-control" id="editGarantia" name="Garantia" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" id="editTelefono" name="Telefono" required>
+                        <label class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="editEstado" name="Estado" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" id="editPrecio" name="Precio" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -241,20 +239,22 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var nombre = button.getAttribute('data-nombre');
-        var tipodocumento = button.getAttribute('data-tipodocumento');
-        var correo = button.getAttribute('data-correo');
-        var telefono = button.getAttribute('data-telefono');
+        var idS = button.getAttribute('data-idS');
+        var idN = button.getAttribute('data-idN');
+        var categoria = button.getAttribute('data-categoria');
+        var garantia = button.getAttribute('data-garantia');
+        var estado = button.getAttribute('data-estado');
+        var precio = button.getAttribute('data-precio');
 
-        document.getElementById('editID_TECNICOS').value = id;
-        document.getElementById('editNombre').value = nombre;
-        document.getElementById('editTipoDocumento').value = tipodocumento;
-        document.getElementById('editCorreo').value = correo;
-        document.getElementById('editTelefono').value = telefono;
+        document.getElementById('editID_SERVICIOS').value = idS;
+        document.getElementById('editNombre').value = idN;
+        document.getElementById('editCategoria').value = categoria;
+        document.getElementById('editGarantia').value = garantia;
+        document.getElementById('editEstado').value = estado;
+        document.getElementById('editPrecio').value = precio;
 
         var form = document.getElementById('editForm');
-        form.action = '/tecnicos/' + id;
+        form.action = '/servicios/' + idS;
     });
 });
 </script>
