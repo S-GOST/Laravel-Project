@@ -45,7 +45,7 @@
             @endif
 
             {{-- Buscar --}}
-            <form action="{{ url('/informe') }}" method="GET">
+            <form action="{{ url('/historial') }}" method="GET">
                 <div class="text-end mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarModal">
                         <i class="fa-solid fa-plus"></i> Nuevo
@@ -57,7 +57,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             <input type="text" class="form-control" name="search" value="{{ request('search') }}"
-                                   placeholder="Buscar por id o historial">
+                                   placeholder="Buscar por id el historial">
                         </div>
                     </div>
 
@@ -102,14 +102,14 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_HISTORIAL }}"
-                                    data-id="{{ $item->ID_ORDEN_SERVICIO }}"
-                                    data-id="{{ $item->ID_COMPROBANTE}}"
-                                    data-id="{{ $item->ID_INFORME }}"
-                                    data-id="{{ $item->ID_TECNICOS }}"
-                                    data-id="{{ $item->ID_CLIENTES }}"
-                                    data-nombre="{{ $item->Descripcion }}"
-                                    data-correo="{{ $item->Fecha_registro}}">
+                                    data-idh="{{ $item->ID_HISTORIAL }}"
+                                    data-ido="{{ $item->ID_ORDEN_SERVICIO }}"
+                                    data-idc="{{ $item->ID_COMPROBANTE}}"
+                                    data-idi="{{ $item->ID_INFORME }}"
+                                    data-idt="{{ $item->ID_TECNICOS }}"
+                                    data-idcl="{{ $item->ID_CLIENTES }}"
+                                    data-descripcion="{{ $item->Descripcion }}"
+                                    data-fecha="{{ $item->Fecha_registro}}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
@@ -152,10 +152,6 @@
                         <input type="text" class="form-control" name="ID_HISTORIAL" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_HISTORIAL" class="form-label">ID_HISTORIAL</label>
-                        <input type="text" class="form-control" name="ID_HISTORIAL" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="ID_ORDEN_SERVICIO" class="form-label">ID_ORDEN_SERVICIO</label>
                         <input type="text" class="form-control" name="ID_ORDEN_SERVICIO" required>
                     </div>
@@ -177,7 +173,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="Descripcion" class="form-label">Descripcion</label>
-                        <input type="datetime" class="form-control" name="Descripcion" required>
+                        <input type="text" class="form-control" name="Descripcion" required>
                     </div>
                     <div class="mb-3">
                         <label for="Fecha_registro" class="form-label">Fecha_registro</label>
@@ -211,35 +207,31 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">ID_HISTORIAL</label>
-                        <input type="text" class="form-control" id="editID_HISTORIAL" name="ID_HISTORIAL" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">ID_HISTORIAL</label>
-                        <input type="text" class="form-control" id="editID_HISTORIAL" name="ID_HISTORIAL" readonly>
+                        <input type="text" class="form-control" id="editID_HISTORIAL" name="ID_HISTORIAL" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_ORDEN_SERVICIO</label>
-                        <input type="text" class="form-control" id="editID_ORDEN_SERVICIO" name="ID_ORDEN_SERVICIO" readonly>
+                        <input type="text" class="form-control" id="editID_ORDEN_SERVICIO" name="ID_ORDEN_SERVICIO" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_COMPROBANTE</label>
-                        <input type="text" class="form-control" id="editID_COMPROBANTE" name="ID_COMPROBANTE" readonly>
+                        <input type="text" class="form-control" id="editID_COMPROBANTE" name="ID_COMPROBANTE" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_INFORME</label>
-                        <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" readonly>
+                        <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" readonly>
+                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_CLIENTES</label>
-                        <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" readonly>
+                        <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion</label>
-                        <input type="datetime" class="form-control" id="editDescripcion" name="Descripcion" required>
+                        <input type="text" class="form-control" id="editDescripcion" name="Descripcion" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Fecha_registro</label>
@@ -269,26 +261,27 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var Descripcion = button.getAttribute('data-Descripcion');
-        var Fecha_registro = button.getAttribute('data-fecha_registro');
+        var idh = button.getAttribute('data-idh');
+        var ido = button.getAttribute('data-ido');
+        var idc = button.getAttribute('data-idc');
+        var idi = button.getAttribute('data-idi');
+        var idt = button.getAttribute('data-idt');
+        var idcl = button.getAttribute('data-idcl');
+        var descripcion = button.getAttribute('data-descripcion');
+        var fecha = button.getAttribute('data-fecha');
 
-        document.getElementById('editID_HISTORIAL').value = id;
-        document.getElementById('editID_ORDEN_SERVICIO').value = id;
-        document.getElementById('editID_COMPROBANTE').value = id;
-        document.getElementById('editID_INFORME').value = id;
-        document.getElementById('editID_TECNICOS').value = id;
-        document.getElementById('editID_CLIENTES').value = id;
-        document.getElementById('editDescripcion').value = Descripcion;
-        document.getElementById('editFecha_registro').value = fecha_registro;
+        document.getElementById('editID_HISTORIAL').value = idh;
+        document.getElementById('editID_ORDEN_SERVICIO').value = ido;
+        document.getElementById('editID_COMPROBANTE').value = idc;
+        document.getElementById('editID_INFORME').value = idi;
+        document.getElementById('editID_TECNICOS').value = idt;
+        document.getElementById('editID_CLIENTES').value = idcl;
+        document.getElementById('editDescripcion').value = descripcion;
+        document.getElementById('editFecha_registro').value = fecha;
         
 
         var form = document.getElementById('editForm');
-        form.action = '/historial/' + id;
+        form.action = '/historial/' + idh;
     });
 });
 </script>

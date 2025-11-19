@@ -17,8 +17,8 @@ class comprobanteController extends Controller
         if($search){
             $query->where(function($q) use ($search){
                 $q->where('ID_COMPROBANTE', 'LIKE', "%{$search}%")
-                ->orwhere('Monto', 'LIKE', "%{$search}%")
-                ->orwhere('Fecha','LIKE', "%{$search}");
+                ->orwhere('ID_INFORME', 'LIKE', "%{$search}%")
+                ->orwhere('ID_CLIENTES','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);
@@ -29,6 +29,9 @@ class comprobanteController extends Controller
     public function store(Request $request){
         $request->validate([
             'ID_COMPROBANTE' => 'required|unique:comprobante,ID_COMPROBANTE',
+            'ID_INFORME' => 'required',
+            'ID_CLIENTES' => 'required',
+            'ID_ADMINISTRADOR' => 'required',
             'Monto' => 'required',
             'Fecha' => 'required',
             'Estado_pago' => 'required',
@@ -36,15 +39,18 @@ class comprobanteController extends Controller
             'ID_COMPROBANTE.unique' => 'El comprobante con este documento ya existe en la plataforma.',
         ]);
 
-        ComprobanteModelo::create($request->all());
-        return redirect()->route('comprobante.index')->with('success','Conprobante Registrado en la Plataforma');
+        comprobanteModelo::create($request->all());
+        return redirect()->route('comprobante.index')->with('success','Comprobante Registrado en la Plataforma');
     }
 
     // Update - Versión SEGURA (sin Rule)
-    public function update(Request $request, $documento)
+    public function update(Request $request, $idC)
     {
         $request->validate([
-            'ID_COMPROBANTE' => 'required|unique:comprobante,ID_COMPROBANTE,' . $documento . ',ID_COMPROBANTE',
+            'ID_COMPROBANTE' => 'required|unique:comprobante,ID_COMPROBANTE,' . $idC . ',ID_COMPROBANTE',
+            'ID_INFORME' => 'required',
+            'ID_CLIENTES' => 'required',
+            'ID_ADMINISTRADOR' => 'required',
             'Monto' => 'required',
             'Fecha' => 'required',
             'Estado_pago' => 'required',
@@ -52,9 +58,12 @@ class comprobanteController extends Controller
             'ID_COMPROBANTE.unique' => 'El comprobante con este documento ya existe en la plataforma.',
         ]);
 
-        $comprobante = comprobanteModelo::findOrFail($documento);
-        $comprobante->update([
+        $comprobantes = comprobanteModelo::findOrFail($idC);
+        $comprobantes->update([
             'ID_COMPROBANTE' => $request->ID_COMPROBANTE,
+            'ID_INFORME' => $request->ID_INFORME,
+            'ID_CLIENTES' => $request->ID_CLIENTES,
+            'ID_ADMINISTRADOR' => $request->ID_ADMINISTRADOR,
             'Monto' => $request->Monto,
             'Fecha' => $request->Fecha,
             'Estado_pago' => $request->Estado_pago,
@@ -64,10 +73,10 @@ class comprobanteController extends Controller
     }
 
     // Destroy
-        public function destroy($id)
+        public function destroy($idC)
         {
-            $comprobante = comprobanteModelo::findOrFail($id);
-            $comprobante->delete();
+            $comprobantes = comprobanteModelo::findOrFail($idC);
+            $comprobantes->delete();
 
             return redirect()->route('comprobante.index')->with('success', 'comprobante eliminado correctamente');
         }

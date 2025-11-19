@@ -45,7 +45,7 @@
             @endif
 
             {{-- Buscar --}}
-            <form action="{{ url('/orden_servicio') }}" method="GET">
+            <form action="{{ url('/comprobante') }}" method="GET">
                 <div class="text-end mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarModal">
                         <i class="fa-solid fa-plus"></i> Nuevo
@@ -100,13 +100,13 @@
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#EditarModal"
-                                    data-id="{{ $item->ID_COMPROBANTE }}"
-                                    data-id="{{ $item->ID_INFORME }}"
-                                    data-id="{{ $item->ID_CLIENTES }}"
-                                    data-id="{{ $item->ID_ADMINITRADOR }}"
-                                    data-nombre="{{ $item->Monto }}"
-                                    data-correo="{{ $item->Fecha}}"
-                                    data-tipo="{{ $item->Estado_pago }}">
+                                    data-idc="{{ $item->ID_COMPROBANTE }}"
+                                    data-idi="{{ $item->ID_INFORME }}"
+                                    data-idcl="{{ $item->ID_CLIENTES }}"
+                                    data-ida="{{ $item->ID_ADMINISTRADOR }}"
+                                    data-monto="{{ $item->Monto }}"
+                                    data-fecha="{{ $item->Fecha}}"
+                                    data-estado="{{ $item->Estado_pago }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
@@ -149,10 +149,6 @@
                         <input type="text" class="form-control" name="ID_COMPROBANTE" required>
                     </div>
                     <div class="mb-3">
-                        <label for="ID_COMPROBANTE" class="form-label">ID_COMPROBANTE</label>
-                        <input type="text" class="form-control" name="ID_COMPROBANTE" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="ID_INFORME" class="form-label">ID_INFORME</label>
                         <input type="text" class="form-control" name="ID_INFORME" required>
                     </div>
@@ -166,15 +162,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="Monto" class="form-label">Monto</label>
-                        <input type="datetime" class="form-control" name="Fecha_inicio" required>
+                        <input type="number" class="form-control" name="Monto" required>
                     </div>
                     <div class="mb-3">
                         <label for="Fecha" class="form-label">Fecha</label>
-                        <input type="datetime" class="form-control" name="Fecha_estimada" required>
+                        <input type="datetime" class="form-control" name="Fecha" required>
                     </div>
                      <div class="mb-3">
                         <label for="Estado_pago" class="form-label">Estado_pago</label>
-                        <input type="datetime" class="form-control" name="Fecha_fin" required>
+                        <input type="text" class="form-control" name="Estado_pago" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -204,31 +200,31 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">ID_COMPROBANTE</label>
-                        <input type="text" class="form-control" id="editID_COMPROBANTE" name="ID_COMPROBANTE" readonly>
+                        <input type="text" class="form-control" id="editID_COMPROBANTE" name="ID_COMPROBANTE" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_INFORME</label>
-                        <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" readonly>
+                        <input type="text" class="form-control" id="editID_INFORME" name="ID_INFORME" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_CLIENTES</label>
-                        <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" readonly>
+                        <input type="text" class="form-control" id="editID_CLIENTES" name="ID_CLIENTES" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ID_ADMINISTRADOR</label>
-                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" readonly>
+                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Monto</label>
-                        <input type="datetime" class="form-control" id="editFecha_inicio" name="Monto" required>
+                        <input type="number" class="form-control" id="editMonto" name="Monto" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Fecha</label>
-                        <input type="datetime" class="form-control" id="editFecha_estimada" name="Fecha" required>
+                        <input type="datetime" class="form-control" id="editFecha" name="Fecha" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Estado_pago</label>
-                        <input type="datetime" class="form-control" id="editFecha_fin" name="Estado_pago" required>
+                        <input type="text" class="form-control" id="editEstado_pago" name="Estado_pago" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -254,25 +250,24 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var id = button.getAttribute('data-id');
-        var Monto = button.getAttribute('data-Monto');
+        var idc = button.getAttribute('data-idc');
+        var idi = button.getAttribute('data-idi');
+        var idcl = button.getAttribute('data-idcl');
+        var ida = button.getAttribute('data-ida');
+        var monto = button.getAttribute('data-monto');
         var fecha = button.getAttribute('data-fecha');
-        var Estado_pago= button.getAttribute('data-Estado_pago');
+        var estado= button.getAttribute('data-estado');
 
-        document.getElementById('editID_COMPRONANTE').value = id;
-        document.getElementById('editID_INFORME').value = id;
-        document.getElementById('editID_CLIENTES').value = id;
-        document.getElementById('editID_ADMINISTRADOR').value = id;
-        document.getElementById('editMonto').value = Monto;
+        document.getElementById('editID_COMPROBANTE').value = idc;
+        document.getElementById('editID_INFORME').value = idi;
+        document.getElementById('editID_CLIENTES').value = idcl;
+        document.getElementById('editID_ADMINISTRADOR').value = ida;
+        document.getElementById('editMonto').value = monto;
         document.getElementById('editFecha').value = fecha;
-        document.getElementById('editEstado_pago').value = Estado_pago;
+        document.getElementById('editEstado_pago').value = estado
 
         var form = document.getElementById('editForm');
-        form.action = '/comprobante/' + id;
+        form.action = '/comprobante/' + idc;
     });
 });
 </script>

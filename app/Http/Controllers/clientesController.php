@@ -18,7 +18,7 @@ class clientesController extends Controller
             $query->where(function($q) use ($search){
                 $q->where('ID_CLIENTES', 'LIKE', "%{$search}%")
                 ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('Ubicacion','LIKE', "%{$search}");
+                ->orwhere('TipoDocumento','LIKE', "%{$search}");
             });
         }
         $datos = $query->paginate(10);

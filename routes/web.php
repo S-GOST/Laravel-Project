@@ -36,8 +36,8 @@ Route::delete('/tecnicos/{idT}', [tecnicosController::class, 'destroy'])->name('
 
 Route::get('/clientes', [clientesController::class, 'index'])->name('clientes.index');
 Route::post('/clientes', [clientesController::class, 'store'])->name('clientes.store');
-Route::get('/clientes/{or}/edit', [clientesController::class, 'edit'])->name('clientes.edit');
-Route::put('/clientes/{or}', [clientesController::class, 'update'])->name('clientes.update');
+Route::get('/clientes/{id}/edit', [clientesController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{id}', [clientesController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{id}', [clientesController::class, 'destroy'])->name('clientes.destroy');
 
 
@@ -84,13 +84,13 @@ Route::delete('/informe/{idI}', [informeController::class, 'destroy'])->name('in
 
 Route::get('/comprobante', [comprobanteController::class, 'index'])->name('comprobante.index');
 Route::post('/comprobante', [comprobanteController::class, 'store'])->name('comprobante.store');
-Route::get('/comprobante/{or}/edit', [comprobanteController::class, 'edit'])->name('comprobante.edit');
+Route::get('/comprobante/{idC}/edit', [comprobanteController::class, 'edit'])->name('comprobante.edit');
 Route::put('/comprobante/{idC}', [comprobanteController::class, 'update'])->name('comprobante.update');
-Route::delete('/comprobante/{idC}', [conprobanteController::class, 'destroy'])->name('comprobante.destroy');
+Route::delete('/comprobante/{idC}', [comprobanteController::class, 'destroy'])->name('comprobante.destroy');
 
 
 Route::get('/historial', [historialController::class, 'index'])->name('historial.index');
 Route::post('/historial', [historialController::class, 'store'])->name('historial.store');
-Route::get('/historial/{or}/edit', [historialController::class, 'edit'])->name('historial.edit');
+Route::get('/historial/{idH}/edit', [historialController::class, 'edit'])->name('historial.edit');
 Route::put('/historial/{idH}', [historialController::class, 'update'])->name('historial.update');
 Route::delete('/historial/{idH}', [historialController::class, 'destroy'])->name('historial.destroy');

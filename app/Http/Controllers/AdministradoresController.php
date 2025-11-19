@@ -63,7 +63,7 @@ class administradoresController extends Controller
             'Telefono' => $request->Telefono,
         ]);
 
-        return redirect()->route('administradores.index')->with('success', 'Adminisstrador Actualizado en la Plataforma');
+        return redirect()->route('administradores.index')->with('success', 'Administrador Actualizado en la Plataforma');
     }
 
     // Destroy
