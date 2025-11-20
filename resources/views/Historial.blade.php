@@ -109,7 +109,7 @@
                                     data-idt="{{ $item->ID_TECNICOS }}"
                                     data-idcl="{{ $item->ID_CLIENTES }}"
                                     data-descripcion="{{ $item->Descripcion }}"
-                                    data-fecha="{{ $item->Fecha_registro}}">
+                                    data-fecha_registro="{{ $item->Fecha_registro}}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
 
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var idt = button.getAttribute('data-idt');
         var idcl = button.getAttribute('data-idcl');
         var descripcion = button.getAttribute('data-descripcion');
-        var fecha = button.getAttribute('data-fecha');
+        var fecha_registro = button.getAttribute('data-fecha_registro');
 
         document.getElementById('editID_HISTORIAL').value = idh;
         document.getElementById('editID_ORDEN_SERVICIO').value = ido;
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editID_TECNICOS').value = idt;
         document.getElementById('editID_CLIENTES').value = idcl;
         document.getElementById('editDescripcion').value = descripcion;
-        document.getElementById('editFecha_registro').value = fecha;
+        document.getElementById('editFecha_registro').value = fecha_registro;
         
 
         var form = document.getElementById('editForm');

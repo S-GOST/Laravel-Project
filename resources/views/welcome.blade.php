@@ -73,7 +73,7 @@
         <div class="col-md-4"><a href="/orden_servicio"><div class="menu-card"><i class="fa-solid fa-file-signature fa-3x"></i><h4 class="mt-2">Órdenes de Servicio</h4></div></a></div>
         <div class="col-md-4"><a href="/detalles_orden_servicio"><div class="menu-card"><i class="fa-solid fa-list-check fa-3x"></i><h4 class="mt-2">Detalles Orden Servicio</h4></div></a></div>
         <div class="col-md-4"><a href="/informe"><div class="menu-card"><i class="fa-solid fa-chart-pie fa-3x"></i><h4 class="mt-2">Informe</h4></div></a></div>
-        <div class="col-md-4"><a href="/comprobantes"><div class="menu-card"><i class="fa-solid fa-receipt fa-3x"></i><h4 class="mt-2">Comprobantes</h4></div></a></div>
+        <div class="col-md-4"><a href="/comprobante"><div class="menu-card"><i class="fa-solid fa-receipt fa-3x"></i><h4 class="mt-2">Comprobantes</h4></div></a></div>
         <div class="col-md-4"><a href="/historial"><div class="menu-card"><i class="fa-solid fa-clock-rotate-left fa-3x"></i><h4 class="mt-2">Historial</h4></div></a></div>
 
     </div>
