@@ -92,7 +92,7 @@
                             <td>{{ $item->Marca }}</td>
                             <td>{{ $item->Nombre }}</td>
                             <td>{{ $item->Garantia }}</td>
-                            <td>{{ $item->Precio }}</td>
+                            <td>{{ $item->Precio }}$</td>
                             <td>{{ $item->Cantidad }}</td>
                             <td>{{ $item->Estado }}</td>
                             <td class="d-flex gap-2">

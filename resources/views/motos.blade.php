@@ -90,7 +90,7 @@
                             <td>{{ $item->Placa }}</td>
                             <td>{{ $item->Modelo }}</td>
                             <td>{{ $item->Marca }}</td>
-                            <td>{{ $item->Recorrido }}</td>
+                            <td>{{($item->Recorrido) }} km</td>
                             <td class="d-flex gap-2">
                                 {{-- Botón Editar --}}
                                 <button
@@ -162,9 +162,13 @@
                         <input type="text" class="form-control" name="Marca" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Recorrido</label>
-                        <input type="number" class="form-control" name="Recorrido" required>
+                        <label class="form-label">Recorrido (km)</label>
+                        <div class="input-group">
+                            <input type="number" step="0.01" class="form-control" name="Recorrido" required>
+                            <span class="input-group-text">km</span>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar
@@ -212,9 +216,19 @@
                         <input type="text" class="form-control" id="editMarca" name="Marca" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Recorrido</label>
-                        <input type="text" class="form-control" id="editRecorrido" name="Recorrido" required>
+                        <label class="form-label">Recorrido (km)</label>
+                        <div class="input-group">
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="editRecorrido" 
+                                name="Recorrido" 
+                                step="0.01" 
+                                required>
+                            <span class="input-group-text">km</span>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar

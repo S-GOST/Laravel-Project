@@ -90,7 +90,7 @@
                             <td>{{ $item->ID_INFORME }}</td>
                             <td>{{ $item->ID_CLIENTES}}</td>
                             <td>{{ $item->ID_ADMINISTRADOR }}</td>
-                            <td>{{ $item->Monto}}</td>
+                            <td>{{ $item->Monto}}$</td>
                             <td>{{ $item->Fecha }}</td>
                             <td>{{ $item->Estado_pago }}</td>
                             <td class="d-flex gap-2">

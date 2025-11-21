@@ -90,7 +90,7 @@
                             <td>{{ $item->Categoria }}</td>
                             <td>{{ $item->Garantia }}</td>
                             <td>{{ $item->Estado }}</td>
-                            <td>{{ $item->Precio }}</td>
+                            <td>{{ $item->Precio }}$</td>
                             <td class="d-flex gap-2">
                                 {{-- Botón Editar --}}
                                 <button
