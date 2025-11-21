@@ -40,7 +40,7 @@ class HistorialController extends Controller
             'ID_TECNICOS' => 'required',
             'ID_CLIENTES' => 'required',
             'Descripcion' => 'required',
-            'fecha_registro' => 'required',
+            'Fecha_registro' => 'required',
         ],[
             'ID_HISTORIAL.unique' => 'El historial con este documento ya existe en la plataforma.',
         ]);

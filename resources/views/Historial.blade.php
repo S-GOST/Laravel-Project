@@ -235,7 +235,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Fecha_registro</label>
-                        <input type="datetime" class="form-control" id="editFecha" name="Fecha_registro" required>
+                        <input type="datetime" class="form-control" id="editFecha_registro" name="Fecha_registro" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
