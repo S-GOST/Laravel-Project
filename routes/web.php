@@ -14,7 +14,7 @@ use App\Http\Controllers\comprobanteController;
 use App\Http\Controllers\historialController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.Panel');
 });
 Route::get('/prueba', function () {
     return 'esta es otra ruta';
@@ -39,6 +39,8 @@ Route::post('/clientes', [clientesController::class, 'store'])->name('clientes.s
 Route::get('/clientes/{id}/edit', [clientesController::class, 'edit'])->name('clientes.edit');
 Route::put('/clientes/{id}', [clientesController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{id}', [clientesController::class, 'destroy'])->name('clientes.destroy');
+Route::get('/clientes/{id}/motos', [clientesController::class, 'verMotosCliente'])->name('vermotosCliente');
+
 
 
 Route::get('/motos', [motosController::class, 'index'])->name('motos.index');

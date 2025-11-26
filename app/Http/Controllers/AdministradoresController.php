@@ -22,7 +22,7 @@ class administradoresController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("administradores")->with("datos", $datos);
+        return view("Administradores.administradores")->with("datos", $datos);
     }
 
     // Insertar Datos

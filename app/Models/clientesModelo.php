@@ -21,5 +21,9 @@ class clientesModelo extends Model
         'Correo',
         'Telefono'
     ];
+        public function motos()
+    {
+        return $this->hasMany(motosModelo::class, 'ID_CLIENTES', 'ID_CLIENTES');
+    }
 }
 

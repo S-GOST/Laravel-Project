@@ -22,7 +22,7 @@ class clientesController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("clientes")->with("datos", $datos);
+        return view("Clientes.clientes")->with("datos", $datos);
     }
 
     // Insertar Datos
@@ -77,4 +77,12 @@ class clientesController extends Controller
 
             return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
         }
+        public function verMotosCliente($id)
+        {
+            $cliente = ClientesModelo::find($id);
+            $motos = $cliente->motos; // aquí obtienes todas las motos
+ 
+            return view('Clientes.vermotosCliente', compact('cliente', 'motos'));
+        }
+
 }

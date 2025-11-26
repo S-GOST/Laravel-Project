@@ -22,4 +22,8 @@ class motosModelo extends Model
         'Marca',
         'Recorrido'
     ];
+        public function cliente()
+    {
+        return $this->belongsTo(clientesModelo::class, 'ID_CLIENTES', 'ID_CLIENTES');
+    }
 }
