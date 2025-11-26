@@ -22,7 +22,7 @@ class serviciosController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("servicios")->with("datos", $datos);
+        return view("Servicios.servicios")->with("datos", $datos);
     }
 
     // Insertar Datos

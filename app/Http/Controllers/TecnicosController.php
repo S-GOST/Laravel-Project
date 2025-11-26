@@ -22,7 +22,7 @@ class tecnicosController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("tecnicos")->with("datos", $datos);
+        return view("Tecnicos.tecnicos")->with("datos", $datos);
     }
 
     // Insertar Datos

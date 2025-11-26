@@ -22,7 +22,7 @@ class motosController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("motos")->with("datos", $datos);
+        return view("Motos.motos")->with("datos", $datos);
     }
 
     // Insertar Datos

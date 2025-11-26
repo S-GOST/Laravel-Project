@@ -1,41 +1,39 @@
-{{-- Este es el contenido de 'tecnicos/modals.blade.php' --}}
-
 {{-- MODAL AGREGAR --}}
 <div class="modal fade" id="AgregarModal" tabindex="-1" aria-labelledby="AgregarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header">
                 <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Crear Técnico</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('tecnicos.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="ID_TECNICOS" class="form-label">ID_TECNICOS</label>
+                        <label class="form-label">ID_TECNICOS</label>
                         <input type="text" class="form-control" name="ID_TECNICOS" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Nombre" class="form-label">Nombre</label>
+                        <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Correo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" name="Correo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="TipoDocumento" class="form-label">Tipo Documento</label>
+                        <label class="form-label">Tipo Documento</label>
                         <select class="form-select" name="TipoDocumento" required>
                             <option value="">[Seleccione]</option>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
+                            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
                             <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                             <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
+                            <option value="NIT">NIT</option>
+                            <option value="RUT">RUT</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="Telefono" class="form-label">Teléfono</label>
+                        <label class="form-label">Correo</label>
+                        <input type="email" class="form-control" name="Correo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
                         <input type="number" class="form-control" name="Telefono" required>
                     </div>
                     <div class="modal-footer">
@@ -56,9 +54,9 @@
 <div class="modal fade" id="EditarModal" tabindex="-1" aria-labelledby="EditarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-success text-white">
+            <div class="modal-header">
                 <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Técnico</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="editForm" method="POST">
@@ -73,18 +71,18 @@
                         <input type="text" class="form-control" id="editNombre" name="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Tipo Documento</label>
                         <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required>
-                            <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
+                            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
                             <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                             <option value="Pasaporte">Pasaporte</option>
-                            <option value="Nit">NIT</option>
-                            <option value="Rut">RUT</option>
+                            <option value="NIT">NIT</option>
+                            <option value="RUT">RUT</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="editCorreo" name="Correo" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
@@ -103,42 +101,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var editarModal = document.getElementById('EditarModal');
-
-        editarModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget; 
-            
-            // Obtener los datos del técnico de los atributos data-*
-            var id = button.getAttribute('data-id');
-            var nombre = button.getAttribute('data-nombre');
-            var correo = button.getAttribute('data-correo');
-            var tipo = button.getAttribute('data-tipo');
-            var telefono = button.getAttribute('data-telefono');
-
-            // Rellenar campos del modal
-            document.getElementById('editID_TECNICOS').value = id;
-            document.getElementById('editNombre').value = nombre;
-            document.getElementById('editCorreo').value = correo;
-            document.getElementById('editTelefono').value = telefono;
-            document.getElementById('editTipoDocumento').value = tipo;
-
-            // Establecer acción del formulario
-            var form = document.getElementById('editForm');
-            form.action = '{{ url('tecnicos') }}/' + id;
-        });
-
-        // Confirmar eliminación
-        window.confirmarEliminar = function(event) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este técnico? Esta acción no se puede deshacer.')) {
-                event.preventDefault();
-                return false;
-            }
-            return true;
-        }
-    });
-</script>
-@endpush

@@ -22,7 +22,7 @@ class productosController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("productos")->with("datos", $datos);
+        return view("Productos.productos")->with("datos", $datos);
     }
 
     // Insertar Datos
