@@ -22,7 +22,7 @@ class orden_servicioController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("OrdenServicio.orden_servicio")->with("datos", $datos);
+        return view("orden_servicio.orden_servicio")->with("datos", $datos);
     }
 
     // Insertar Datos

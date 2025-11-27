@@ -73,7 +73,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">ID_PRODUCTOS</label>
-                        <input type="text" class="form-control bg-secondary text-light border-0" id="editID_PRODUCTOS" name="ID_PRODUCTOS" readonly>
+                        <input type="text" class="form-control bg-secondary text-light border-0" id="editID_PRODUCTOS" name="ID_PRODUCTOS" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Categoría</label>

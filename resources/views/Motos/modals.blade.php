@@ -76,7 +76,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">ID_MOTOS</label>
-                        <input type="text" class="form-control" id="editID_MOTOS" name="ID_MOTOS" readonly>
+                        <input type="text" class="form-control" id="editID_MOTOS" name="ID_MOTOS" required>
                     </div>
 
                     <div class="mb-3">

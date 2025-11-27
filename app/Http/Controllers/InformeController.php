@@ -22,7 +22,7 @@ class  informeController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("informe")->with("datos", $datos);
+        return view("Informe.informe")->with("datos", $datos);
     }
 
     // Insertar Datos

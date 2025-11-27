@@ -9,11 +9,11 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tecnicos.store') }}" method="POST">
+                <form action="{{ route('administradores.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="ID_TECNICOS" class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" name="ID_TECNICOS" required>
+                        <label for="ID_ADMINISTRADOR" class="form-label">ID_ADMINISTRADOR</label>
+                        <input type="text" class="form-control" name="ID_ADMINISTRADOR" required>
                     </div>
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre</label>
@@ -57,7 +57,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Técnico</h5>
+                <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Administrador</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -65,8 +65,8 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label class="form-label">ID_TECNICOS</label>
-                        <input type="text" class="form-control" id="editID_TECNICOS" name="ID_TECNICOS" required>
+                        <label class="form-label">ID_ADMINISTRADOR</label>
+                        <input type="text" class="form-control" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
@@ -120,15 +120,16 @@
             var telefono = button.getAttribute('data-telefono');
 
             // Rellenar campos del modal
-            document.getElementById('editID_TECNICOS').value = id;
+            document.getElementById('editID_ADMINISTRADOR').value = id;
             document.getElementById('editNombre').value = nombre;
             document.getElementById('editCorreo').value = correo;
-            document.getElementById('editTelefono').value = telefono;
             document.getElementById('editTipoDocumento').value = tipo;
+            document.getElementById('editTelefono').value = telefono;
+        
 
             // Establecer acción del formulario
             var form = document.getElementById('editForm');
-            form.action = '{{ url('tecnicos') }}/' + id;
+            form.action = '{{ url('administradores') }}/' + id;
         });
 
         // Confirmar eliminación

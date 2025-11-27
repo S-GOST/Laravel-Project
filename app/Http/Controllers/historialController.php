@@ -27,7 +27,7 @@ class HistorialController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("historial")->with("datos", $datos);
+        return view("Historial.historial")->with("datos", $datos);
     }
 
     // Insertar Datos

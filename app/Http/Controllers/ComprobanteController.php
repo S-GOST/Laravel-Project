@@ -22,7 +22,7 @@ class comprobanteController extends Controller
             });
         }
         $datos = $query->paginate(10);
-        return view("comprobante")->with("datos", $datos);
+        return view("comprobante.comprobante")->with("datos", $datos);
     }
 
     // Insertar Datos
