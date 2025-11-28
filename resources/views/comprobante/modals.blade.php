@@ -133,3 +133,36 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editarModal = document.getElementById('EditarModal');
+
+    editarModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        
+        const idc = button.getAttribute('data-idc');
+        const idi = button.getAttribute('data-idi');
+        const idcl = button.getAttribute('data-idcl');
+        const ida = button.getAttribute('data-ida');
+        const monto = button.getAttribute('data-monto');
+        const fecha = button.getAttribute('data-fecha');
+        const estado = button.getAttribute('data-estado');
+
+        document.getElementById('editID_COMPROBANTE').value = idc;
+        document.getElementById('editID_INFORME').value = idi;
+        document.getElementById('editID_CLIENTES').value = idcl;
+        document.getElementById('editID_ADMINISTRADOR').value = ida;
+        document.getElementById('editMonto').value = monto;
+        document.getElementById('editFecha').value = fecha.replace(' ', 'T').substring(0, 16);
+        document.getElementById('editEstado_pago').value = estado;
+
+        document.getElementById('editForm').action = '/comprobante/' + idc;
+    });
+
+    window.confirmarEliminar = function(event) {
+        if (!confirm('¿Estás seguro de eliminar este comprobante?')) {
+            event.preventDefault();
+        }
+    };
+});
+</script>

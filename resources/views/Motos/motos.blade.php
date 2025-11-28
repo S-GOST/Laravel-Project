@@ -108,39 +108,6 @@
     </div>
 @endif
 
-{{-- 📦 Inclusión de los modales --}}
 @include('motos.modals')
 
 @endsection
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var editarModal = document.getElementById('EditarModal');
-
-        editarModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            
-            // Obtener datos
-            var idM = button.getAttribute('data-idm');
-            var idC = button.getAttribute('data-idc');
-            var placa = button.getAttribute('data-placa');
-            var modelo = button.getAttribute('data-modelo');
-            var marca = button.getAttribute('data-marca');
-            var recorrido = button.getAttribute('data-recorrido');
-
-            // Asignar valores
-            document.getElementById('editID_MOTOS').value = idM;
-            document.getElementById('editID_CLIENTES').value = idC;
-            document.getElementById('editPlaca').value = placa;
-            document.getElementById('editModelo').value = modelo;
-            document.getElementById('editMarca').value = marca;
-            document.getElementById('editRecorrido').value = recorrido;
-
-            // Cambiar acción del formulario
-            var form = document.getElementById('editForm');
-            form.action = '{{ url('motos') }}/' + idM;
-        });
-    });
-    </script>
-    @endpush

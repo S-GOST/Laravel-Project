@@ -105,16 +105,6 @@
     </div>
 @endif
 
-{{-- ⚠️ La inclusión del archivo de modales debe ser aquí o directamente en el layout si se usa en muchas vistas. --}}
-{{-- El include es CORRECTO, pero NO debe haber código de Modals DENTRO de este archivo DESPUÉS del @endsection --}}
 @include('administradores.modals')
 
 @endsection
-
-{{-- 
-    ⚠️ NOTA: El código de los modales y el script de JavaScript 
-    que estaban después de @endsection en tu prompt deben estar movidos 
-    permanentemente al archivo administradores.modals.blade.php
-    y en la sección @push('scripts') de este archivo (o del modals.blade.php), 
-    respectivamente.
---}}

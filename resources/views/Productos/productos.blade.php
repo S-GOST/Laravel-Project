@@ -116,51 +116,13 @@
                 <div class="alert alert-info text-center">
                     <i class="fas fa-info-circle"></i> No hay productos registrados.
                 </div>
-            @endif
-
         </div>
     </div>
 </div>
+    @endif
 
-{{-- 📦 Modales externos --}}
-@include('productos.modals')
+    @include('productos.modals')
 
-@endsection
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var editarModal = document.getElementById('EditarModal');
+    @endsection
 
-    editarModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-
-        var idP = button.getAttribute('data-idp');
-        var categoria = button.getAttribute('data-categoria');
-        var marca = button.getAttribute('data-marca');
-        var nombre = button.getAttribute('data-nombre');
-        var garantia = button.getAttribute('data-garantia');
-        var precio = button.getAttribute('data-precio');
-        var cantidad = button.getAttribute('data-cantidad');
-        var estado = button.getAttribute('data-estado');
-
-        document.getElementById('editID_PRODUCTOS').value = idP;
-        document.getElementById('editCategoria').value = categoria;
-        document.getElementById('editMarca').value = marca;
-        document.getElementById('editNombre').value = nombre;
-        document.getElementById('editGarantia').value = garantia;
-        document.getElementById('editPrecio').value = precio;
-        document.getElementById('editCantidad').value = cantidad;
-        document.getElementById('editEstado').value = estado;
-
-        document.getElementById('editForm').action = '/productos/' + idP;
-    });
-
-    window.confirmarEliminar = function(event) {
-        if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-            event.preventDefault();
-        }
-    };
-});
-</script>
-@endpush

@@ -149,8 +149,6 @@
     </div>
 </div>
 
-{{-- ✅ SCRIPT PARA LLENAR AUTOMÁTICAMENTE EL MODAL DE EDICIÓN --}}
-@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var editarModal = document.getElementById('EditarModal');
@@ -159,27 +157,30 @@ document.addEventListener('DOMContentLoaded', function() {
         var button = event.relatedTarget;
 
         // Extraer datos del botón
-        var id_detalle = button.getAttribute('data-id_detalle');
-        var id_orden = button.getAttribute('data-id_orden');
-        var id_servicio = button.getAttribute('data-id_servicio');
-        var id_producto = button.getAttribute('data-id_producto');
+        var idd = button.getAttribute('data-idd');
+        var ido = button.getAttribute('data-ido');
+        var ids = button.getAttribute('data-ids');
+        var idp = button.getAttribute('data-idp');
         var garantia = button.getAttribute('data-garantia');
         var estado = button.getAttribute('data-estado');
         var precio = button.getAttribute('data-precio');
 
         // Llenar los campos del modal
-        document.getElementById('editID_DETALLES_ORDEN_SERVICIO').value = id_detalle;
-        document.getElementById('editID_ORDEN_SERVICIO').value = id_orden;
-        document.getElementById('editID_SERVICIOS').value = id_servicio;
-        document.getElementById('editID_PRODUCTOS').value = id_producto;
+        document.getElementById('editID_DETALLES_ORDEN_SERVICIO').value = idd;
+        document.getElementById('editID_ORDEN_SERVICIO').value = ido;
+        document.getElementById('editID_SERVICIOS').value = ids;
+        document.getElementById('editID_PRODUCTOS').value = idp;
         document.getElementById('editGarantia').value = garantia;
         document.getElementById('editEstado').value = estado;
         document.getElementById('editPrecio').value = precio;
 
-        // Definir la acción del formulario con la ruta correcta
-        var form = document.getElementById('editForm');
-        form.action = '{{ route("detalles_orden_servicio.update", ":id") }}'.replace(':id', id_detalle);
+        document.getElementById('editForm').action = '/detalles_orden_servicio/' + button.getAttribute('data-idd');
     });
+    
+    window.confirmarEliminar = function(event) {
+        if (!confirm('¿Estás seguro de eliminar esta orden?')) {
+            event.preventDefault();
+        }
+    };
 });
 </script>
-@endpush

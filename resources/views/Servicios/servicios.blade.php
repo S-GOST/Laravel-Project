@@ -108,50 +108,13 @@
                 <div class="alert alert-info text-center">
                     <i class="fas fa-info-circle"></i> No hay servicios registrados.
                 </div>
-            @endif
-
         </div>
     </div>
 </div>
 
-{{-- 📦 Incluimos los modales --}}
+@endif
+
 @include('servicios.modals')
 
 @endsection
 
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var editarModal = document.getElementById('EditarModal');
-
-    editarModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-
-        var id = button.getAttribute('data-ids');
-        var nombre = button.getAttribute('data-nombre');
-        var categoria = button.getAttribute('data-categoria');
-        var garantia = button.getAttribute('data-garantia');
-        var estado = button.getAttribute('data-estado');
-        var precio = button.getAttribute('data-precio');
-
-        document.getElementById('editID_SERVICIOS').value = id;
-        document.getElementById('editNombre').value = nombre;
-        document.getElementById('editCategoria').value = categoria;
-        document.getElementById('editGarantia').value = garantia;
-        document.getElementById('editEstado').value = estado;
-        document.getElementById('editPrecio').value = precio;
-
-        var form = document.getElementById('editForm');
-        form.action = '/servicios/' + id;
-    });
-
-    // Confirmación de eliminación
-    window.confirmarEliminar = function(event) {
-        if (!confirm('¿Estás seguro de que deseas eliminar este servicio?')) {
-            event.preventDefault();
-        }
-    };
-});
-</script>
-@endpush

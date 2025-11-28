@@ -79,7 +79,7 @@
                         class="btn btn-success btn-sm"
                         data-bs-toggle="modal"
                         data-bs-target="#EditarModal"
-                        data-id="{{ $item->ID_CLIENTES }}"
+                        data-idc="{{ $item->ID_CLIENTES }}"
                         data-ubicacion="{{ $item->Ubicacion }}"
                         data-nombre="{{ $item->Nombre }}"
                         data-tipo="{{ $item->TipoDocumento }}"

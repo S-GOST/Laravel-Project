@@ -130,44 +130,6 @@
     </div>
 </div>
 
-{{-- 🔹 Incluye los modales en un archivo aparte --}}
 @include('informe.modals')
 
 @endsection
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var editarModal = document.getElementById('EditarModal');
-
-    editarModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-
-        var idi = button.getAttribute('data-idi');
-        var idd = button.getAttribute('data-idd');
-        var ida = button.getAttribute('data-ida');
-        var idt = button.getAttribute('data-idt');
-        var descripcion = button.getAttribute('data-descripcion');
-        var fecha = button.getAttribute('data-fecha');
-        var estado = button.getAttribute('data-estado');
-
-        document.getElementById('editID_INFORME').value = idi;
-        document.getElementById('editID_DETALLES_ORDEN_SERVICIO').value = idd;
-        document.getElementById('editID_ADMINISTRADOR').value = ida;
-        document.getElementById('editID_TECNICOS').value = idt;
-        document.getElementById('editDescripcion').value = descripcion;
-        document.getElementById('editFecha').value = fecha.replace(' ', 'T').substring(0, 16);
-        document.getElementById('editEstado').value = estado;
-
-        var form = document.getElementById('editForm');
-        form.action = '/informe/' + idi;
-    });
-
-    window.confirmarEliminar = function(event) {
-        if (!confirm('¿Estás seguro de eliminar este informe?')) {
-            event.preventDefault();
-        }
-    };
-});
-</script>
-@endpush

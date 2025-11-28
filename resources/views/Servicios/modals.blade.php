@@ -2,6 +2,7 @@
 <div class="modal fade" id="AgregarModal" tabindex="-1" aria-labelledby="AgregarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title fw-bold">
                     <i class="fa-solid fa-wrench me-2"></i> Crear Servicio
@@ -69,8 +70,10 @@
                             <i class="fa-solid fa-floppy-disk me-1"></i> Guardar
                         </button>
                     </div>
+
                 </form>
             </div>
+
         </div>
     </div>
 </div>
@@ -80,6 +83,7 @@
 <div class="modal fade" id="EditarModal" tabindex="-1" aria-labelledby="EditarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
             <div class="modal-header bg-success text-white">
                 <h5 class="modal-title fw-bold">
                     <i class="fa-solid fa-pen-to-square me-2"></i> Editar Servicio
@@ -147,14 +151,13 @@
                             <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Cambios
                         </button>
                     </div>
+
                 </form>
             </div>
+
         </div>
     </div>
 </div>
-
-{{-- ✅ SCRIPT DE EDICIÓN --}}
-@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var editarModal = document.getElementById('EditarModal');
@@ -162,15 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
     editarModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        // Extraer datos desde el botón
-        var id = button.getAttribute('data-id');
+        var id = button.getAttribute('data-ids');
         var nombre = button.getAttribute('data-nombre');
         var categoria = button.getAttribute('data-categoria');
         var garantia = button.getAttribute('data-garantia');
         var estado = button.getAttribute('data-estado');
         var precio = button.getAttribute('data-precio');
 
-        // Rellenar los campos del modal
         document.getElementById('editID_SERVICIOS').value = id;
         document.getElementById('editNombre').value = nombre;
         document.getElementById('editCategoria').value = categoria;
@@ -178,10 +179,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editEstado').value = estado;
         document.getElementById('editPrecio').value = precio;
 
-        // Establecer acción del formulario con PUT dinámico
         var form = document.getElementById('editForm');
-        form.action = '{{ route("servicios.update", ":id") }}'.replace(':id', id);
+        form.action = '/servicios/' + id;
     });
+
+    // Confirmación de eliminación
+    window.confirmarEliminar = function(event) {
+        if (!confirm('¿Estás seguro de que deseas eliminar este servicio?')) {
+            event.preventDefault();
+        }
+    };
 });
 </script>
-@endpush

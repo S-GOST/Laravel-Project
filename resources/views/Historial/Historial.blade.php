@@ -127,46 +127,6 @@
     </div>
 </div>
 
-{{-- 🔹 Modales en archivo aparte --}}
 @include('historial.modals')
 
 @endsection
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const editarModal = document.getElementById('EditarModal');
-
-    editarModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-
-        const idh = button.getAttribute('data-idh');
-        const ido = button.getAttribute('data-ido');
-        const idc = button.getAttribute('data-idc');
-        const idi = button.getAttribute('data-idi');
-        const idt = button.getAttribute('data-idt');
-        const idcl = button.getAttribute('data-idcl');
-        const descripcion = button.getAttribute('data-descripcion');
-        const fecha = button.getAttribute('data-fecha');
-
-        document.getElementById('editID_HISTORIAL').value = idh;
-        document.getElementById('editID_ORDEN_SERVICIO').value = ido;
-        document.getElementById('editID_COMPROBANTE').value = idc;
-        document.getElementById('editID_INFORME').value = idi;
-        document.getElementById('editID_TECNICOS').value = idt;
-        document.getElementById('editID_CLIENTES').value = idcl;
-        document.getElementById('editDescripcion').value = descripcion;
-        document.getElementById('editFecha_registro').value = fecha.replace(' ', 'T').substring(0, 16);
-
-        const form = document.getElementById('editForm');
-        form.action = '/historial/' + idh;
-    });
-
-    window.confirmarEliminar = function(event) {
-        if (!confirm('¿Estás seguro de eliminar este historial?')) {
-            event.preventDefault();
-        }
-    };
-});
-</script>
-@endpush
