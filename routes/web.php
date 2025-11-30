@@ -12,6 +12,7 @@ use App\Http\Controllers\detalles_orden_servicioController;
 use App\Http\Controllers\informeController;
 use App\Http\Controllers\comprobanteController;
 use App\Http\Controllers\historialController;
+use App\Http\Controllers\Auth\AdminAuthController;
 
 Route::get('/', function () {
     return view('layouts.Panel');
@@ -20,7 +21,23 @@ Route::get('/prueba', function () {
     return 'esta es otra ruta';
 });
 
-Route::get('/administradores', [administradoresController::class, 'index'])->name('administradores.index');
+// routes/web.php
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login']);
+    Route::get('/registro', [AdminAuthController::class, 'showRegisterForm'])->name('admin.registro');
+    Route::post('/registro', [AdminAuthController::class, 'register']);
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    
+    // Rutas protegidas
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+    });
+
+    Route::get('/administradores', [administradoresController::class, 'index'])->name('administradores.index');
 Route::post('/administradores', [administradoresController::class, 'store'])->name('administradores.store');
 Route::get('/administradores/{idA}/edit', [administradoresController::class, 'edit'])->name('administradores.edit');
 Route::put('/administradores/{idA}', [administradoresController::class, 'update'])->name('administradores.update');
@@ -96,3 +113,5 @@ Route::post('/historial', [historialController::class, 'store'])->name('historia
 Route::get('/historial/{idH}/edit', [historialController::class, 'edit'])->name('historial.edit');
 Route::put('/historial/{idH}', [historialController::class, 'update'])->name('historial.update');
 Route::delete('/historial/{idH}', [historialController::class, 'destroy'])->name('historial.destroy');
+
+});
