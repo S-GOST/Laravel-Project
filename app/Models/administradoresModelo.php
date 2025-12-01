@@ -2,62 +2,56 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradoresModelo extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
 
-    // Especificar el nombre de la tabla (porque no sigue la convención de Laravel)
     protected $table = 'administradores';
-
-    // Especificar la clave primaria
     protected $primaryKey = 'ID_ADMINISTRADOR';
-
-    // Desactivar auto-increment si no es numérico
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
+
+    // Esto le dice a Laravel qué campo usar como "username"
+    public function username()
+    {
+        return 'Usuario';
+    }
 
     protected $fillable = [
         'ID_ADMINISTRADOR',
         'Nombre',
         'Correo',
-        'TopDocumento',
+        'TipoDocumento',
         'Telefono',
         'Usuario',
-        'Contrasena'
+        'contrasena'
     ];
 
     protected $hidden = [
-        'Contrasena',
+        'contrasena',
         'remember_token',
     ];
 
-    /**
-     * Mutator para encriptar la contraseña usando Hash
-     */
-    public function setPasavodAttribute($value)
+    // ✅ MÉTODO ESENCIAL 1: Campo para autenticación
+    public function getAuthIdentifierName()
     {
-        $this->attributes['Contrasena'] = Hash::make($value);
+        return 'Usuario';
     }
 
-    /**
-     * Get the password for the user.
-     * Esto es necesario para la autenticación de Laravel
-     */
+    // ✅ MÉTODO ESENCIAL 2: Contraseña para autenticación
     public function getAuthPassword()
     {
         return $this->Contrasena;
     }
 
-    /**
-     * Verificar contraseña usando Hash
-     */
-    public function checkPassword($password)
+    // ✅ MÉTODO ESENCIAL 3: Encriptar contraseña
+    public function setContrasenaAttribute($value)
     {
-        return Hash::check($password, $this->Contrasena);
+        $this->attributes['Contrasena'] = Hash::make($value);
     }
 }

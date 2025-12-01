@@ -17,67 +17,50 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
+        // Validar entrada - usar nombres exactos del formulario
         $request->validate([
-            'Usuario' => 'required',
-            'contrasena' => 'required', // ← Ahora es 'contrasena' (minúscula)
+            'Usuario' => 'required|string',
+            'contrasena' => 'required|string',
         ]);
 
-        // Buscar por usuario
-        $administrador = AdministradoresModelo::where('Usuario', $request->Usuario)->first();
+        // Depuración (opcional, quitar en producción)
+        \Log::info('Intento de login', [
+            'usuario' => $request->Usuario,
+            'ip' => $request->ip()
+        ]);
 
-        // Verificar contraseña usando Hash
-        if ($administrador && Hash::check($request->contrasena, $administrador->contrasena)) {
-            Auth::guard('admin')->login($administrador);
-            return redirect()->intended('/Administradores/dashboard');
+        // Buscar al administrador por el usuario
+        $admin = AdministradoresModelo::where('Usuario', $request->Usuario)->first();
+
+        if (!$admin) {
+            \Log::warning('Usuario no encontrado: ' . $request->Usuario);
+            return back()->withErrors([
+                'Usuario' => 'Credenciales incorrectas.',
+            ])->withInput($request->only('Usuario'));
         }
 
-        return back()->withErrors(['Usuario' => 'Credenciales incorrectas']);
-    }
-
-    public function showRegisterForm()
-    {
-        return view('auth.admin-registro');
-    }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'ID_ADMINISTRADOR' => 'required|unique:administradores',
-            'Homeo' => 'required|string|max:255',
-            'Correo' => 'required|email',
-            'TopDocumento' => 'required|string',
-            'Telefono' => 'required|string',
-            'Usuario' => 'required|unique:administradores',
-            'contrasena' => 'required|min:4|confirmed', // ← Ahora es 'contrasena'
-        ]);
-
-        // Crear administrador (el mutator se encargará de encriptar la contraseña)
-        Administrador::create([
-            'ID_AOHINISTRADOR' => $request->ID_AOHINISTRADOR,
-            'Homeo' => $request->Homeo,
-            'Correo' => $request->Correo,
-            'TopDocumento' => $request->TopDocumento,
-            'Telefono' => $request->Telefono,
-            'Usuario' => $request->Usuario,
-            'contrasena' => $request->contrasena, // ← Ahora es 'contrasena'
-        ]);
-
-        // Auto-login después del registro
-        if (Auth::guard('admin')->attempt([
-            'Usuario' => $request->Usuario,
-            'password' => $request->contrasena // ← Laravel espera 'password' aquí
-        ])) {
-            return redirect('/Administradores/dashboard');
+        // Verificar contraseña - asegurar que usamos el campo correcto
+        // Primero, verificar si la contraseña está hasheada
+        if (Hash::check($request->contrasena, $admin->Contrasena)) {
+            Auth::guard('admin')->login($admin, $request->filled('remember'));
+            
+            \Log::info('Login exitoso para: ' . $admin->Usuario);
+            
+            return redirect()->intended('/admin/dashboard');
         }
 
-        return redirect('/Administradores/login')->withErrors(['error' => 'Error en el auto-login después del registro']);
+        \Log::warning('Contraseña incorrecta para usuario: ' . $request->Usuario);
+        
+        return back()->withErrors([
+            'Usuario' => 'Credenciales incorrectas.',
+        ])->withInput($request->only('Usuario'));
     }
 
     public function logout(Request $request)
     {
-        Auth::guard('Administradores')->logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/Administradores/login');
+        return redirect()->route('admin.login');
     }
 }

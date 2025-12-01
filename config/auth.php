@@ -55,7 +55,7 @@ return [
 
     'administradores' => [
         'driver' => 'eloquent',
-        'model' => App\Models\AdministradoresModeloes::class,
+        'model' => App\Models\AdministradoresModelo::class,
         'table' => 'administradores',
     ],
 ],

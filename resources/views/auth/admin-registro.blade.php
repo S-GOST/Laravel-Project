@@ -14,7 +14,7 @@
                         <h4 class="text-center">Registro de Administrador</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.register') }}">
+                        <form method="POST" action="{{ route('admin.registro') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
