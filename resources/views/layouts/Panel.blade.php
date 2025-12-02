@@ -360,6 +360,26 @@
         .glow-effect {
             animation: glow 2s infinite;
         }
+        .ktm-alert {
+    background: #ff6600;
+    color: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    animation: vibrar 0.2s linear 3, fadeOut 1s ease 2s forwards;
+}
+
+@keyframes vibrar {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-2px, 0px) rotate(1deg); }
+    40% { transform: translate(2px, -1px) rotate(-1deg); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
     </style>
 </head>
 
@@ -370,28 +390,36 @@
         <img src="{{ asset('img/rock.png') }}" class="logo-img me-3">
         <h2 class="mb-0 d-none d-md-block" style="color: var(--ktm-orange); font-weight: 700;">PANEL DE GESTIÓN</h2>
     </div>
+
     <div class="d-flex align-items-center">
         <span class="me-3 d-none d-md-block">Administrador</span>
-        <a href="#" class="btn btn-ktm"><i class="fa-solid fa-power-off me-2"></i> Cerrar sesión</a>
+
+        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="button" id="btnSalir" class="btn btn-ktm">
+                <i class="fa-solid fa-power-off me-2"></i> Cerrar sesión
+            </button>
+        </form>
     </div>
 </header>
+
 
 <div class="wrapper">
 
     <nav id="sidebar">
         <h5 class="text-center">MENÚ DE GESTIÓN</h5>
 
-        <a href="/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
-        <a href="/tecnicos" class="menu-link"><i class="fa-solid fa-user-gear"></i> Técnicos</a>
-        <a href="/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
-        <a href="/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
-        <a href="/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
-        <a href="/productos" class="menu-link"><i class="fa-solid fa-box"></i> Productos</a>
-        <a href="/orden_servicio" class="menu-link"><i class="fa-solid fa-file-signature"></i> Órdenes de Servicio</a>
-        <a href="/detalles_orden_servicio" class="menu-link"><i class="fa-solid fa-list-check"></i> Detalles Orden</a>
-        <a href="/informe" class="menu-link"><i class="fa-solid fa-chart-pie"></i> Informe</a>
-        <a href="/comprobante" class="menu-link"><i class="fa-solid fa-receipt"></i> Comprobantes</a>
-        <a href="/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+        <a href="/admin/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
+        <a href="/admin/tecnicos" class="menu-link"><i class="fa-solid fa-user-gear"></i> Técnicos</a>
+        <a href="/admin/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
+        <a href="/admin/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
+        <a href="/admin/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
+        <a href="/admin/productos" class="menu-link"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="/admin/orden_servicio" class="menu-link"><i class="fa-solid fa-file-signature"></i> Órdenes de Servicio</a>
+        <a href="/admin/detalles_orden_servicio" class="menu-link"><i class="fa-solid fa-list-check"></i> Detalles Orden</a>
+        <a href="/admin/informe" class="menu-link"><i class="fa-solid fa-chart-pie"></i> Informe</a>
+        <a href="/admin/comprobante" class="menu-link"><i class="fa-solid fa-receipt"></i> Comprobantes</a>
+        <a href="/admin/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
     </nav>
 
     <div id="content">
@@ -438,8 +466,13 @@
     </div>
 
 </div>
+<div id="ktmMessage" class="ktm-alert" style="display:none;">
+    Acción realizada con éxito 🏍️🔥
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
     // Activar elemento del menú al hacer clic
@@ -453,6 +486,27 @@
             });
         });
     });
+    document.getElementById('btnSalir').addEventListener('click', function () {
+
+    Swal.fire({
+        title: "¿Salir del sistema?",
+        text: "Tu sesión será cerrada.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#FF6D1F",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Sí, salir",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('logout-form').submit();
+        }
+    });
+
+});
+function showKTMMessage() {
+    document.getElementById('ktmMessage').style.display = 'block';
+}
 </script>
 
 </body>

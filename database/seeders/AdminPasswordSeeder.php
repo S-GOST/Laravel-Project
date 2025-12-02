@@ -14,11 +14,13 @@ class AdminPasswordSeeder extends Seeder
         
         foreach ($administradores as $admin) {
             // Si la contraseña no está encriptada (es texto plano como "1234")
-            if ($admin->contrasena === '1234' || $admin->contrasena === '123') {
+            if (!password_get_info($admin->contrasena)['algo']) {
+                // No está hasheada
                 $admin->update([
                     'contrasena' => Hash::make($admin->contrasena)
                 ]);
-            }
+}
+
         }
         
         $this->command->info('Contraseñas de administradores encriptadas correctamente');

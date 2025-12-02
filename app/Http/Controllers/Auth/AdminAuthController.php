@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
-use App\Models\AdministradoresModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\AdministradoresModelo;
 
 class AdminAuthController extends Controller
 {
@@ -14,53 +13,44 @@ class AdminAuthController extends Controller
     {
         return view('auth.admin-login');
     }
+        public function showRegisterForm()
+    {
+        return view('auth.admin-registro');
+    }
 
     public function login(Request $request)
     {
-        // Validar entrada - usar nombres exactos del formulario
+        // Validar entradas
         $request->validate([
-            'Usuario' => 'required|string',
+            'usuario' => 'required|string',
             'contrasena' => 'required|string',
         ]);
 
-        // Depuración (opcional, quitar en producción)
-        \Log::info('Intento de login', [
-            'usuario' => $request->Usuario,
-            'ip' => $request->ip()
-        ]);
-
-        // Buscar al administrador por el usuario
-        $admin = AdministradoresModelo::where('Usuario', $request->Usuario)->first();
+        // Buscar admin por usuario
+        $admin = AdministradoresModelo::where('usuario', $request->usuario)->first();
 
         if (!$admin) {
-            \Log::warning('Usuario no encontrado: ' . $request->Usuario);
             return back()->withErrors([
-                'Usuario' => 'Credenciales incorrectas.',
-            ])->withInput($request->only('Usuario'));
+                'usuario' => 'Usuario incorrecto.',
+            ])->withInput();
         }
 
-        // Verificar contraseña - asegurar que usamos el campo correcto
-        // Primero, verificar si la contraseña está hasheada
-        if (Hash::check($request->contrasena, $admin->Contrasena)) {
-            Auth::guard('admin')->login($admin, $request->filled('remember'));
-            
-            \Log::info('Login exitoso para: ' . $admin->Usuario);
-            
-            return redirect()->intended('/admin/dashboard');
+        // Verificar contraseña
+        if (!Hash::check($request->contrasena, $admin->contrasena)) {
+            return back()->withErrors([
+                'contrasena' => 'Contraseña incorrecta.',
+            ])->withInput();
         }
 
-        \Log::warning('Contraseña incorrecta para usuario: ' . $request->Usuario);
-        
-        return back()->withErrors([
-            'Usuario' => 'Credenciales incorrectas.',
-        ])->withInput($request->only('Usuario'));
-    }
+        // Login
+        Auth::guard('admin')->login($admin);
 
-    public function logout(Request $request)
-    {
-        Auth::guard('admin')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.dashboard');
     }
+            public function logout()
+        {
+            Auth::guard('admin')->logout();
+            return redirect()->route('admin.login');
+        }
+
 }
