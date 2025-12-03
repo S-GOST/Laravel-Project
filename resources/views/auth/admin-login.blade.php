@@ -406,11 +406,16 @@
         <div class="login-container">
             <div class="login-card">
 
-                <div class="login-header">
-                    <div class="ktm-logo"><span>KTM</span></div>
-                    <h2>Acceso Administrador</h2>
-                    <p>Credenciales Requeridas</p>
-                </div>
+<div class="login-header text-center mb-4">
+    <!-- Imagen pequeña encima -->
+    <img src="{{ asset('img/rock.png') }}" 
+         alt="Rock Logo" 
+         class="mb-3"
+         style="width:70px; height:auto; filter: drop-shadow(0 0 8px #ff6600);">
+
+    <h2 style="font-weight:700; color:#fff;">Acceso Administrador</h2>
+    <p style="color:#ccc;">Credenciales Requeridas</p>
+</div>
                 
                 <div class="login-body">
 

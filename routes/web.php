@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // IMPORTAR TODOS LOS CONTROLADORES
 use App\Http\Controllers\AdministradoresController;
-use App\Http\Controllers\tecnicosController;
+use App\Http\Controllers\TecnicosController;
 use App\Http\Controllers\clientesController;
 use App\Http\Controllers\motosController;
 use App\Http\Controllers\serviciosController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\historialController;
 
 // IMPORTAR CONTROLADORES DE AUTENTICACIÓN
 use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Auth\TecnicoAuthController;
 
 // Página principal
 Route::get('/', function () {
@@ -34,6 +35,12 @@ Route::get('/admin/registro', [AdminAuthController::class, 'showRegisterForm'])-
 Route::post('/admin/registro', [AdminAuthController::class, 'registro'])->name('admin.registro.post');
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+
+Route::get('/tecnico/login', [TecnicoAuthController::class, 'showLoginForm'])->name('tecnico.login');
+Route::post('/tecnico/login', [TecnicoAuthController::class, 'login'])->name('tecnico.login.post');
+Route::get('/tecnico/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
+
+
 // GRUPO /admin
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
@@ -42,7 +49,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         return view('administradores.dashboard');
     })->name('admin.dashboard');
 
-    // PANEL
     Route::get('/panel', function () {
         return view('layouts.Panel');
     })->name('panel');
@@ -53,13 +59,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/administradores/{idA}/edit', [AdministradoresController::class, 'edit'])->name('administradores.edit');
     Route::put('/administradores/{idA}', [AdministradoresController::class, 'update'])->name('administradores.update');
     Route::delete('/administradores/{idA}', [AdministradoresController::class, 'destroy'])->name('administradores.destroy');
-
-    // CRUD Técnicos
-    Route::get('/tecnicos', [tecnicosController::class, 'index'])->name('tecnicos.index');
-    Route::post('/tecnicos', [tecnicosController::class, 'store'])->name('tecnicos.store');
-    Route::get('/tecnicos/{idT}/edit', [tecnicosController::class, 'edit'])->name('tecnicos.edit');
-    Route::put('/tecnicos/{idT}', [tecnicosController::class, 'update'])->name('tecnicos.update');
-    Route::delete('/tecnicos/{idT}', [tecnicosController::class, 'destroy'])->name('tecnicos.destroy');
 
     // CRUD Clientes
     Route::get('/clientes', [clientesController::class, 'index'])->name('clientes.index');
@@ -124,5 +123,15 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/historial/{idH}/edit', [historialController::class, 'edit'])->name('historial.edit');
     Route::put('/historial/{idH}', [historialController::class, 'update'])->name('historial.update');
     Route::delete('/historial/{idH}', [historialController::class, 'destroy'])->name('historial.destroy');
+
+});
+Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
+
+    // DASHBOARD TÉCNICO
+    Route::get('/dashboard', function () {
+        return view('tecnicos.dashboard');
+    })->name('tecnico.dashboard');
+    
+    
 
 });

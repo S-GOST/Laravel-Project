@@ -289,6 +289,10 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-ktm sticky-top">
         <div class="container">
+                <img src="{{ asset('img/rock.png') }}" 
+         alt="Rock Logo" 
+         class="mb-3"
+         style="width:70px; height:auto; filter: drop-shadow(0 0 10px #ff6600);">
             <a class="navbar-brand" href="#">
                 ¡Hola!<span class="ktm-badge">BIENVENIDO</span>
             </a>
