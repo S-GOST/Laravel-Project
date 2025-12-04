@@ -134,7 +134,7 @@
             bottom: -2px;
             background: linear-gradient(45deg, 
                 var(--ktm-orange), 
-                #ff3300, 
+                #d45c07ff, 
                 var(--ktm-orange), 
                 #ffcc00);
             border-radius: 22px;
@@ -189,7 +189,7 @@
             font-weight: 700;
             font-size: 2.2rem;
             letter-spacing: 1px;
-            background: linear-gradient(to right, var(--ktm-orange), #ffcc00);
+            background: #000000ff;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -198,7 +198,7 @@
         }
 
         .login-header p {
-            color: #aaa;
+            color: #000000ff;
             font-size: 1rem;
             letter-spacing: 0.5px;
         }
@@ -223,7 +223,7 @@
         }
 
         .alert-danger i {
-            color: #ff4d4d;
+            color: #ffffffff;
             margin-right: 12px;
             font-size: 1.2rem;
         }
@@ -307,7 +307,7 @@
 
         /* Botón de envío */
         .btn-ktm {
-            background: linear-gradient(135deg, var(--ktm-orange), #ff3300);
+            background:  #000000ff;
             color: white;
             border: none;
             border-radius: 12px;

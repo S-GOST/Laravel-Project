@@ -410,16 +410,16 @@
         <h5 class="text-center">MENÚ DE GESTIÓN</h5>
 
         <a href="/admin/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
-        <a href="/admin/tecnicos" class="menu-link"><i class="fa-solid fa-user-gear"></i> Técnicos</a>
-        <a href="/admin/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
-        <a href="/admin/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
-        <a href="/admin/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
-        <a href="/admin/productos" class="menu-link"><i class="fa-solid fa-box"></i> Productos</a>
-        <a href="/admin/orden_servicio" class="menu-link"><i class="fa-solid fa-file-signature"></i> Órdenes de Servicio</a>
-        <a href="/admin/detalles_orden_servicio" class="menu-link"><i class="fa-solid fa-list-check"></i> Detalles Orden</a>
-        <a href="/admin/informe" class="menu-link"><i class="fa-solid fa-chart-pie"></i> Informe</a>
-        <a href="/admin/comprobante" class="menu-link"><i class="fa-solid fa-receipt"></i> Comprobantes</a>
-        <a href="/admin/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+        <a href="/tecnico/tecnicos" class="menu-link"><i class="fa-solid fa-user-gear"></i> Técnicos</a>
+        <a href="/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
+        <a href="/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
+        <a href="/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
+        <a href="/productos" class="menu-link"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="/orden_servicio" class="menu-link"><i class="fa-solid fa-file-signature"></i> Órdenes de Servicio</a>
+        <a href="/detalles_orden_servicio" class="menu-link"><i class="fa-solid fa-list-check"></i> Detalles Orden</a>
+        <a href="/informe" class="menu-link"><i class="fa-solid fa-chart-pie"></i> Informe</a>
+        <a href="/comprobante" class="menu-link"><i class="fa-solid fa-receipt"></i> Comprobantes</a>
+        <a href="/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
     </nav>
 
     <div id="content">

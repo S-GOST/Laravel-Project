@@ -56,21 +56,11 @@
             align-items: center;
         }
 
-        /* Logo reemplazado por imagen */
-        .navbar-brand::before {
-            content: "";
-            display: inline-block;
+        .logo-img {
             width: 40px;
             height: 40px;
-            background-image: url('img/rock.png');
-            background-size: cover;
-            background-position: center;
             margin-right: 12px;
             border-radius: 4px;
-        }
-
-        .navbar-brand::after {
-            content: ""; /* quitamos texto KTM */
         }
 
         .navbar-text {
@@ -100,7 +90,115 @@
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
         }
 
-        /* TARJETA PRINCIPAL */
+        /* CONTENEDOR PRINCIPAL */
+        .main-container {
+            padding: 30px 0;
+        }
+
+        /* BARRA LATERAL */
+        .sidebar {
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 102, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            height: fit-content;
+        }
+
+        .user-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        }
+
+        .user-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--ktm-orange), var(--ktm-accent));
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #000;
+            font-weight: bold;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .user-role {
+            color: var(--ktm-orange);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* MENÚ LATERAL */
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #ddd;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 102, 0, 0.15);
+            color: #fff;
+            border-left: 4px solid var(--ktm-orange);
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu i {
+            width: 25px;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: var(--ktm-orange);
+        }
+
+        .sidebar-menu span {
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        .menu-badge {
+            background: var(--ktm-orange);
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .content-area {
+            padding-left: 30px;
+        }
+
         .ktm-card {
             background: rgba(45, 45, 45, 0.8);
             border-radius: 16px;
@@ -110,6 +208,7 @@
             overflow: hidden;
             margin-bottom: 30px;
             transition: transform 0.3s ease;
+            height: 100%;
         }
 
         .ktm-card:hover {
@@ -125,18 +224,7 @@
             overflow: hidden;
         }
 
-        .card-header-ktm::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-        }
-
-        .card-header-ktm h5 {
+        .card-header-ktm h3 {
             font-weight: 800;
             font-size: 1.8rem;
             letter-spacing: -0.5px;
@@ -145,43 +233,111 @@
             z-index: 2;
         }
 
-        /* CONTENIDO DE LA TARJETA */
-        .info-container {
+        .card-content {
             padding: 30px;
         }
 
-        .info-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--ktm-orange);
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-radius: 0 8px 8px 0;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
+        /* MÓDULOS DE GESTIÓN */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .info-item:hover {
+        .module-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            border-color: var(--ktm-orange);
             background: rgba(255, 102, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+            color: var(--ktm-orange);
+            margin-bottom: 15px;
+            background: rgba(255, 102, 0, 0.1);
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+        }
+
+        .module-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .module-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* CHECKBOXES */
+        .checklist {
+            margin-top: 25px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .check-item:hover {
+            background: rgba(255, 102, 0, 0.1);
+            border-left: 4px solid var(--ktm-orange);
             transform: translateX(5px);
         }
 
-        .info-item i {
-            color: var(--ktm-orange);
-            font-size: 1.2rem;
-            width: 30px;
+        .check-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
             margin-right: 15px;
+            accent-color: var(--ktm-orange);
+            cursor: pointer;
         }
 
-        .info-item strong {
-            color: var(--ktm-orange-light);
-            min-width: 180px;
-            display: inline-block;
-        }
-
-        .info-item span {
-            color: #ddd;
+        .check-item label {
             font-weight: 500;
+            color: #ddd;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .check-status {
+            background: var(--ktm-orange);
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        /* SEPARADOR */
+        .ktm-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ktm-orange), transparent);
+            margin: 25px 0;
         }
 
         /* BOTÓN PANEL */
@@ -189,8 +345,8 @@
             background: linear-gradient(90deg, var(--ktm-orange) 0%, var(--ktm-accent) 100%);
             color: #000;
             font-weight: 800;
-            font-size: 1.2rem;
-            padding: 16px 40px;
+            font-size: 1.1rem;
+            padding: 14px 30px;
             border-radius: 50px;
             border: none;
             display: inline-flex;
@@ -202,7 +358,7 @@
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
             position: relative;
             overflow: hidden;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .btn-panel-ktm::before {
@@ -228,59 +384,58 @@
 
         .btn-panel-ktm i {
             margin-left: 10px;
-            font-size: 1.4rem;
-        }
-
-        /* ELEMENTOS DECORATIVOS KTM */
-        .ktm-badge {
-            display: inline-block;
-            background: var(--ktm-orange);
-            color: #000;
-            font-weight: 800;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .ktm-divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--ktm-orange), transparent);
-            margin: 25px 0;
-        }
-
-        /* MOTOCROSS ELEMENT */
-        .motocross-icon {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 4rem;
-            color: rgba(255, 102, 0, 0.1);
-            z-index: 1;
+            font-size: 1.2rem;
         }
 
         /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .content-area {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+            
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
-            .info-item {
-                flex-direction: column;
-                align-items: flex-start;
+            .modules-grid {
+                grid-template-columns: 1fr;
             }
+            
+            .user-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+            
+            .user-name {
+                font-size: 1.5rem;
+            }
+        }
 
-            .info-item strong {
-                min-width: auto;
-                margin-bottom: 5px;
-            }
+        /* ESTADÍSTICAS */
+        .stats-card {
+            background: rgba(255, 102, 0, 0.1);
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
 
-            .motocross-icon {
-                display: none;
-            }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--ktm-orange);
+            margin: 10px 0;
+        }
 
-            .btn-panel-ktm {
-                width: 100%;
-                padding: 14px 20px;
-            }
+        .stats-label {
+            color: #ddd;
+            font-weight: 500;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -289,133 +444,208 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-ktm sticky-top">
         <div class="container">
-                <img src="{{ asset('img/rock.png') }}" 
-         alt="Rock Logo" 
-         class="mb-3"
-         style="width:70px; height:auto; filter: drop-shadow(0 0 10px #ff6600);">
             <a class="navbar-brand" href="#">
-                ¡Hola!<span class="ktm-badge">BIENVENIDO</span>
+                <img src="{{ asset('img/rock.png') }}" alt="Rock Logo" class="logo-img">
+                ¡Hola! <span class="ms-2 ktm-badge">BIENVENIDO</span>
             </a>
             
             <div class="navbar-nav ms-auto align-items-center">
                 <div class="nav-item">
                     <span class="navbar-text me-4 d-none d-md-block">
                         <i class="fas fa-user-circle me-2"></i>
-                        <strong>{{ Auth::guard('admin')->user()->Nombre }}</strong>
                     </span>
                 </div>
                 
                 <div class="nav-item">
-                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="button" id="btnSalir" class="btn btn-logout">
-                            <i class="fa-solid fa-power-off me-2"></i> Cerrar sesión
-                        </button>
-                    </form>
+                    <button type="button" id="btnSalir" class="btn btn-logout">
+                        <i class="fa-solid fa-power-off me-2"></i> Cerrar sesión
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-xl-8">
+    <div class="container main-container">
+        <div class="row">
+            <!-- BARRA LATERAL -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            SP
+                        </div>
+                        <h2 class="user-name"></h2>
+                        <div class="user-role">
+                            <i class="fas fa-shield-alt me-2"></i>Administrador del Sistema
+                        </div>
+                    </div>
+
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="#" class="active">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Panel de inicio</span>
+                                <span class="menu-badge">ACTIVO</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-cog"></i>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-history"></i>
+                                <span>Historial</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Ayuda y Soporte</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="stats-card">
+                        <div class="stats-number">8</div>
+                        <div class="stats-label">Usuarios Activos</div>
+                        <p class="mt-2" style="color: #aaa; font-size: 0.9rem;">En el sistema actualmente</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="col-lg-8 content-area">
+                <!-- TARJETA PRINCIPAL -->
                 <div class="ktm-card">
                     <div class="card-header-ktm">
-                        <h5>
-                            <i class="fas fa-id-card me-3"></i>
-                            INFORMACIÓN DEL ADMINISTRADOR
-                        </h5>
-                        <div class="motocross-icon">
-                            <i class="fas fa-motorcycle"></i>
-                        </div>
+                        <h3>
+                            <i class="fas fa-tasks me-3"></i>
+                            MÓDULOS DE GESTIÓN
+                        </h3>
                     </div>
                     
-                    <div class="info-container">
-                        <div class="info-item">
-                            <i class="fas fa-id-badge"></i>
-                            <strong>ID Administrador:</strong>
-                            <span>{{ Auth::guard('admin')->user()->ID_ADMINISTRADOR }}</span>
-                        </div>
+                    <div class="card-content">
+                        <h4 class="mb-4" style="color: var(--ktm-orange); font-weight: 700;">
+                            <i class="fas fa-list-check me-2"></i>Gestionar usuarios
+                        </h4>
                         
-                        <div class="info-item">
-                            <i class="fas fa-user"></i>
-                            <strong>Nombre:</strong>
-                            <span>{{ Auth::guard('admin')->user()->Nombre }}</span>
-                        </div>
-                        
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <strong>Correo Electrónico:</strong>
-                            <span>{{ Auth::guard('admin')->user()->Correo }}</span>
-                        </div>
-                        
-                        <div class="info-item">
-                            <i class="fas fa-file-alt"></i>
-                            <strong>Tipo de Documento:</strong>
-                            <span>{{ Auth::guard('admin')->user()->TipoDocumento }}</span>
-                        </div>
-                        
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <strong>Teléfono:</strong>
-                            <span>{{ Auth::guard('admin')->user()->Telefono }}</span>
-                        </div>
-                        
-                        <div class="ktm-divider"></div>
-                        
-                        <div class="text-center">
-                            <a href="{{ route('panel') }}" class="btn btn-panel-ktm">
-                                <i class="fas fa-tachometer-alt me-2"></i> Ir al Panel de Gestión
-                                <i class="fas fa-arrow-right ms-2"></i>
-                            </a>
+                        <div class="modules-grid">
+                            <div class="module-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <h4 class="module-title">Órdenes de Servicio</h4>
+                                <p class="module-desc">Crear, editar y gestionar órdenes de servicio técnico</p>
+                            </div>
                             
-                            <p class="mt-3 text-muted">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Accede al panel completo para gestionar todos los aspectos del sistema
-                            </p>
+                            <div class="module-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-user-gear"></i>
+                                </div>
+                                <h4 class="module-title">Técnicos</h4>
+                                <p class="module-desc">Administrar técnicos y asignar servicios</p>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-boxes"></i>
+                                </div>
+                                <h4 class="module-title">Productos</h4>
+                                <p class="module-desc">Gestionar inventario y catálogo de productos</p>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="module-title">Reportes</h4>
+                                <p class="module-desc">Estadísticas y reportes del sistema</p>
+                            </div>
+                        </div>
+
+                        <div class="ktm-divider"></div>
+
+                        <div class="checklist">
+                            <div class="check-item">
+                                <input type="checkbox" id="check1">
+                                <label for="check1">Gestionar orden servicio</label>
+                                <span class="check-status">PENDIENTE</span>
+                            </div>
+                            
+                            <div class="check-item">
+                                <input type="checkbox" id="check2">
+                                <label for="check2">Gestionar técnicos</label>
+                                <span class="check-status">PENDIENTE</span>
+                            </div>
+                            
+                            <div class="check-item">
+                                <input type="checkbox" id="check3">
+                                <label for="check3">Gestionar productos</label>
+                                <span class="check-status">PENDIENTE</span>
+                            </div>
+                            
+                            <div class="check-item">
+                                <input type="checkbox" id="check4">
+                                <label for="check4">Reportes y estadísticas</label>
+                                <span class="check-status">PENDIENTE</span>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-panel-ktm">
+                                <i class="fas fa-play me-2"></i> Iniciar Gestión
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- TARJETAS ADICIONALES -->
-                <div class="row mt-4">
-                    <div class="col-md-4 mb-3">
-                        <div class="ktm-card h-100">
-                            <div class="info-container text-center">
-                                <i class="fas fa-users fa-3x mb-3" style="color: var(--ktm-orange);"></i>
-                                <h5 class="fw-bold">Usuarios Activos</h5>
-                                <h2 class="fw-bold" style="color: var(--ktm-orange);">8</h2>
-                                <p class="text-muted">Gestionados en el sistema</p>
-                            </div>
-                        </div>
+                <!-- TARJETA DE INFORMACIÓN -->
+                <div class="ktm-card">
+                    <div class="card-header-ktm">
+                        <h3>
+                            <i class="fas fa-info-circle me-3"></i>
+                            INFORMACIÓN DEL SISTEMA
+                        </h3>
                     </div>
                     
-                    <div class="col-md-4 mb-3">
-                        <div class="ktm-card h-100">
-                            <div class="info-container text-center">
-                                <i class="fas fa-cogs fa-3x mb-3" style="color: var(--ktm-orange);"></i>
-                                <h5 class="fw-bold">Sistema</h5>
-                                <h2 class="fw-bold" style="color: var(--ktm-orange);">Operativo</h2>
-                                <h5 class="fw-bold">Windows</h5>
-                                <p class="text-muted">Estado: <span class="text-success">✓ Estable</span></p>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="info-item">
+                                    <i class="fas fa-server"></i>
+                                    <strong>Estado del Sistema:</strong>
+                                    <span class="text-success">✓ Operativo</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 mb-3">
-                        <div class="ktm-card h-100">
-                            <div class="info-container text-center">
-                                <i class="fas fa-shield-alt fa-3x mb-3" style="color: var(--ktm-orange);"></i>
-                                <h5 class="fw-bold">Seguridad</h5>
-                                <h2 class="fw-bold" style="color: var(--ktm-orange);">Alta</h2>
-                                <p class="text-muted">Protección activada</p>
+                            <div class="col-md-6 mb-3">
+                                <div class="info-item">
+                                    <i class="fas fa-shield"></i>
+                                    <strong>Seguridad:</strong>
+                                    <span class="text-success">Alta</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="info-item">
+                                    <i class="fas fa-desktop"></i>
+                                    <strong>Sistema Operativo:</strong>
+                                    <span>Windows</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <strong>Última Actualización:</strong>
+                                    <span>Hoy</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -440,27 +670,55 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Hover info-items
-            const infoItems = document.querySelectorAll('.info-item');
-            infoItems.forEach(item => {
-                item.addEventListener('mouseenter', () => item.style.boxShadow = '0 5px 15px rgba(255, 102, 0, 0.2)');
-                item.addEventListener('mouseleave', () => item.style.boxShadow = 'none');
+            // Hover en módulos
+            const modules = document.querySelectorAll('.module-card');
+            modules.forEach(module => {
+                module.addEventListener('mouseenter', () => {
+                    module.style.transform = 'translateY(-8px)';
+                    module.style.boxShadow = '0 15px 30px rgba(255, 102, 0, 0.3)';
+                });
+                module.addEventListener('mouseleave', () => {
+                    module.style.transform = 'translateY(0)';
+                    module.style.boxShadow = 'none';
+                });
             });
 
-            // Botón panel
-            const mainButton = document.querySelector('.btn-panel-ktm');
-            if(mainButton){
-                mainButton.addEventListener('click', function(){
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Redirigiendo...';
+            // Checkboxes interactivos
+            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const status = this.parentElement.querySelector('.check-status');
+                    if (this.checked) {
+                        status.textContent = 'COMPLETADO';
+                        status.style.background = '#4CAF50';
+                    } else {
+                        status.textContent = 'PENDIENTE';
+                        status.style.background = 'var(--ktm-orange)';
+                    }
+                });
+            });
+
+            // Botón de gestión
+            const btnGestion = document.querySelector('.btn-panel-ktm');
+            if(btnGestion){
+                btnGestion.addEventListener('click', function(){
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Procesando...';
                     setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-tachometer-alt me-2"></i> Ir al Panel de Gestión <i class="fas fa-arrow-right ms-2"></i>';
+                        this.innerHTML = '<i class="fas fa-play me-2"></i> Iniciar Gestión <i class="fas fa-arrow-right ms-2"></i>';
+                        Swal.fire({
+                            title: 'Gestión Iniciada',
+                            text: 'Los módulos están ahora disponibles',
+                            icon: 'success',
+                            background: '#1a1a1a',
+                            color: '#fff',
+                            confirmButtonColor: '#FF6D1F'
+                        });
                     }, 1500);
                 });
             }
 
             // Logout SweetAlert
             const btnSalir = document.getElementById('btnSalir');
-            const logoutForm = document.getElementById('logout-form');
             btnSalir.addEventListener('click', function() {
                 Swal.fire({
                     title: '¿Cerrar sesión?',
@@ -474,7 +732,10 @@
                     confirmButtonColor: '#FF6D1F',
                     cancelButtonColor: '#555',
                 }).then(result => {
-                    if(result.isConfirmed) logoutForm.submit();
+                    if(result.isConfirmed) {
+                        // Aquí iría la lógica de logout
+                        window.location.href = '/login';
+                    }
                 });
             });
         });
