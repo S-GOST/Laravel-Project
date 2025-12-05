@@ -28,9 +28,17 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/', function () {
+Route::get('/carrito', function () {
     return view('carrito');
 })->name('carrito');
+
+Route::get('/home', function () {
+    return view('index');
+})->name('home');
+
+Route::get('/confirmacion', function () {
+    return view('confirmacion');
+})->name('confirmacion');
 // =======================================
 // SOLUCIÓN AL ERROR "Route [login] not defined"
 // =======================================

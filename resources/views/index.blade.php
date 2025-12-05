@@ -767,10 +767,10 @@
             </div>
             
             <div class="nav-user-actions">
-                <a href="{{ route('carrito') }}" class="nav-btn btn-carrito">
+                <a href="{{ route('carrito') }}" class="nav-btn btn-cart">
                     <i class="bi bi-cart3"></i>
                     <span>Carrito</span>
-                    <span class="cart-count">3</span>
+                    <span class="cart-count" id="cartCount">3</span>
                 </a>
                 <a href="{{ route('login') }}" class="nav-btn btn-login">
                     <i class="bi bi-box-arrow-in-right"></i>
@@ -1149,158 +1149,75 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script>
-        // Efectos interactivos premium
-        document.addEventListener('DOMContentLoaded', function() {
-            // Efecto de partículas
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 60;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Posición aleatoria
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Tamaño aleatorio
-                const size = Math.random() * 3 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Opacidad aleatoria
-                particle.style.opacity = Math.random() * 0.4 + 0.1;
-                
-                // Animación
-                particle.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
-                
-                particlesContainer.appendChild(particle);
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Cargar carrito actual desde localStorage
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+
+    // Función para guardar y actualizar contador
+    function saveCart() {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartCount();
+    }
+
+    // Actualizar el contador del carrito
+    function updateCartCount() {
+        let totalItems = Object.values(cartItems).reduce((acc, item) => acc + item.quantity, 0);
+        const count = document.getElementById('cartCount');
+        if (count) count.textContent = totalItems;
+    }
+
+    // Mostrar mensaje temporal
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed; top: 100px; right: 20px; background: rgba(255,102,0,0.9);
+            color: white; padding: 10px 20px; border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 9999;
+            transform: translateX(120%); transition: transform 0.3s ease;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.style.transform = "translateX(0)", 10);
+        setTimeout(() => {
+            toast.style.transform = "translateX(120%)";
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    }
+
+    // Detectar clic en botones "Agregar al Carrito"
+    document.querySelectorAll('.btn-service').forEach(button => {
+        button.addEventListener('click', e => {
+            e.preventDefault();
+
+            const card = e.target.closest('.service-card');
+            const name = card.querySelector('.service-name').textContent.trim();
+            const priceText = card.querySelector('.service-price').textContent.trim().replace(/[^0-9.]/g, '');
+            const price = parseFloat(priceText);
+            const category = card.closest('.services-section').querySelector('.section-title').textContent.trim();
+            const id = name.replace(/\s+/g, '_').toLowerCase();
+
+            if (cartItems[id]) {
+                cartItems[id].quantity += 1;
+            } else {
+                cartItems[id] = { name, price, quantity: 1, category };
             }
-            
-            // Añadir estilo para animación de flotar
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes float {
-                    0%, 100% {
-                        transform: translate(0, 0);
-                    }
-                    25% {
-                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px);
-                    }
-                    50% {
-                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px);
-                    }
-                    75% {
-                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px);
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Efecto de brillo sutil en el título
-            const title = document.querySelector('.ktm-title');
-            let hue = 0;
-            
-            function animateTitle() {
-                hue = (hue + 0.3) % 360;
-                title.style.textShadow = `0 0 20px hsla(${hue}, 100%, 50%, 0.4)`;
-                requestAnimationFrame(animateTitle);
-            }
-            
-            animateTitle();
-            
-            // Efecto hover para las tarjetas de servicio
-            const serviceCards = document.querySelectorAll('.service-card');
-            serviceCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('.service-icon');
-                    icon.style.transform = 'scale(1.15) rotate(5deg)';
-                    icon.style.background = 'rgba(255, 102, 0, 0.25)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('.service-icon');
-                    icon.style.transform = 'scale(1) rotate(0deg)';
-                    icon.style.background = 'rgba(255, 102, 0, 0.1)';
-                });
-            });
-            
-            // Efecto para los botones de acceso
-            const accessButtons = document.querySelectorAll('.access-btn');
-            accessButtons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('.access-icon');
-                    icon.style.transform = 'scale(1.3)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('.access-icon');
-                    icon.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Simulación de agregar al carrito
-            const cartButtons = document.querySelectorAll('.btn-service');
-            const cartCount = document.querySelector('.cart-count');
-            let cartItems = 3;
-            
-            cartButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Animación del botón
-                    this.innerHTML = '<i class="bi bi-check-circle"></i> Agregado';
-                    this.style.background = 'rgba(76, 175, 80, 0.2)';
-                    this.style.borderColor = '#4CAF50';
-                    this.style.color = '#4CAF50';
-                    
-                    // Incrementar contador
-                    cartItems++;
-                    cartCount.textContent = cartItems;
-                    cartCount.style.animation = 'none';
-                    setTimeout(() => {
-                        cartCount.style.animation = 'pulse 0.5s';
-                    }, 10);
-                    
-                    // Restaurar botón después de 2 segundos
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="bi bi-cart-plus"></i> Agregar al Carrito';
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                        this.style.color = '';
-                    }, 2000);
-                });
-            });
-            
-            // Añadir animación de pulso para el contador del carrito
-            const pulseStyle = document.createElement('style');
-            pulseStyle.textContent = `
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.3); }
-                    100% { transform: scale(1); }
-                }
-            `;
-            document.head.appendChild(pulseStyle);
-            
-            // Efecto de scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+
+            saveCart();
+            showToast(`${name} agregado al carrito 🧡`);
+            button.innerHTML = `<i class="bi bi-check-circle"></i> Agregado`;
+            button.style.color = "#4CAF50";
+            setTimeout(() => {
+                button.innerHTML = `<i class="bi bi-cart-plus"></i> Agregar al Carrito`;
+                button.style.color = "";
+            }, 2000);
         });
-    </script>
+    });
+
+    // Inicializar contador al cargar
+    updateCartCount();
+});
+</script>
+
 </body>
 </html>

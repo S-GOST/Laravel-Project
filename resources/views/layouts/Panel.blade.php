@@ -410,7 +410,9 @@
         <h5 class="text-center">MENÚ DE GESTIÓN</h5>
 
         <a href="/admin/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
-        <a href="/tecnico/tecnicos" class="menu-link"><i class="fa-solid fa-user-gear"></i> Técnicos</a>
+        <a href="{{ route('tecnico.login') }}" class="menu-link">
+    <i class="fa-solid fa-user-gear"></i> Técnicos</a>
+
         <a href="/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
         <a href="/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
         <a href="/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>

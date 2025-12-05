@@ -803,11 +803,12 @@
             </div>
             
             <div class="nav-user-actions">
+                <!-- Botón para volver a inicio -->
                 <a href="{{ route('index') }}" class="nav-btn btn-login">
                     <i class="bi bi-house-door"></i>
                     <span>Inicio</span>
                 </a>
-                <a href="#" class="nav-btn btn-cart">
+                <a href="{{ route('carrito') }}" class="nav-btn btn-cart">
                     <i class="bi bi-cart3"></i>
                     <span>Carrito</span>
                     <span class="cart-count" id="cartCount">3</span>
@@ -840,7 +841,7 @@
                     </div>
                     <h3 class="cart-empty-title">Tu carrito está vacío</h3>
                     <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
-                    <a href="{{ route('home') }}" class="cart-btn btn-continue">
+                    <a href="{{ route('index') }}" class="cart-btn btn-continue">
                         <i class="bi bi-arrow-left"></i>
                         Explorar Servicios
                     </a>
@@ -1033,48 +1034,78 @@
         </div>
         
         <!-- Recomendaciones -->
-        <div class="cart-recommendations">
-            <h3 class="recommendations-title">SERVICIOS RECOMENDADOS</h3>
-            
-            <div class="recommendations-grid">
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        <i class="bi bi-lightning-charge"></i>
-                    </div>
-                    <h4 class="recommendation-name">Instalación de Rendimiento</h4>
-                    <div class="recommendation-price">$350.00</div>
-                    <a href="#" class="btn-recommendation add-to-cart" data-id="4" data-price="350">
-                        <i class="bi bi-cart-plus"></i>
-                        Agregar
-                    </a>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        <i class="bi bi-shield-shaded"></i>
-                    </div>
-                    <h4 class="recommendation-name">Instalación de Seguridad</h4>
-                    <div class="recommendation-price">$200.00</div>
-                    <a href="#" class="btn-recommendation add-to-cart" data-id="5" data-price="200">
-                        <i class="bi bi-cart-plus"></i>
-                        Agregar
-                    </a>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="recommendation-icon">
-                        <i class="bi bi-palette"></i>
-                    </div>
-                    <h4 class="recommendation-name">Personalización Estética</h4>
-                    <div class="recommendation-price">$400.00</div>
-                    <a href="#" class="btn-recommendation add-to-cart" data-id="6" data-price="400">
-                        <i class="bi bi-cart-plus"></i>
-                        Agregar
-                    </a>
-                </div>
+<div class="cart-recommendations">
+    <h3 class="recommendations-title">PRODUCTOS DISPONIBLES</h3>
+
+    <div class="recommendations-grid">
+
+        <!-- 🛢️ Aceite Motorex -->
+        <div class="recommendation-card">
+            <div class="recommendation-icon">
+                <i class="bi bi-droplet-half"></i>
             </div>
+            <h4 class="recommendation-name">Aceite Motorex 4T 10W-50</h4>
+            <div class="recommendation-price">$75.00</div>
+            <a href="#" class="btn-recommendation add-to-cart" data-id="oil1" data-price="75">
+                <i class="bi bi-cart-plus"></i>
+                Agregar
+            </a>
         </div>
+
+        <!-- ❄️ Refrigerante Ipone -->
+        <div class="recommendation-card">
+            <div class="recommendation-icon">
+                <i class="bi bi-snow"></i>
+            </div>
+            <h4 class="recommendation-name">Refrigerante Ipone Coolant</h4>
+            <div class="recommendation-price">$40.00</div>
+            <a href="#" class="btn-recommendation add-to-cart" data-id="coolant1" data-price="40">
+                <i class="bi bi-cart-plus"></i>
+                Agregar
+            </a>
+        </div>
+
+        <!-- 💡 Direccional KTM DUKE 200 -->
+        <div class="recommendation-card">
+            <div class="recommendation-icon">
+                <i class="bi bi-lightbulb"></i>
+            </div>
+            <h4 class="recommendation-name">Direccional LED KTM Duke 200</h4>
+            <div class="recommendation-price">$55.00</div>
+            <a href="#" class="btn-recommendation add-to-cart" data-id="light1" data-price="55">
+                <i class="bi bi-cart-plus"></i>
+                Agregar
+            </a>
+        </div>
+
+        <!-- 🧽 Limpiador de Cadena -->
+        <div class="recommendation-card">
+            <div class="recommendation-icon">
+                <i class="bi bi-brush"></i>
+            </div>
+            <h4 class="recommendation-name">Limpiador de Cadena Motul</h4>
+            <div class="recommendation-price">$25.00</div>
+            <a href="#" class="btn-recommendation add-to-cart" data-id="chain1" data-price="25">
+                <i class="bi bi-cart-plus"></i>
+                Agregar
+            </a>
+        </div>
+
+        <!-- 🔋 Batería Yuasa YTZ7S -->
+        <div class="recommendation-card">
+            <div class="recommendation-icon">
+                <i class="bi bi-battery-full"></i>
+            </div>
+            <h4 class="recommendation-name">Batería Yuasa YTZ7S</h4>
+            <div class="recommendation-price">$95.00</div>
+            <a href="#" class="btn-recommendation add-to-cart" data-id="battery1" data-price="95">
+                <i class="bi bi-cart-plus"></i>
+                Agregar
+            </a>
+        </div>
+
     </div>
+</div>
     
     <!-- Footer -->
     <footer class="cart-footer">
@@ -1113,378 +1144,222 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script>
-        // Datos del carrito
-        const cartItems = {
-            1: { name: "Mantenimiento Preventivo", price: 120, quantity: 1, category: "Mantenimiento" },
-            2: { name: "Reparaciones por Daños", price: 350, quantity: 1, category: "Reparaciones" },
-            3: { name: "Diagnóstico de Emisiones", price: 150, quantity: 1, category: "Diagnósticos" }
-        };
-        
-        let discountApplied = false;
-        const discountAmount = 30;
-        const taxRate = 0.10; // 10%
-        
-        // Función para actualizar el carrito
-        function updateCart() {
-            let subtotal = 0;
-            let itemCount = 0;
-            
-            // Calcular subtotal y cantidad total
-            Object.keys(cartItems).forEach(id => {
-                const item = cartItems[id];
-                subtotal += item.price * item.quantity;
-                itemCount += item.quantity;
-                
-                // Actualizar cantidades y subtotales individuales
-                const quantityElement = document.getElementById(`quantity-${id}`);
-                const subtotalElement = document.getElementById(`subtotal-${id}`);
-                
-                if (quantityElement) quantityElement.textContent = item.quantity;
-                if (subtotalElement) subtotalElement.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
-            });
-            
-            // Actualizar contador del carrito
-            document.getElementById('cartCount').textContent = itemCount;
-            
-            // Calcular impuestos
-            const tax = subtotal * taxRate;
-            
-            // Calcular descuento
-            const discount = discountApplied ? discountAmount : 0;
-            
-            // Calcular total
-            const total = subtotal - discount + tax;
-            
-            // Actualizar resumen
-            document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('summary-discount').textContent = discount > 0 ? `-$${discount.toFixed(2)}` : `$0.00`;
-            document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
-            
-            // Mostrar/ocultar carrito vacío
-            const cartItemsContainer = document.getElementById('cartItems');
-            if (Object.keys(cartItems).length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">
-                            <i class="bi bi-cart-x"></i>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // ==========================
+    // 🧩 Cargar carrito desde LocalStorage
+    // ==========================
+    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
+    let discountApplied = false;
+    const discountAmount = 30;
+    const taxRate = 0.1;
+
+    const cartItemsContainer = document.getElementById("cartItems");
+    const homeRoute = "{{ route('index') }}";
+
+    // ==========================
+    // 🔁 Renderizar carrito dinámicamente
+    // ==========================
+    function renderCart() {
+        cartItemsContainer.innerHTML = "";
+
+        if (Object.keys(cartItems).length === 0) {
+            cartItemsContainer.innerHTML = `
+                <div class="cart-empty">
+                    <div class="cart-empty-icon"><i class="bi bi-cart-x"></i></div>
+                    <h3 class="cart-empty-title">Tu carrito está vacío</h3>
+                    <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
+                    <a href="${homeRoute}" class="cart-btn btn-continue">
+                        <i class="bi bi-arrow-left"></i> Explorar Servicios
+                    </a>
+                </div>`;
+            updateSummary();
+            return;
+        }
+
+        for (const id in cartItems) {
+            const item = cartItems[id];
+            const card = document.createElement("div");
+            card.className = "cart-item-card";
+            card.innerHTML = `
+                <div class="cart-item-image"><i class="bi bi-wrench"></i></div>
+                <div class="cart-item-content">
+                    <div class="cart-item-header">
+                        <div>
+                            <h3 class="cart-item-title">${item.name}</h3>
+                            <span class="cart-item-category">${item.category}</span>
                         </div>
-                        <h3 class="cart-empty-title">Tu carrito está vacío</h3>
-                        <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
-                        <a href="{{ route('home') }}" class="cart-btn btn-continue">
-                            <i class="bi bi-arrow-left"></i>
-                            Explorar Servicios
-                        </a>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
                     </div>
-                `;
-            }
+                    <p class="cart-item-desc">Servicio profesional de ${item.category.toLowerCase()}.</p>
+                    <div class="cart-item-footer">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrease" data-id="${id}"><i class="bi bi-dash"></i></button>
+                            <span class="quantity-value" id="quantity-${id}">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${id}"><i class="bi bi-plus"></i></button>
+                        </div>
+                        <div class="cart-item-subtotal">Subtotal: <span id="subtotal-${id}">$${(item.price * item.quantity).toFixed(2)}</span></div>
+                    </div>
+                </div>
+                <div class="cart-item-actions">
+                    <button class="action-btn delete" data-id="${id}" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(card);
         }
-        
-        // Función para eliminar un producto
-        function removeItem(id) {
-            if (confirm('¿Estás seguro de que quieres eliminar este servicio del carrito?')) {
-                delete cartItems[id];
-                updateCart();
-                
-                // Eliminar visualmente la tarjeta
-                const card = document.querySelector(`.cart-item-card [data-id="${id}"]`)?.closest('.cart-item-card');
-                if (card) {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateX(-20px)';
-                    setTimeout(() => {
-                        card.remove();
-                        updateCart();
-                    }, 300);
-                }
-            }
+
+        updateSummary();
+    }
+
+    // ==========================
+    // 💰 Actualizar totales
+    // ==========================
+    function updateSummary() {
+        let subtotal = 0;
+        let itemCount = 0;
+
+        for (const id in cartItems) {
+            const item = cartItems[id];
+            subtotal += item.price * item.quantity;
+            itemCount += item.quantity;
         }
-        
-        // Función para agregar un producto
-        function addItem(id, name, price, category) {
-            if (cartItems[id]) {
-                cartItems[id].quantity += 1;
+
+        const tax = subtotal * taxRate;
+        const discount = discountApplied ? discountAmount : 0;
+        const total = subtotal - discount + tax;
+
+        document.getElementById("cartCount").textContent = itemCount;
+        document.getElementById("summary-subtotal").textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById("summary-tax").textContent = `$${tax.toFixed(2)}`;
+        document.getElementById("summary-discount").textContent = discount > 0 ? `-$${discount.toFixed(2)}` : `$0.00`;
+        document.getElementById("summary-total").textContent = `$${total.toFixed(2)}`;
+
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+
+    // ==========================
+    // ➕ Agregar ítem
+    // ==========================
+    function addItem(id, name, price, category) {
+        if (cartItems[id]) {
+            cartItems[id].quantity++;
+        } else {
+            cartItems[id] = { name, price, quantity: 1, category };
+        }
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        renderCart();
+        showNotification("Servicio agregado al carrito", "success");
+    }
+
+    // ==========================
+    // ❌ Eliminar ítem
+    // ==========================
+    function removeItem(id) {
+        if (confirm("¿Eliminar este servicio del carrito?")) {
+            delete cartItems[id];
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            renderCart();
+            showNotification("Servicio eliminado", "warning");
+        }
+    }
+
+    // ==========================
+    // 🔔 Notificación visual
+    // ==========================
+    function showNotification(message, type) {
+        const note = document.createElement("div");
+        note.className = `notification ${type}`;
+        note.innerHTML = `<i class="bi bi-${type === "success" ? "check-circle" : "exclamation-triangle"}"></i> ${message}`;
+        note.style.cssText = `
+            position: fixed; top: 100px; right: 20px;
+            background: ${type === "success" ? "rgba(76,175,80,0.9)" : "rgba(255,152,0,0.9)"};
+            color: white; padding: 12px 18px; border-radius: 10px;
+            transition: all 0.4s ease; transform: translateX(120%);
+            z-index: 9999;
+        `;
+        document.body.appendChild(note);
+        setTimeout(() => (note.style.transform = "translateX(0)"), 10);
+        setTimeout(() => {
+            note.style.transform = "translateX(120%)";
+            setTimeout(() => note.remove(), 400);
+        }, 3000);
+    }
+
+    // ==========================
+    // ⚙️ Listeners dinámicos
+    // ==========================
+    cartItemsContainer.addEventListener("click", function (e) {
+        if (e.target.closest(".increase")) {
+            const id = e.target.closest(".increase").dataset.id;
+            cartItems[id].quantity++;
+            updateSummary();
+            renderCart();
+        } else if (e.target.closest(".decrease")) {
+            const id = e.target.closest(".decrease").dataset.id;
+            if (cartItems[id].quantity > 1) {
+                cartItems[id].quantity--;
             } else {
-                // Crear nueva tarjeta
-                const newCard = document.createElement('div');
-                newCard.className = 'cart-item-card';
-                newCard.innerHTML = `
-                    <div class="cart-item-image">
-                        <i class="bi bi-${getIconByCategory(category)}"></i>
-                    </div>
-                    
-                    <div class="cart-item-content">
-                        <div class="cart-item-header">
-                            <div>
-                                <h3 class="cart-item-title">${name}</h3>
-                                <span class="cart-item-category">${category}</span>
-                            </div>
-                            <div class="cart-item-price">$${price.toFixed(2)}</div>
-                        </div>
-                        
-                        <p class="cart-item-desc">
-                            ${getDescriptionByCategory(category)}
-                        </p>
-                        
-                        <div class="cart-item-footer">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn decrease" data-id="${id}">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                                <span class="quantity-value" id="quantity-${id}">1</span>
-                                <button class="quantity-btn increase" data-id="${id}">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="cart-item-subtotal">
-                                Subtotal: <span id="subtotal-${id}">$${price.toFixed(2)}</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cart-item-actions">
-                        <button class="action-btn save" title="Guardar para después">
-                            <i class="bi bi-bookmark"></i>
-                        </button>
-                        <button class="action-btn delete" data-id="${id}" title="Eliminar">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                `;
-                
-                // Añadir al DOM con animación
-                newCard.style.opacity = '0';
-                newCard.style.transform = 'translateY(20px)';
-                document.getElementById('cartItems').prepend(newCard);
-                
-                // Animar entrada
-                setTimeout(() => {
-                    newCard.style.transition = 'all 0.4s ease';
-                    newCard.style.opacity = '1';
-                    newCard.style.transform = 'translateY(0)';
-                }, 10);
-                
-                // Agregar eventos a los botones
-                addEventListenersToCard(newCard, id);
-                
-                cartItems[id] = { name, price, quantity: 1, category };
-            }
-            
-            updateCart();
-            showNotification('Servicio agregado al carrito', 'success');
-        }
-        
-        // Función para obtener icono por categoría
-        function getIconByCategory(category) {
-            const icons = {
-                'Mantenimiento': 'wrench-adjustable',
-                'Reparaciones': 'tools',
-                'Diagnósticos': 'speedometer2',
-                'Instalaciones': 'wrench'
-            };
-            return icons[category] || 'gear';
-        }
-        
-        // Función para obtener descripción por categoría
-        function getDescriptionByCategory(category) {
-            const descriptions = {
-                'Mantenimiento': 'Servicio especializado para mantener tu motocicleta en óptimas condiciones.',
-                'Reparaciones': 'Reparación profesional de componentes y sistemas de tu motocicleta.',
-                'Diagnósticos': 'Análisis completo para identificar y solucionar problemas.',
-                'Instalaciones': 'Instalación profesional de componentes y accesorios.'
-            };
-            return descriptions[category] || 'Servicio profesional para tu motocicleta KTM.';
-        }
-        
-        // Función para agregar event listeners a una tarjeta
-        function addEventListenersToCard(card, id) {
-            // Botones de cantidad
-            card.querySelector('.decrease').addEventListener('click', () => {
-                if (cartItems[id].quantity > 1) {
-                    cartItems[id].quantity--;
-                    updateCart();
-                }
-            });
-            
-            card.querySelector('.increase').addEventListener('click', () => {
-                cartItems[id].quantity++;
-                updateCart();
-            });
-            
-            // Botón de eliminar
-            card.querySelector('.delete').addEventListener('click', () => {
                 removeItem(id);
-            });
-            
-            // Botón de guardar
-            card.querySelector('.save').addEventListener('click', function() {
-                this.innerHTML = '<i class="bi bi-bookmark-check"></i>';
-                this.style.color = 'var(--success-color)';
-                showNotification('Servicio guardado para después', 'info');
-                
-                setTimeout(() => {
-                    this.innerHTML = '<i class="bi bi-bookmark"></i>';
-                    this.style.color = '';
-                }, 2000);
-            });
-        }
-        
-        // Función para mostrar notificaciones
-        function showNotification(message, type) {
-            // Crear elemento de notificación
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="bi bi-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            // Estilos de la notificación
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'success' ? 'rgba(76, 175, 80, 0.9)' : 'rgba(33, 150, 243, 0.9)'};
-                color: white;
-                padding: 15px 20px;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                z-index: 9999;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-                transform: translateX(120%);
-                transition: transform 0.3s ease;
-            `;
-            
-            // Añadir al DOM
-            document.body.appendChild(notification);
-            
-            // Mostrar animación
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 10);
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                notification.style.transform = 'translateX(120%)';
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 3000);
-        }
-        
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar carrito
-            updateCart();
-            
-            // Agregar eventos a los botones existentes
-            document.querySelectorAll('.quantity-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    const isIncrease = this.classList.contains('increase');
-                    
-                    if (isIncrease) {
-                        cartItems[id].quantity++;
-                    } else if (cartItems[id].quantity > 1) {
-                        cartItems[id].quantity--;
-                    }
-                    
-                    updateCart();
-                });
-            });
-            
-            // Botones de eliminar
-            document.querySelectorAll('.action-btn.delete').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    removeItem(id);
-                });
-            });
-            
-            // Botones de guardar
-            document.querySelectorAll('.action-btn.save').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.innerHTML = '<i class="bi bi-bookmark-check"></i>';
-                    this.style.color = 'var(--success-color)';
-                    showNotification('Servicio guardado para después', 'info');
-                    
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="bi bi-bookmark"></i>';
-                        this.style.color = '';
-                    }, 2000);
-                });
-            });
-            
-            // Botones de agregar de las recomendaciones
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const id = this.getAttribute('data-id');
-                    const price = parseFloat(this.getAttribute('data-price'));
-                    const name = this.closest('.recommendation-card').querySelector('.recommendation-name').textContent;
-                    const category = this.closest('.recommendation-card').querySelector('.recommendation-name').textContent.includes('Instalación') ? 'Instalaciones' : 'Servicios';
-                    
-                    addItem(id, name, price, category);
-                });
-            });
-            
-            // Botón de aplicar código de descuento
-            document.getElementById('applyPromo').addEventListener('click', function() {
-                const promoCode = document.getElementById('promoCode').value.trim();
-                
-                if (promoCode.toUpperCase() === 'KTM2025') {
-                    discountApplied = true;
-                    updateCart();
-                    showNotification('¡Código de descuento aplicado!', 'success');
-                    document.getElementById('promoCode').value = '';
-                } else {
-                    showNotification('Código inválido. Intenta con KTM2025', 'warning');
-                }
-            });
-            
-            // Botón de checkout
-            document.getElementById('checkoutBtn').addEventListener('click', function() {
-                if (Object.keys(cartItems).length === 0) {
-                    showNotification('El carrito está vacío. Agrega servicios antes de proceder al pago.', 'warning');
-                    return;
-                }
-                
-                // Simulación de proceso de pago
-                this.innerHTML = '<i class="bi bi-hourglass-split"></i> Procesando...';
-                this.disabled = true;
-                
-                setTimeout(() => {
-                    showNotification('¡Pago procesado exitosamente! Redirigiendo...', 'success');
-                    
-                    // Simular redirección
-                    setTimeout(() => {
-                        alert('¡Gracias por tu compra! Serás redirigido a la página de confirmación.');
-                        // En un caso real, aquí redirigirías a la página de confirmación
-                    }, 1500);
-                }, 2000);
-            });
-            
-            // Permitir usar Enter en el campo de código promocional
-            document.getElementById('promoCode').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('applyPromo').click();
-                }
-            });
-            
-            // Efecto de brillo en el título
-            const title = document.querySelector('.cart-title');
-            let hue = 0;
-            
-            function animateTitle() {
-                hue = (hue + 0.3) % 360;
-                title.style.textShadow = `0 0 20px hsla(${hue}, 100%, 50%, 0.4)`;
-                requestAnimationFrame(animateTitle);
             }
-            
-            animateTitle();
+            renderCart();
+        } else if (e.target.closest(".delete")) {
+            const id = e.target.closest(".delete").dataset.id;
+            removeItem(id);
+        }
+    });
+
+    // ==========================
+    // 🎁 Promociones
+    // ==========================
+    document.getElementById("applyPromo").addEventListener("click", () => {
+        const promo = document.getElementById("promoCode").value.trim().toUpperCase();
+        if (promo === "KTM2025") {
+            discountApplied = true;
+            updateSummary();
+            showNotification("¡Código de descuento aplicado!", "success");
+        } else {
+            showNotification("Código inválido. Usa: KTM2025", "warning");
+        }
+        document.getElementById("promoCode").value = "";
+    });
+
+    // ==========================
+    // 💳 Pago simulado
+    // ==========================
+    document.getElementById("checkoutBtn").addEventListener("click", function () {
+        if (Object.keys(cartItems).length === 0) {
+            showNotification("El carrito está vacío.", "warning");
+            return;
+        }
+        this.innerHTML = '<i class="bi bi-hourglass-split"></i> Procesando...';
+        this.disabled = true;
+        setTimeout(() => {
+            showNotification("¡Pago exitoso!", "success");
+            localStorage.removeItem("cartItems");
+            setTimeout(() => (window.location.href = "{{ route('confirmacion') }}"), 1500);
+        }, 2000);
+    });
+
+    // ==========================
+    // 🧠 Inicialización
+    // ==========================
+    renderCart();
+
+    // Agregar desde recomendaciones
+    document.querySelectorAll(".add-to-cart").forEach(btn => {
+        btn.addEventListener("click", e => {
+            e.preventDefault();
+            const id = btn.dataset.id;
+            const price = parseFloat(btn.dataset.price);
+            const name = btn.closest(".recommendation-card").querySelector(".recommendation-name").textContent;
+            addItem(id, name, price, "Servicios");
         });
-    </script>
+    });
+});
+</script>
+
+
 </body>
 </html>
