@@ -594,12 +594,11 @@
                                 <span class="check-status">PENDIENTE</span>
                             </div>
                         </div>
-
                         <div class="text-center mt-4">
-                            <button class="btn btn-panel-ktm">
+                            <a href="{{ route('panel') }}" class="btn btn-panel-ktm">
                                 <i class="fas fa-play me-2"></i> Iniciar Gestión
                                 <i class="fas fa-arrow-right ms-2"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -25,9 +25,12 @@ use App\Http\Controllers\Auth\TecnicoAuthController;
 // RUTA PRINCIPAL
 // =======================================
 Route::get('/', function () {
-    return redirect()->route('/index');
-});
+    return view('index');
+})->name('index');
 
+Route::get('/', function () {
+    return view('carrito');
+})->name('carrito');
 // =======================================
 // SOLUCIÓN AL ERROR "Route [login] not defined"
 // =======================================
