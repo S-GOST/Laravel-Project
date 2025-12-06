@@ -1,72 +1,120 @@
-<?php
+    <?php
 
-use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Route;
 
-// =======================================
-// IMPORTAR CONTROLADORES
-// =======================================
-use App\Http\Controllers\AdministradoresController;
-use App\Http\Controllers\TecnicosController;
-use App\Http\Controllers\clientesController;
-use App\Http\Controllers\motosController;
-use App\Http\Controllers\serviciosController;
-use App\Http\Controllers\productosController;
-use App\Http\Controllers\orden_servicioController;
-use App\Http\Controllers\detalles_orden_servicioController;
-use App\Http\Controllers\informeController;
-use App\Http\Controllers\comprobanteController;
-use App\Http\Controllers\historialController;
+    // =======================================
+    // IMPORTAR CONTROLADORES
+    // =======================================
+    use App\Http\Controllers\AdministradoresController;
+    use App\Http\Controllers\TecnicosController;
+    use App\Http\Controllers\clientesController;
+    use App\Http\Controllers\motosController;
+    use App\Http\Controllers\serviciosController;
+    use App\Http\Controllers\productosController;
+    use App\Http\Controllers\orden_servicioController;
+    use App\Http\Controllers\detalles_orden_servicioController;
+    use App\Http\Controllers\informeController;
+    use App\Http\Controllers\comprobanteController;
+    use App\Http\Controllers\historialController;
+    use App\Http\Controllers\CartController;
+    use App\Http\Controllers\CheckoutController;
 
-// Controladores de Autenticación
-use App\Http\Controllers\Auth\AdminAuthController;
-use App\Http\Controllers\Auth\TecnicoAuthController;
+    // Controladores de Autenticación
+    use App\Http\Controllers\Auth\AdminAuthController;
+    use App\Http\Controllers\Auth\TecnicoAuthController;
+    // routes/web.php
 
-// =======================================
-// RUTA PRINCIPAL
-// =======================================
-Route::get('/', function () {
-    return view('index');
-})->name('index');
 
-Route::get('/carrito', function () {
-    return view('carrito');
-})->name('carrito');
 
-Route::get('/home', function () {
-    return view('index');
-})->name('home');
+    // Ruta para ver el carrito
+    Route::get('/carrito', [CartController::class, 'show'])->name('carrito.show');
 
-Route::get('/confirmacion', function () {
-    return view('confirmacion');
-})->name('confirmacion');
-// =======================================
-// SOLUCIÓN AL ERROR "Route [login] not defined"
-// =======================================
-Route::get('/login', function () {
-    return redirect()->route('admin.login');
-})->name('login');
+    // Ruta para agregar al carrito
+    Route::post('/carrito/agregar', [CartController::class, 'add'])->name('carrito.add');
+
+    // Ruta para quitar del carrito
+    Route::delete('/carrito/remover/{id}', [CartController::class, 'remove'])->name('carrito.remove');
+
+    // Ruta para actualizar cantidad
+    Route::put('/carrito/actualizar/{id}', [CartController::class, 'update'])->name('carrito.update');
+
+    // Ruta para el checkout (formulario de datos)
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+    // Ruta para procesar checkout
+    Route::post('/checkout/procesar', [CheckoutController::class, 'store'])->name('checkout.store');
+    // =======================================
+    // RUTA PRINCIPAL
+    // =======================================
+    Route::get('/', function () {
+        return view('index');
+    })->name('index');
+
+    Route::get('/carrito', function () {
+        return view('carrito');
+    })->name('carrito');
+
+    Route::get('/home', function () {
+        return view('index');
+    })->name('home');
+
+    Route::get('/checkout', function () {
+        return view('checkout');
+    })->name('checkout');
+
+    // Recibir los datos del cliente
+    Route::post('/checkout', function (Illuminate\Http\Request $request) {
+
+    $request->validate([
+        'nombre' => 'required|string',
+        'documento' => 'required|string',
+        'telefono' => 'required|string',
+        'direccion' => 'required|string',
+    ]);
+
+    session([
+        'cliente' => [
+            'nombre' => $request->nombre,
+            'documento' => $request->documento,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+        ]
+    ]);
+
+    return redirect()->route('confirmacion');
+    })->name('checkout.store');
+
+    Route::get('/confirmacion', function () {
+        return view('confirmacion');
+    })->name('confirmacion');
+    // =======================================
+    // SOLUCIÓN AL ERROR "Route [login] not defined"
+    // =======================================
+    Route::get('/login', function () {
+        return redirect()->route('admin.login');
+    })->name('login');
 
 // =======================================
 // AUTENTICACIÓN ADMINISTRADOR
 // =======================================
-Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
-Route::get('/admin/registro', [AdminAuthController::class, 'showRegisterForm'])->name('admin.registro');
-Route::post('/admin/registro', [AdminAuthController::class, 'registro'])->name('admin.registro.post');
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+    Route::get('/admin/registro', [AdminAuthController::class, 'showRegisterForm'])->name('admin.registro');
+    Route::post('/admin/registro', [AdminAuthController::class, 'registro'])->name('admin.registro.post');
+    Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 // =======================================
 // AUTENTICACIÓN TÉCNICO
 // =======================================
-Route::get('/tecnico/login', [TecnicoAuthController::class, 'showLoginForm'])->name('tecnico.login');
-Route::post('/tecnico/login', [TecnicoAuthController::class, 'login'])->name('tecnico.login.post');
-Route::get('/tecnico/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
-Route::post('/tecnico/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
+    Route::get('/tecnico/login', [TecnicoAuthController::class, 'showLoginForm'])->name('tecnico.login');
+    Route::post('/tecnico/login', [TecnicoAuthController::class, 'login'])->name('tecnico.login.post');
+    Route::get('/tecnico/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
+    Route::post('/tecnico/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
 
 // =======================================
 // ÁREA DE ADMINISTRADOR
 // =======================================
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     // DASHBOARD ADMIN
     Route::get('/dashboard', fn() => view('administradores.dashboard'))->name('admin.dashboard');

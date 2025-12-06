@@ -792,6 +792,25 @@
                 font-size: 1.1rem;
             }
         }
+        
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -811,7 +830,7 @@
                 <a href="{{ route('carrito') }}" class="nav-btn btn-cart">
                     <i class="bi bi-cart3"></i>
                     <span>Carrito</span>
-                    <span class="cart-count" id="cartCount">3</span>
+                    <span class="cart-count" id="cartCount">0</span>
                 </a>
                 <a href="{{ route('login') }}" class="nav-btn btn-login">
                     <i class="bi bi-box-arrow-in-right"></i>
@@ -830,193 +849,48 @@
             <div class="cart-title-line"></div>
         </div>
         
-    
         <div class="cart-layout">
-            <!-- Lista de productos -->
-            <div class="cart-items" id="cartItems">
-                <!-- Carrito vacío -->
-                 <div class="cart-empty">
-                    <div class="cart-empty-icon">
-                        <i class="bi bi-cart-x"></i>
-                    </div>
-                    <h3 class="cart-empty-title">Tu carrito está vacío</h3>
-                    <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
-                    <a href="{{ route('index') }}" class="cart-btn btn-continue">
-                        <i class="bi bi-arrow-left"></i>
-                        Explorar Servicios
-                    </a>
-                </div> 
-                
-                <!-- Elementos del carrito -->
-                <div class="cart-item-card">
-                    <div class="cart-item-image">
-                        <i class="bi bi-wrench-adjustable"></i>
-                    </div>
-                    
-                    <div class="cart-item-content">
-                        <div class="cart-item-header">
-                            <div>
-                                <h3 class="cart-item-title">Mantenimiento Preventivo</h3>
-                                <span class="cart-item-category">Mantenimiento</span>
-                            </div>
-                            <div class="cart-item-price">$120.00</div>
-                        </div>
-                        
-                        <p class="cart-item-desc">
-                            Inspecciones programadas y mantenimiento regular para prevenir fallos y optimizar el rendimiento de tu motocicleta.
-                        </p>
-                        
-                        <div class="cart-item-footer">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn decrease" data-id="1">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                                <span class="quantity-value" id="quantity-1">1</span>
-                                <button class="quantity-btn increase" data-id="1">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="cart-item-subtotal">
-                                Subtotal: <span id="subtotal-1">$120.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cart-item-actions">
-                        <button class="action-btn save" title="Guardar para después">
-                            <i class="bi bi-bookmark"></i>
-                        </button>
-                        <button class="action-btn delete" data-id="1" title="Eliminar">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="cart-item-card">
-                    <div class="cart-item-image">
-                        <i class="bi bi-tools"></i>
-                    </div>
-                    
-                    <div class="cart-item-content">
-                        <div class="cart-item-header">
-                            <div>
-                                <h3 class="cart-item-title">Reparaciones por Daños</h3>
-                                <span class="cart-item-category">Reparaciones</span>
-                            </div>
-                            <div class="cart-item-price">$350.00</div>
-                        </div>
-                        
-                        <p class="cart-item-desc">
-                            Reparación integral de daños estructurales y funcionales causados por accidentes o uso intensivo.
-                        </p>
-                        
-                        <div class="cart-item-footer">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn decrease" data-id="2">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                                <span class="quantity-value" id="quantity-2">1</span>
-                                <button class="quantity-btn increase" data-id="2">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="cart-item-subtotal">
-                                Subtotal: <span id="subtotal-2">$350.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cart-item-actions">
-                        <button class="action-btn save" title="Guardar para después">
-                            <i class="bi bi-bookmark"></i>
-                        </button>
-                        <button class="action-btn delete" data-id="2" title="Eliminar">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="cart-item-card">
-                    <div class="cart-item-image">
-                        <i class="bi bi-speedometer2"></i>
-                    </div>
-                    
-                    <div class="cart-item-content">
-                        <div class="cart-item-header">
-                            <div>
-                                <h3 class="cart-item-title">Diagnóstico de Emisiones</h3>
-                                <span class="cart-item-category">Diagnósticos</span>
-                            </div>
-                            <div class="cart-item-price">$150.00</div>
-                        </div>
-                        
-                        <p class="cart-item-desc">
-                            Análisis de emisiones, consumo de combustible y rendimiento general del motor.
-                        </p>
-                        
-                        <div class="cart-item-footer">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn decrease" data-id="3">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                                <span class="quantity-value" id="quantity-3">1</span>
-                                <button class="quantity-btn increase" data-id="3">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="cart-item-subtotal">
-                                Subtotal: <span id="subtotal-3">$150.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cart-item-actions">
-                        <button class="action-btn save" title="Guardar para después">
-                            <i class="bi bi-bookmark"></i>
-                        </button>
-                        <button class="action-btn delete" data-id="3" title="Eliminar">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
+            <!-- Lista de productos - AHORA DINÁMICO -->
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Los productos se cargarán aquí dinámicamente con JavaScript -->
             </div>
             
-            <!-- Panel de resumen -->
+            <!-- Panel de resumen - AHORA DINÁMICO -->
             <div class="cart-summary">
                 <h3 class="summary-title">RESUMEN DEL PEDIDO</h3>
                 
                 <div class="summary-details">
                     <div class="summary-row">
-                        <span class="summary-label">Subtotal</span>
-                        <span class="summary-value" id="summary-subtotal">$620.00</span>
+                        <span class="summary-label">Subtotal:</span>
+                        <span class="summary-value" id="summarySubtotal">€0,00</span>
                     </div>
                     <div class="summary-row">
-                        <span class="summary-label">Descuento</span>
-                        <span class="summary-value" id="summary-discount">-$30.00</span>
+                        <span class="summary-label">Envío:</span>
+                        <span class="summary-value" id="summaryEnvio">€9,99</span>
                     </div>
                     <div class="summary-row">
-                        <span class="summary-label">Envío</span>
-                        <span class="summary-value" id="summary-shipping">$0.00</span>
+                        <span class="summary-label">Descuento:</span>
+                        <span class="summary-value" style="color: var(--ktm-orange);" id="summaryDescuento">-€30,00</span>
                     </div>
                     <div class="summary-row">
-                        <span class="summary-label">Impuestos (10%)</span>
-                        <span class="summary-value" id="summary-tax">$62.00</span>
+                        <span class="summary-label">Impuestos (21%):</span>
+                        <span class="summary-value" id="summaryImpuestos">€0,00</span>
                     </div>
                 </div>
                 
                 <div class="summary-total">
                     <span class="total-label">TOTAL</span>
-                    <span class="total-value" id="summary-total">$652.00</span>
+                    <span class="total-value" id="summaryTotal">€0,00</span>
                 </div>
                 
                 <div class="summary-actions">
-                    <button class="cart-btn btn-checkout" id="checkoutBtn">
-                        <i class="bi bi-lock-fill"></i>
-                        Proceder al Pago
+                    <button id="btnCheckout" class="cart-btn btn-checkout" style="display: none;">
+                        <i class="bi bi-credit-card"></i>
+                        PROCEDER AL PAGO
                     </button>
                     <a href="{{ route('index') }}" class="cart-btn btn-continue">
                         <i class="bi bi-arrow-left"></i>
-                        Continuar Comprando
+                        SEGUIR COMPRANDO
                     </a>
                 </div>
                 
@@ -1034,78 +908,77 @@
         </div>
         
         <!-- Recomendaciones -->
-<div class="cart-recommendations">
-    <h3 class="recommendations-title">PRODUCTOS DISPONIBLES</h3>
+        <div class="cart-recommendations">
+            <h3 class="recommendations-title">PRODUCTOS DISPONIBLES</h3>
 
-    <div class="recommendations-grid">
+            <div class="recommendations-grid">
+                <!-- 🛢️ Aceite Motorex -->
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                    <h4 class="recommendation-name">Aceite Motorex 4T 10W-50</h4>
+                    <div class="recommendation-price">€75,00</div>
+                    <button class="btn-recommendation add-to-cart-btn" data-id="oil1" data-price="75" data-name="Aceite Motorex 4T 10W-50" data-category="Lubricantes">
+                        <i class="bi bi-cart-plus"></i>
+                        Agregar
+                    </button>
+                </div>
 
-        <!-- 🛢️ Aceite Motorex -->
-        <div class="recommendation-card">
-            <div class="recommendation-icon">
-                <i class="bi bi-droplet-half"></i>
+                <!-- ❄️ Refrigerante Ipone -->
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="bi bi-snow"></i>
+                    </div>
+                    <h4 class="recommendation-name">Refrigerante Ipone Coolant</h4>
+                    <div class="recommendation-price">€40,00</div>
+                    <button class="btn-recommendation add-to-cart-btn" data-id="coolant1" data-price="40" data-name="Refrigerante Ipone Coolant" data-category="Refrigerantes">
+                        <i class="bi bi-cart-plus"></i>
+                        Agregar
+                    </button>
+                </div>
+
+                <!-- 💡 Direccional KTM DUKE 200 -->
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h4 class="recommendation-name">Direccional LED KTM Duke 200</h4>
+                    <div class="recommendation-price">€55,00</div>
+                    <button class="btn-recommendation add-to-cart-btn" data-id="light1" data-price="55" data-name="Direccional LED KTM Duke 200" data-category="Accesorios">
+                        <i class="bi bi-cart-plus"></i>
+                        Agregar
+                    </button>
+                </div>
+
+                <!-- 🧽 Limpiador de Cadena -->
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="bi bi-brush"></i>
+                    </div>
+                    <h4 class="recommendation-name">Limpiador de Cadena Motul</h4>
+                    <div class="recommendation-price">€25,00</div>
+                    <button class="btn-recommendation add-to-cart-btn" data-id="chain1" data-price="25" data-name="Limpiador de Cadena Motul" data-category="Limpieza">
+                        <i class="bi bi-cart-plus"></i>
+                        Agregar
+                    </button>
+                </div>
+
+                <!-- 🔋 Batería Yuasa YTZ7S -->
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="bi bi-battery-full"></i>
+                    </div>
+                    <h4 class="recommendation-name">Batería Yuasa YTZ7S</h4>
+                    <div class="recommendation-price">€95,00</div>
+                    <button class="btn-recommendation add-to-cart-btn" data-id="battery1" data-price="95" data-name="Batería Yuasa YTZ7S" data-category="Electricidad">
+                        <i class="bi bi-cart-plus"></i>
+                        Agregar
+                    </button>
+                </div>
             </div>
-            <h4 class="recommendation-name">Aceite Motorex 4T 10W-50</h4>
-            <div class="recommendation-price">$75.00</div>
-            <a href="#" class="btn-recommendation add-to-cart" data-id="oil1" data-price="75">
-                <i class="bi bi-cart-plus"></i>
-                Agregar
-            </a>
         </div>
-
-        <!-- ❄️ Refrigerante Ipone -->
-        <div class="recommendation-card">
-            <div class="recommendation-icon">
-                <i class="bi bi-snow"></i>
-            </div>
-            <h4 class="recommendation-name">Refrigerante Ipone Coolant</h4>
-            <div class="recommendation-price">$40.00</div>
-            <a href="#" class="btn-recommendation add-to-cart" data-id="coolant1" data-price="40">
-                <i class="bi bi-cart-plus"></i>
-                Agregar
-            </a>
-        </div>
-
-        <!-- 💡 Direccional KTM DUKE 200 -->
-        <div class="recommendation-card">
-            <div class="recommendation-icon">
-                <i class="bi bi-lightbulb"></i>
-            </div>
-            <h4 class="recommendation-name">Direccional LED KTM Duke 200</h4>
-            <div class="recommendation-price">$55.00</div>
-            <a href="#" class="btn-recommendation add-to-cart" data-id="light1" data-price="55">
-                <i class="bi bi-cart-plus"></i>
-                Agregar
-            </a>
-        </div>
-
-        <!-- 🧽 Limpiador de Cadena -->
-        <div class="recommendation-card">
-            <div class="recommendation-icon">
-                <i class="bi bi-brush"></i>
-            </div>
-            <h4 class="recommendation-name">Limpiador de Cadena Motul</h4>
-            <div class="recommendation-price">$25.00</div>
-            <a href="#" class="btn-recommendation add-to-cart" data-id="chain1" data-price="25">
-                <i class="bi bi-cart-plus"></i>
-                Agregar
-            </a>
-        </div>
-
-        <!-- 🔋 Batería Yuasa YTZ7S -->
-        <div class="recommendation-card">
-            <div class="recommendation-icon">
-                <i class="bi bi-battery-full"></i>
-            </div>
-            <h4 class="recommendation-name">Batería Yuasa YTZ7S</h4>
-            <div class="recommendation-price">$95.00</div>
-            <a href="#" class="btn-recommendation add-to-cart" data-id="battery1" data-price="95">
-                <i class="bi bi-cart-plus"></i>
-                Agregar
-            </a>
-        </div>
-
     </div>
-</div>
     
     <!-- Footer -->
     <footer class="cart-footer">
@@ -1144,222 +1017,439 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+   <script>
     // ==========================
-    // 🧩 Cargar carrito desde LocalStorage
+    // SISTEMA DE CARRITO MEJORADO
     // ==========================
-    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
-    let discountApplied = false;
-    const discountAmount = 30;
-    const taxRate = 0.1;
-
-    const cartItemsContainer = document.getElementById("cartItems");
-    const homeRoute = "{{ route('index') }}";
-
-    // ==========================
-    // 🔁 Renderizar carrito dinámicamente
-    // ==========================
-    function renderCart() {
-        cartItemsContainer.innerHTML = "";
-
-        if (Object.keys(cartItems).length === 0) {
-            cartItemsContainer.innerHTML = `
-                <div class="cart-empty">
-                    <div class="cart-empty-icon"><i class="bi bi-cart-x"></i></div>
-                    <h3 class="cart-empty-title">Tu carrito está vacío</h3>
-                    <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
-                    <a href="${homeRoute}" class="cart-btn btn-continue">
-                        <i class="bi bi-arrow-left"></i> Explorar Servicios
-                    </a>
-                </div>`;
-            updateSummary();
-            return;
-        }
-
-        for (const id in cartItems) {
-            const item = cartItems[id];
-            const card = document.createElement("div");
-            card.className = "cart-item-card";
-            card.innerHTML = `
-                <div class="cart-item-image"><i class="bi bi-wrench"></i></div>
-                <div class="cart-item-content">
-                    <div class="cart-item-header">
-                        <div>
-                            <h3 class="cart-item-title">${item.name}</h3>
-                            <span class="cart-item-category">${item.category}</span>
-                        </div>
-                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                    </div>
-                    <p class="cart-item-desc">Servicio profesional de ${item.category.toLowerCase()}.</p>
-                    <div class="cart-item-footer">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn decrease" data-id="${id}"><i class="bi bi-dash"></i></button>
-                            <span class="quantity-value" id="quantity-${id}">${item.quantity}</span>
-                            <button class="quantity-btn increase" data-id="${id}"><i class="bi bi-plus"></i></button>
-                        </div>
-                        <div class="cart-item-subtotal">Subtotal: <span id="subtotal-${id}">$${(item.price * item.quantity).toFixed(2)}</span></div>
-                    </div>
-                </div>
-                <div class="cart-item-actions">
-                    <button class="action-btn delete" data-id="${id}" title="Eliminar">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(card);
-        }
-
-        updateSummary();
-    }
-
-    // ==========================
-    // 💰 Actualizar totales
-    // ==========================
-    function updateSummary() {
-        let subtotal = 0;
-        let itemCount = 0;
-
-        for (const id in cartItems) {
-            const item = cartItems[id];
-            subtotal += item.price * item.quantity;
-            itemCount += item.quantity;
-        }
-
-        const tax = subtotal * taxRate;
-        const discount = discountApplied ? discountAmount : 0;
-        const total = subtotal - discount + tax;
-
-        document.getElementById("cartCount").textContent = itemCount;
-        document.getElementById("summary-subtotal").textContent = `$${subtotal.toFixed(2)}`;
-        document.getElementById("summary-tax").textContent = `$${tax.toFixed(2)}`;
-        document.getElementById("summary-discount").textContent = discount > 0 ? `-$${discount.toFixed(2)}` : `$0.00`;
-        document.getElementById("summary-total").textContent = `$${total.toFixed(2)}`;
-
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    }
-
-    // ==========================
-    // ➕ Agregar ítem
-    // ==========================
-    function addItem(id, name, price, category) {
-        if (cartItems[id]) {
-            cartItems[id].quantity++;
-        } else {
-            cartItems[id] = { name, price, quantity: 1, category };
-        }
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        renderCart();
-        showNotification("Servicio agregado al carrito", "success");
-    }
-
-    // ==========================
-    // ❌ Eliminar ítem
-    // ==========================
-    function removeItem(id) {
-        if (confirm("¿Eliminar este servicio del carrito?")) {
-            delete cartItems[id];
-            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("Página del carrito cargada");
+        
+        // Variables globales
+        let cart = JSON.parse(localStorage.getItem('ktmCart')) || {};
+        let discountApplied = JSON.parse(localStorage.getItem('ktmDiscount')) || false;
+        const shippingCost = 9.99;
+        const discountAmount = 30.00;
+        const taxRate = 0.21;
+        
+        // ==========================
+        // INICIALIZAR CARRITO
+        // ==========================
+        initCart();
+        
+        function initCart() {
+            console.log("Inicializando carrito...");
+            console.log("Productos en carrito:", cart);
             renderCart();
-            showNotification("Servicio eliminado", "warning");
+            updateCartCount();
+            setupEventListeners();
+            setupCartItemEventDelegation(); // Configurar delegación de eventos UNA VEZ
         }
-    }
-
-    // ==========================
-    // 🔔 Notificación visual
-    // ==========================
-    function showNotification(message, type) {
-        const note = document.createElement("div");
-        note.className = `notification ${type}`;
-        note.innerHTML = `<i class="bi bi-${type === "success" ? "check-circle" : "exclamation-triangle"}"></i> ${message}`;
-        note.style.cssText = `
-            position: fixed; top: 100px; right: 20px;
-            background: ${type === "success" ? "rgba(76,175,80,0.9)" : "rgba(255,152,0,0.9)"};
-            color: white; padding: 12px 18px; border-radius: 10px;
-            transition: all 0.4s ease; transform: translateX(120%);
-            z-index: 9999;
-        `;
-        document.body.appendChild(note);
-        setTimeout(() => (note.style.transform = "translateX(0)"), 10);
-        setTimeout(() => {
-            note.style.transform = "translateX(120%)";
-            setTimeout(() => note.remove(), 400);
-        }, 3000);
-    }
-
-    // ==========================
-    // ⚙️ Listeners dinámicos
-    // ==========================
-    cartItemsContainer.addEventListener("click", function (e) {
-        if (e.target.closest(".increase")) {
-            const id = e.target.closest(".increase").dataset.id;
-            cartItems[id].quantity++;
-            updateSummary();
-            renderCart();
-        } else if (e.target.closest(".decrease")) {
-            const id = e.target.closest(".decrease").dataset.id;
-            if (cartItems[id].quantity > 1) {
-                cartItems[id].quantity--;
-            } else {
-                removeItem(id);
+        
+        // ==========================
+        // RENDERIZAR CARRITO
+        // ==========================
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">
+                            <i class="bi bi-cart-x"></i>
+                        </div>
+                        <h3 class="cart-empty-title">Tu carrito está vacío</h3>
+                        <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
+                        <a href="{{ route('index') }}" class="cart-btn btn-continue">
+                            <i class="bi bi-arrow-left"></i>
+                            Explorar Servicios
+                        </a>
+                    </div>`;
+                
+                document.getElementById('btnCheckout').style.display = 'none';
+                updateSummary();
+                return;
             }
-            renderCart();
-        } else if (e.target.closest(".delete")) {
-            const id = e.target.closest(".delete").dataset.id;
-            removeItem(id);
-        }
-    });
-
-    // ==========================
-    // 🎁 Promociones
-    // ==========================
-    document.getElementById("applyPromo").addEventListener("click", () => {
-        const promo = document.getElementById("promoCode").value.trim().toUpperCase();
-        if (promo === "KTM2025") {
-            discountApplied = true;
+            
+            let html = '';
+            for (const id in cart) {
+                const item = cart[id];
+                const subtotal = item.price * item.quantity;
+                
+                html += `
+                    <div class="cart-item-card" data-id="${id}">
+                        <div class="cart-item-image">
+                            <i class="bi bi-${item.icon || 'box'}"></i>
+                        </div>
+                        
+                        <div class="cart-item-content">
+                            <div class="cart-item-header">
+                                <div>
+                                    <h3 class="cart-item-title">${item.name}</h3>
+                                    <span class="cart-item-category">${item.category}</span>
+                                </div>
+                                <div class="cart-item-price">€${item.price.toFixed(2).replace('.', ',')}</div>
+                            </div>
+                            
+                            <p class="cart-item-desc">
+                                ${item.description || 'Producto de alta calidad para tu motocicleta KTM'}
+                            </p>
+                            
+                            <div class="cart-item-footer">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn decrease" data-id="${id}">
+                                        <i class="bi bi-dash"></i>
+                                    </button>
+                                    <span class="quantity-value">${item.quantity}</span>
+                                    <button class="quantity-btn increase" data-id="${id}">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="cart-item-subtotal">
+                                    Subtotal: <span>€${subtotal.toFixed(2).replace('.', ',')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-item-actions">
+                            <button class="action-btn delete" data-id="${id}" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>`;
+            }
+            
+            container.innerHTML = html;
+            document.getElementById('btnCheckout').style.display = 'flex';
             updateSummary();
-            showNotification("¡Código de descuento aplicado!", "success");
-        } else {
-            showNotification("Código inválido. Usa: KTM2025", "warning");
+            
+            // Restaurar estado del descuento si estaba aplicado
+            if (discountApplied) {
+                document.getElementById('promoCode').value = 'KTM2024';
+            }
         }
-        document.getElementById("promoCode").value = "";
-    });
-
-    // ==========================
-    // 💳 Pago simulado
-    // ==========================
-    document.getElementById("checkoutBtn").addEventListener("click", function () {
-        if (Object.keys(cartItems).length === 0) {
-            showNotification("El carrito está vacío.", "warning");
-            return;
+        
+        // ==========================
+        // DELEGACIÓN DE EVENTOS PARA ITEMS DEL CARRITO (SOLUCIÓN AL PROBLEMA)
+        // ==========================
+        function setupCartItemEventDelegation() {
+            // Usar delegación de eventos en el contenedor principal
+            // Esto funciona incluso para elementos creados dinámicamente
+            document.addEventListener('click', function(e) {
+                const target = e.target;
+                
+                // Verificar si el clic fue en un botón de cantidad o eliminar
+                if (target.closest('.increase')) {
+                    const button = target.closest('.increase');
+                    const id = button.dataset.id;
+                    updateQuantity(id, 1);
+                    return;
+                }
+                
+                if (target.closest('.decrease')) {
+                    const button = target.closest('.decrease');
+                    const id = button.dataset.id;
+                    updateQuantity(id, -1);
+                    return;
+                }
+                
+                if (target.closest('.delete')) {
+                    const button = target.closest('.delete');
+                    const id = button.dataset.id;
+                    if (confirm('¿Estás seguro de eliminar este producto del carrito?')) {
+                        removeFromCart(id);
+                    }
+                    return;
+                }
+            });
         }
-        this.innerHTML = '<i class="bi bi-hourglass-split"></i> Procesando...';
-        this.disabled = true;
-        setTimeout(() => {
-            showNotification("¡Pago exitoso!", "success");
-            localStorage.removeItem("cartItems");
-            setTimeout(() => (window.location.href = "{{ route('confirmacion') }}"), 1500);
-        }, 2000);
+        
+        // ==========================
+        // ACTUALIZAR RESUMEN
+        // ==========================
+        function updateSummary() {
+            let subtotal = 0;
+            let totalItems = 0;
+            
+            for (const id in cart) {
+                subtotal += cart[id].price * cart[id].quantity;
+                totalItems += cart[id].quantity;
+            }
+            
+            const tax = subtotal * taxRate;
+            const discount = discountApplied ? discountAmount : 0;
+            const total = subtotal + shippingCost - discount + tax;
+            
+            // Actualizar UI
+            document.getElementById('summarySubtotal').textContent = `€${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('summaryImpuestos').textContent = `€${tax.toFixed(2).replace('.', ',')}`;
+            document.getElementById('summaryDescuento').textContent = `-€${discount.toFixed(2).replace('.', ',')}`;
+            document.getElementById('summaryTotal').textContent = `€${total.toFixed(2).replace('.', ',')}`;
+        }
+        
+        // ==========================
+        // ACTUALIZAR CONTADOR
+        // ==========================
+        function updateCartCount() {
+            let total = 0;
+            for (const id in cart) {
+                total += cart[id].quantity;
+            }
+            document.getElementById('cartCount').textContent = total;
+        }
+        
+        // ==========================
+        // GUARDAR CARRITO
+        // ==========================
+        function saveCart() {
+            localStorage.setItem('ktmCart', JSON.stringify(cart));
+            localStorage.setItem('ktmDiscount', JSON.stringify(discountApplied));
+            updateCartCount();
+        }
+        
+        // ==========================
+        // AGREGAR PRODUCTO
+        // ==========================
+        function addToCart(product) {
+            console.log("Agregando producto:", product);
+            
+            const { id, name, price, category } = product;
+            
+            if (cart[id]) {
+                cart[id].quantity += 1;
+            } else {
+                // Determinar icono basado en categoría
+                let icon = 'box';
+                if (category.includes('Lubricante')) icon = 'droplet-half';
+                else if (category.includes('Refrigerante')) icon = 'snow';
+                else if (category.includes('Accesorio') || category.includes('LED')) icon = 'lightbulb';
+                else if (category.includes('Limpieza')) icon = 'brush';
+                else if (category.includes('Electricidad') || category.includes('Batería')) icon = 'battery-full';
+                
+                cart[id] = {
+                    id: id,
+                    name: name,
+                    price: parseFloat(price),
+                    quantity: 1,
+                    category: category,
+                    icon: icon,
+                    description: `Producto de ${category} para tu motocicleta KTM`
+                };
+            }
+            
+            saveCart();
+            renderCart();
+            showNotification(`${name} agregado al carrito`, 'success');
+        }
+        
+        // ==========================
+        // ELIMINAR PRODUCTO
+        // ==========================
+        function removeFromCart(id) {
+            if (cart[id]) {
+                delete cart[id];
+                saveCart();
+                renderCart();
+                showNotification('Producto eliminado del carrito', 'warning');
+            }
+        }
+        
+        // ==========================
+        // ACTUALIZAR CANTIDAD
+        // ==========================
+        function updateQuantity(id, change) {
+            if (cart[id]) {
+                cart[id].quantity += change;
+                
+                if (cart[id].quantity < 1) {
+                    removeFromCart(id);
+                } else {
+                    saveCart();
+                    renderCart(); // Solo renderizamos, no reconfiguramos eventos
+                }
+            }
+        }
+        
+        // ==========================
+        // NOTIFICACIONES
+        // ==========================
+        function showNotification(message, type = 'success') {
+            // Eliminar notificaciones anteriores
+            const oldNotifications = document.querySelectorAll('.notification');
+            oldNotifications.forEach(notif => notif.remove());
+            
+            // Crear notificación
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'warning'} notification`;
+            notification.innerHTML = `
+                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-left: 10px;"></button>
+            `;
+            
+            // Estilos
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 300px;
+                animation: slideIn 0.3s ease-out;
+                display: flex;
+                align-items: center;
+            `;
+            
+            // Agregar al DOM
+            document.body.appendChild(notification);
+            
+            // Configurar botón de cerrar
+            const closeBtn = notification.querySelector('.btn-close');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Eliminar después de 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        }
+        
+        // ==========================
+        // CONFIGURAR EVENT LISTENERS
+        // ==========================
+        function setupEventListeners() {
+            console.log("Configurando event listeners...");
+            
+            // Botones de agregar al carrito (RECOMENDACIONES)
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                // Eliminar event listeners antiguos para evitar duplicados
+                button.replaceWith(button.cloneNode(true));
+            });
+            
+            // Re-asignar event listeners a los botones clonados
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log("Botón de agregar clickeado");
+                    
+                    const product = {
+                        id: this.dataset.id,
+                        name: this.dataset.name,
+                        price: this.dataset.price,
+                        category: this.dataset.category
+                    };
+                    
+                    addToCart(product);
+                });
+            });
+            
+            // Código de descuento
+            document.getElementById('applyPromo').addEventListener('click', applyDiscount);
+            document.getElementById('promoCode').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') applyDiscount();
+            });
+            
+            // Botón de checkout
+            const checkoutBtn = document.getElementById('btnCheckout');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    if (Object.keys(cart).length === 0) {
+                        showNotification('Tu carrito está vacío', 'warning');
+                        return;
+                    }
+                    
+                    // Guardar carrito para checkout
+                    localStorage.setItem('checkoutCart', JSON.stringify(cart));
+                    
+                    // Redirigir a checkout
+                    window.location.href = "{{ route('checkout') }}";
+                });
+            }
+        }
+        
+        // ==========================
+        // APLICAR DESCUENTO
+        // ==========================
+        function applyDiscount() {
+            const promoCode = document.getElementById('promoCode').value.trim().toUpperCase();
+            
+            if (promoCode === 'KTM2024' || promoCode === 'KTM2025') {
+                discountApplied = true;
+                saveCart(); // Guardar el estado del descuento
+                updateSummary();
+                showNotification('¡Código de descuento aplicado! -€30,00', 'success');
+            } else {
+                discountApplied = false;
+                saveCart();
+                updateSummary();
+                showNotification('Código inválido. Usa: KTM2024 o KTM2025', 'warning');
+            }
+        }
+        
+        // ==========================
+        // LIMPIAR CARRITO (opcional)
+        // ==========================
+        function clearCart() {
+            if (confirm('¿Estás seguro de vaciar todo el carrito?')) {
+                cart = {};
+                discountApplied = false;
+                saveCart();
+                renderCart();
+                showNotification('Carrito vaciado', 'warning');
+            }
+        }
+        
+        // ==========================
+        // ANIMACIONES CSS
+        // ==========================
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            .cart-item-card {
+                transition: all 0.3s ease;
+            }
+            .cart-item-card.removing {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // ==========================
+        // TEST: Agregar algunos productos de ejemplo al carrito
+        // ==========================
+        // Descomenta estas líneas si quieres productos de prueba
+        /*
+        if (Object.keys(cart).length === 0) {
+            setTimeout(() => {
+                addToCart({
+                    id: 'test1',
+                    name: 'Aceite Motorex 4T 10W-50',
+                    price: 75,
+                    category: 'Lubricantes'
+                });
+                
+                addToCart({
+                    id: 'test2',
+                    name: 'Refrigerante Ipone Coolant',
+                    price: 40,
+                    category: 'Refrigerantes'
+                });
+            }, 1000);
+        }
+        */
     });
-
-    // ==========================
-    // 🧠 Inicialización
-    // ==========================
-    renderCart();
-
-    // Agregar desde recomendaciones
-    document.querySelectorAll(".add-to-cart").forEach(btn => {
-        btn.addEventListener("click", e => {
-            e.preventDefault();
-            const id = btn.dataset.id;
-            const price = parseFloat(btn.dataset.price);
-            const name = btn.closest(".recommendation-card").querySelector(".recommendation-name").textContent;
-            addItem(id, name, price, "Servicios");
-        });
-    });
-});
 </script>
-
-
 </body>
 </html>

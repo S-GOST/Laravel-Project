@@ -770,7 +770,7 @@
                 <a href="{{ route('carrito') }}" class="nav-btn btn-cart">
                     <i class="bi bi-cart3"></i>
                     <span>Carrito</span>
-                    <span class="cart-count" id="cartCount">3</span>
+                    <span class="cart-count" id="cartCount">0</span>
                 </a>
                 <a href="{{ route('login') }}" class="nav-btn btn-login">
                     <i class="bi bi-box-arrow-in-right"></i>
@@ -814,8 +814,12 @@
                             </div>
                             <h4 class="service-name">Mantenimiento Preventivo</h4>
                             <p class="service-desc">Inspecciones programadas y mantenimiento regular para prevenir fallos y optimizar el rendimiento de tu motocicleta.</p>
-                            <div class="service-price">Desde $120</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€120.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn" 
+                               data-id="mantenimiento_preventivo"
+                               data-name="Mantenimiento Preventivo"
+                               data-price="120.00"
+                               data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -827,8 +831,12 @@
                             </div>
                             <h4 class="service-name">Mantenimiento Correctivo</h4>
                             <p class="service-desc">Reparación de fallas y averías existentes para restaurar la funcionalidad completa de tu motocicleta.</p>
-                            <div class="service-price">Desde $200</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€200.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="mantenimiento_correctivo"
+                               data-name="Mantenimiento Correctivo"
+                               data-price="200.00"
+                               data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -840,8 +848,12 @@
                             </div>
                             <h4 class="service-name">Mantenimiento Predictivo</h4>
                             <p class="service-desc">Monitoreo y análisis avanzado para anticipar fallas y programar intervenciones antes de que ocurran problemas.</p>
-                            <div class="service-price">Desde $180</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€180.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="mantenimiento_predictivo"
+                               data-name="Mantenimiento Predictivo"
+                               data-price="180.00"
+                               data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -853,8 +865,12 @@
                             </div>
                             <h4 class="service-name">Mantenimiento Proactivo</h4>
                             <p class="service-desc">Mejoras continuas y optimización del rendimiento para maximizar la vida útil y el desempeño de tu motocicleta.</p>
-                            <div class="service-price">Desde $250</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€250.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="mantenimiento_proactivo"
+                               data-name="Mantenimiento Proactivo"
+                               data-price="250.00"
+                               data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -878,8 +894,12 @@
                             </div>
                             <h4 class="service-name">Reparaciones por Daños</h4>
                             <p class="service-desc">Reparación integral de daños estructurales y funcionales causados por accidentes o uso intensivo.</p>
-                            <div class="service-price">Desde $350</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€350.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="reparaciones_danios"
+                               data-name="Reparaciones por Daños"
+                               data-price="350.00"
+                               data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -891,8 +911,12 @@
                             </div>
                             <h4 class="service-name">Motorización y Transmisión</h4>
                             <p class="service-desc">Reparación y ajuste de motores, cajas de cambios, embragues y sistemas de transmisión completa.</p>
-                            <div class="service-price">Desde $500</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€500.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="motorizacion_transmision"
+                               data-name="Motorización y Transmisión"
+                               data-price="500.00"
+                               data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -904,8 +928,12 @@
                             </div>
                             <h4 class="service-name">Electrónica y Sistemas de Control</h4>
                             <p class="service-desc">Diagnóstico y reparación de sistemas electrónicos, ECU, inyección electrónica y controles digitales.</p>
-                            <div class="service-price">Desde $300</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€300.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="electronica_control"
+                               data-name="Electrónica y Sistemas de Control"
+                               data-price="300.00"
+                               data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -917,8 +945,12 @@
                             </div>
                             <h4 class="service-name">Carrocería y Personalización</h4>
                             <p class="service-desc">Reparación de carrocería, pintura personalizada y modificaciones estéticas a medida.</p>
-                            <div class="service-price">Desde $400</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€400.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="carroceria_personalizacion"
+                               data-name="Carrocería y Personalización"
+                               data-price="400.00"
+                               data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -942,8 +974,12 @@
                             </div>
                             <h4 class="service-name">Diagnóstico de Emisiones y Rendimiento</h4>
                             <p class="service-desc">Análisis de emisiones, consumo de combustible y rendimiento general del motor.</p>
-                            <div class="service-price">Desde $150</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€150.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="diagnostico_emisiones"
+                               data-name="Diagnóstico de Emisiones y Rendimiento"
+                               data-price="150.00"
+                               data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -955,8 +991,12 @@
                             </div>
                             <h4 class="service-name">Diagnóstico de Seguridad y Dinámica</h4>
                             <p class="service-desc">Evaluación de sistemas de frenos, suspensión, neumáticos y estabilidad dinámica.</p>
-                            <div class="service-price">Desde $180</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€180.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="diagnostico_seguridad"
+                               data-name="Diagnóstico de Seguridad y Dinámica"
+                               data-price="180.00"
+                               data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -968,8 +1008,12 @@
                             </div>
                             <h4 class="service-name">Diagnóstico Eléctrico</h4>
                             <p class="service-desc">Comprobación de sistemas eléctricos, batería, alternador y cableado completo.</p>
-                            <div class="service-price">Desde $120</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€120.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="diagnostico_electrico"
+                               data-name="Diagnóstico Eléctrico"
+                               data-price="120.00"
+                               data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -981,8 +1025,12 @@
                             </div>
                             <h4 class="service-name">Diagnóstico Mecánico</h4>
                             <p class="service-desc">Inspección completa de componentes mecánicos, desgastes y ajustes necesarios.</p>
-                            <div class="service-price">Desde $160</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€160.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="diagnostico_mecanico"
+                               data-name="Diagnóstico Mecánico"
+                               data-price="160.00"
+                               data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -1006,8 +1054,12 @@
                             </div>
                             <h4 class="service-name">Instalación Personalizada</h4>
                             <p class="service-desc">Instalación de componentes y accesorios específicos según tus necesidades y preferencias.</p>
-                            <div class="service-price">Desde $100</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€100.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="instalacion_personalizada"
+                               data-name="Instalación Personalizada"
+                               data-price="100.00"
+                               data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -1019,8 +1071,12 @@
                             </div>
                             <h4 class="service-name">Instalaciones de Seguridad</h4>
                             <p class="service-desc">Montaje de sistemas de seguridad, alarmas, bloqueadores y dispositivos antitheft.</p>
-                            <div class="service-price">Desde $200</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€200.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="instalaciones_seguridad"
+                               data-name="Instalaciones de Seguridad"
+                               data-price="200.00"
+                               data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -1032,8 +1088,12 @@
                             </div>
                             <h4 class="service-name">Instalaciones de Rendimiento</h4>
                             <p class="service-desc">Montaje de componentes para mejorar el rendimiento: escapes, filtros, reprogramaciones.</p>
-                            <div class="service-price">Desde $350</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€350.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="instalaciones_rendimiento"
+                               data-name="Instalaciones de Rendimiento"
+                               data-price="350.00"
+                               data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -1045,8 +1105,12 @@
                             </div>
                             <h4 class="service-name">Accesorios Personalizados</h4>
                             <p class="service-desc">Instalación de accesorios estéticos y funcionales para personalizar tu motocicleta.</p>
-                            <div class="service-price">Desde $150</div>
-                            <a href="#" class="btn-service">
+                            <div class="service-price">€150.00</div>
+                            <a href="#" class="btn-service add-to-cart-btn"
+                               data-id="accesorios_personalizados"
+                               data-name="Accesorios Personalizados"
+                               data-price="150.00"
+                               data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
                             </a>
@@ -1149,75 +1213,234 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Cargar carrito actual desde localStorage
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
-
-    // Función para guardar y actualizar contador
-    function saveCart() {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        updateCartCount();
-    }
-
-    // Actualizar el contador del carrito
-    function updateCartCount() {
-        let totalItems = Object.values(cartItems).reduce((acc, item) => acc + item.quantity, 0);
-        const count = document.getElementById('cartCount');
-        if (count) count.textContent = totalItems;
-    }
-
-    // Mostrar mensaje temporal
-    function showToast(message) {
-        const toast = document.createElement('div');
-        toast.textContent = message;
-        toast.style.cssText = `
-            position: fixed; top: 100px; right: 20px; background: rgba(255,102,0,0.9);
-            color: white; padding: 10px 20px; border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 9999;
-            transform: translateX(120%); transition: transform 0.3s ease;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.style.transform = "translateX(0)", 10);
-        setTimeout(() => {
-            toast.style.transform = "translateX(120%)";
-            setTimeout(() => toast.remove(), 300);
-        }, 2000);
-    }
-
-    // Detectar clic en botones "Agregar al Carrito"
-    document.querySelectorAll('.btn-service').forEach(button => {
-        button.addEventListener('click', e => {
-            e.preventDefault();
-
-            const card = e.target.closest('.service-card');
-            const name = card.querySelector('.service-name').textContent.trim();
-            const priceText = card.querySelector('.service-price').textContent.trim().replace(/[^0-9.]/g, '');
-            const price = parseFloat(priceText);
-            const category = card.closest('.services-section').querySelector('.section-title').textContent.trim();
-            const id = name.replace(/\s+/g, '_').toLowerCase();
-
-            if (cartItems[id]) {
-                cartItems[id].quantity += 1;
-            } else {
-                cartItems[id] = { name, price, quantity: 1, category };
+    <script>
+        // ==========================
+        // SISTEMA DE CARRITO PARA INDEX
+        // ==========================
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Página index cargada");
+            
+            // Variables
+            let cart = JSON.parse(localStorage.getItem('ktmCart')) || {};
+            
+            // ==========================
+            // INICIALIZAR
+            // ==========================
+            initCart();
+            
+            function initCart() {
+                console.log("Inicializando carrito en index...");
+                console.log("Productos en carrito:", cart);
+                updateCartCount();
+                setupEventListeners();
             }
-
-            saveCart();
-            showToast(`${name} agregado al carrito 🧡`);
-            button.innerHTML = `<i class="bi bi-check-circle"></i> Agregado`;
-            button.style.color = "#4CAF50";
-            setTimeout(() => {
-                button.innerHTML = `<i class="bi bi-cart-plus"></i> Agregar al Carrito`;
-                button.style.color = "";
-            }, 2000);
+            
+            // ==========================
+            // ACTUALIZAR CONTADOR
+            // ==========================
+            function updateCartCount() {
+                let total = 0;
+                for (const id in cart) {
+                    total += cart[id].quantity;
+                }
+                document.getElementById('cartCount').textContent = total;
+            }
+            
+            // ==========================
+            // GUARDAR CARRITO
+            // ==========================
+            function saveCart() {
+                localStorage.setItem('ktmCart', JSON.stringify(cart));
+                updateCartCount();
+            }
+            
+            // ==========================
+            // AGREGAR PRODUCTO
+            // ==========================
+            function addToCart(product) {
+                console.log("Agregando producto en index:", product);
+                
+                const { id, name, price, category } = product;
+                
+                if (cart[id]) {
+                    cart[id].quantity += 1;
+                } else {
+                    // Determinar icono basado en categoría
+                    let icon = 'box';
+                    if (category.includes('Mantenimiento')) icon = 'tools';
+                    else if (category.includes('Reparaciones')) icon = 'wrench';
+                    else if (category.includes('Diagnósticos')) icon = 'clipboard-check';
+                    else if (category.includes('Instalaciones')) icon = 'lightning-charge';
+                    
+                    cart[id] = {
+                        id: id,
+                        name: name,
+                        price: parseFloat(price),
+                        quantity: 1,
+                        category: category,
+                        icon: icon,
+                        description: `Servicio de ${category} para tu motocicleta KTM`
+                    };
+                }
+                
+                saveCart();
+                showNotification(`${name} agregado al carrito`, 'success');
+                updateButtonState(product.id, true);
+            }
+            
+            // ==========================
+            // NOTIFICACIONES
+            // ==========================
+            function showNotification(message, type = 'success') {
+                // Eliminar notificaciones anteriores
+                const oldNotifications = document.querySelectorAll('.notification');
+                oldNotifications.forEach(notif => notif.remove());
+                
+                // Crear notificación
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type === 'success' ? 'success' : 'warning'} notification`;
+                notification.innerHTML = `
+                    <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-left: 10px;"></button>
+                `;
+                
+                // Estilos
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    z-index: 9999;
+                    min-width: 300px;
+                    animation: slideIn 0.3s ease-out;
+                    display: flex;
+                    align-items: center;
+                `;
+                
+                // Agregar al DOM
+                document.body.appendChild(notification);
+                
+                // Configurar botón de cerrar
+                const closeBtn = notification.querySelector('.btn-close');
+                closeBtn.addEventListener('click', () => {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => notification.remove(), 300);
+                });
+                
+                // Eliminar después de 3 segundos
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.style.animation = 'slideOut 0.3s ease-out';
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 3000);
+            }
+            
+            // ==========================
+            // ACTUALIZAR ESTADO DEL BOTÓN
+            // ==========================
+            function updateButtonState(productId, added = false) {
+                const button = document.querySelector(`.add-to-cart-btn[data-id="${productId}"]`);
+                if (!button) return;
+                
+                if (added) {
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = `
+                        <i class="bi bi-check-circle-fill"></i>
+                        Agregado
+                    `;
+                    button.style.background = 'rgba(76, 175, 80, 0.1)';
+                    button.style.borderColor = '#4CAF50';
+                    button.style.color = '#4CAF50';
+                    
+                    // Restaurar después de 2 segundos
+                    setTimeout(() => {
+                        button.innerHTML = originalHTML;
+                        button.style.background = '';
+                        button.style.borderColor = '';
+                        button.style.color = '';
+                    }, 2000);
+                }
+            }
+            
+            // ==========================
+            // CONFIGURAR EVENT LISTENERS
+            // ==========================
+            function setupEventListeners() {
+                console.log("Configurando event listeners en index...");
+                
+                // Botones de agregar al carrito
+                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                    // Clonar y reemplazar para evitar duplicados
+                    button.replaceWith(button.cloneNode(true));
+                });
+                
+                // Re-asignar event listeners a los botones clonados
+                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log("Botón de agregar clickeado en index");
+                        
+                        const product = {
+                            id: this.dataset.id,
+                            name: this.dataset.name,
+                            price: this.dataset.price,
+                            category: this.dataset.category
+                        };
+                        
+                        addToCart(product);
+                    });
+                });
+            }
+            
+            // ==========================
+            // ANIMACIONES CSS
+            // ==========================
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+                .cart-count {
+                    transition: all 0.3s ease;
+                }
+                .cart-count.updated {
+                    animation: pulse 0.5s;
+                }
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.3); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // ==========================
+            // EFECTO PARTÍCULAS
+            // ==========================
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                if (!particlesContainer) return;
+                
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            createParticles();
         });
-    });
-
-    // Inicializar contador al cargar
-    updateCartCount();
-});
-</script>
-
+    </script>
 </body>
 </html>
