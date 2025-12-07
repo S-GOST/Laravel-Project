@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Cliente - KTM Shop</title>
+    <title>Datos del Cliente - ROCKET SERVICE</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -338,12 +338,22 @@
         
         <!-- Header KTM -->
         <div class="ktm-header text-center mb-5">
-            <div class="ktm-logo justify-content-center">
-                <i class="fas fa-motorcycle"></i>
-                <span>KTM <span class="orange">SHOP</span></span>
+            <div class="ktm-logo d-flex justify-content-center align-items-center">
+                <img src="{{ asset('img/rock.png') }}" class="logo-img me-3"
+                     alt="ROCK Logo" 
+                     style="width: 55px; height: 55px; object-fit: contain; margin-right: 10px;">
+                <span style="font-weight: 800; font-size: 1.6rem;">
+                    ROCKET <span class="orange">SERVICE</span>
+                </span>
             </div>
-            <h1 class="mt-3 mb-0" style="font-weight: 800; letter-spacing: 1px; font-size: 1.5rem;">DATOS DEL CLIENTE</h1>
-            <p class="mb-0 mt-2" style="color: #aaa;">Completa tus datos y revisa tu pedido</p>
+
+            <h1 class="mt-3 mb-0" style="font-weight: 800; letter-spacing: 1px; font-size: 1.5rem;">
+                DATOS DEL CLIENTE
+            </h1>
+
+            <p class="mb-0 mt-2" style="color: #aaa;">
+                Completa tus datos y revisa tu pedido
+            </p>
         </div>
         
         <!-- Progreso KTM -->
@@ -370,48 +380,37 @@
                         <i class="fas fa-shopping-cart"></i> RESUMEN DE TU PEDIDO
                     </h4>
                     
-                    <!-- Aquí se muestran los productos reales del carrito -->
-                    @if(!empty($carrito) && count($carrito) > 0)
-                        @foreach($carrito as $item)
-                        <div class="cart-summary-item">
-                            <div class="cart-item-info">
-                                <div class="cart-item-icon">
-                                    <i class="fas {{ $item['icono'] ?? 'fa-box' }}"></i>
-                                </div>
-                                <div class="cart-item-details">
-                                    <h6>{{ $item['nombre'] }}</h6>
-                                    <div class="cart-item-quantity">Cantidad: {{ $item['cantidad'] }}</div>
-                                </div>
-                            </div>
-                            <div class="cart-item-price">€{{ number_format($item['precio'] * $item['cantidad'], 2, ',', '.') }}</div>
-                        </div>
-                        @endforeach
-                    @else
-                        <p class="text-center text-muted py-4">No hay productos en el carrito</p>
-                    @endif
+                    <!-- Contenedor para los productos del carrito -->
+                    <div id="cartItemsContainer">
+                        <!-- Los productos se cargarán aquí dinámicamente con JavaScript -->
+                    </div>
                     
                     <!-- Total del Carrito -->
                     <div class="cart-total">
                         <div class="total-row">
                             <span>Subtotal:</span>
-                            <span>€{{ number_format($subtotal, 2, ',', '.') }}</span>
+                            <span id="summarySubtotal">$0.00</span>
                         </div>
                         <div class="total-row">
                             <span>Envío:</span>
-                            <span>€{{ number_format($envio, 2, ',', '.') }}</span>
+                            <span id="summaryShipping">$0.00</span>
                         </div>
                         <div class="total-row">
                             <span>Descuento:</span>
-                            <span style="color: var(--ktm-orange);">-€{{ number_format($descuento, 2, ',', '.') }}</span>
+                            <span id="summaryDiscount" style="color: var(--ktm-orange);">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Impuestos (21%):</span>
+                            <span id="summaryTax">$0.00</span>
                         </div>
                         <div class="total-row">
                             <span>TOTAL:</span>
-                            <span>€{{ number_format($total, 2, ',', '.') }}</span>
+                            <span id="summaryTotal">$0.00</span>
                         </div>
                     </div>
                     
                     <!-- Botón para modificar carrito -->
-                    <a href="{{ route('carrito.show') }}" class="btn btn-outline-warning w-100 mt-3" style="border-color: var(--ktm-orange); color: var(--ktm-orange);">
+                    <a href="{{ route('carrito') }}" class="btn btn-outline-warning w-100 mt-3" style="border-color: var(--ktm-orange); color: var(--ktm-orange);">
                         <i class="fas fa-edit"></i> Modificar Carrito
                     </a>
                 </div>
@@ -424,41 +423,29 @@
                         <i class="fas fa-user-edit"></i> TUS DATOS
                     </h4>
                     
-                    <form action="{{ route('checkout.store') }}" method="POST" id="clienteForm">
-                        @csrf
-                        
+                    <form id="clienteForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Nombre completo</label>
-                                <input type="text" name="nombre" class="form-control" required 
-                                       value="{{ old('nombre', $cliente['nombre'] ?? '') }}">
+                                <input type="text" name="nombre" id="nombre" class="form-control" required>
                             </div>
                             
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Documento</label>
-                                <input type="text" name="documento" class="form-control" required
-                                       value="{{ old('documento', $cliente['documento'] ?? '') }}">
+                                <input type="text" name="documento" id="documento" class="form-control" required>
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Teléfono</label>
-                                <input type="text" name="telefono" class="form-control" required
-                                       value="{{ old('telefono', $cliente['telefono'] ?? '') }}">
+                                <input type="text" name="telefono" id="telefono" class="form-control" required>
                             </div>
                             
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Correo electrónico</label>
-                                <input type="email" name="correo" class="form-control" required
-                                       value="{{ old('correo', $cliente['correo'] ?? '') }}">
+                                <input type="email" name="correo" id="correo" class="form-control" required>
                             </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Dirección de envío</label>
-                            <input type="text" name="direccion" class="form-control" required
-                                   value="{{ old('direccion', $cliente['direccion'] ?? '') }}">
                         </div>
                         
                         <!-- Caja de comentarios -->
@@ -466,14 +453,15 @@
                             <label class="form-label">
                                 <i class="fas fa-comment me-2"></i>Comentarios adicionales (opcional)
                             </label>
-                            <textarea name="comentarios" class="form-control" 
-                                      placeholder="Instrucciones especiales para el envío, comentarios sobre el pedido, etc.">{{ old('comentarios', $cliente['comentarios'] ?? '') }}</textarea>
+                            <textarea name="comentarios" id="comentarios" class="form-control" 
+                                      placeholder="Instrucciones especiales para el envío, comentarios sobre el pedido, etc."></textarea>
                         </div>
                         
                         <!-- Botón de envío -->
-                        <button type="submit" class="btn btn-ktm">
-                            <i class="fas fa-arrow-right"></i> CONTINUAR AL PAGO
+                        <button type="button" class="btn btn-ktm" id="submitBtn">
+                            <i class="fas fa-arrow-right"></i> CONTINUAR AL CHECKOUT
                         </button>
+                        <div id="formMessage" class="mt-3"></div>
                     </form>
                 </div>
             </div>
@@ -495,56 +483,194 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Validación del formulario
-            const form = document.getElementById('clienteForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    // Validación básica
-                    const requiredFields = form.querySelectorAll('[required]');
-                    let valid = true;
+            // Cargar datos del carrito desde localStorage
+            const cart = JSON.parse(localStorage.getItem('checkoutCart')) || {};
+            const discountApplied = JSON.parse(localStorage.getItem('checkoutDiscount')) || false;
+            
+            // Calcular resumen del carrito
+            let subtotal = 0;
+            const shippingCost = 9.99;
+            const discountAmount = 30.00;
+            const taxRate = 0.21;
+            
+            // Construir HTML para los productos del carrito
+            let cartHTML = '';
+            for (const id in cart) {
+                const item = cart[id];
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                // Determinar icono
+                let icon = 'fa-box';
+                if (item.category.includes('Lubricante')) icon = 'fa-oil-can';
+                else if (item.category.includes('Refrigerante')) icon = 'fa-snowflake';
+                else if (item.category.includes('Accesorio') || item.category.includes('LED')) icon = 'fa-lightbulb';
+                else if (item.category.includes('Limpieza')) icon = 'fa-brush';
+                else if (item.category.includes('Electricidad') || item.category.includes('Batería')) icon = 'fa-battery-full';
+                else if (item.category.includes('Mantenimiento')) icon = 'fa-wrench';
+                
+                cartHTML += `
+                    <div class="cart-summary-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-icon">
+                                <i class="fas ${icon}"></i>
+                            </div>
+                            <div class="cart-item-details">
+                                <h6>${item.name}</h6>
+                                <div class="cart-item-quantity">Cantidad: ${item.quantity}</div>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">$${(itemTotal).toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            
+            // Insertar productos en el DOM
+            const cartContainer = document.querySelector('#cartItemsContainer');
+            if (cartContainer) {
+                if (Object.keys(cart).length === 0) {
+                    cartContainer.innerHTML = '<p class="text-center text-muted py-4">No hay productos en el carrito</p>';
                     
-                    requiredFields.forEach(field => {
-                        if (!field.value.trim()) {
-                            field.classList.add('is-invalid');
-                            valid = false;
-                        } else {
-                            field.classList.remove('is-invalid');
-                        }
-                    });
+                    // Si el carrito está vacío, mostrar mensaje y redirigir
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-warning mt-3';
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Tu carrito está vacío. Serás redirigido al carrito en 3 segundos...
+                    `;
+                    cartContainer.parentNode.insertBefore(alertDiv, cartContainer.nextSibling);
                     
-                    // Validar email
-                    const emailField = form.querySelector('input[type="email"]');
-                    if (emailField && emailField.value) {
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(emailField.value)) {
-                            emailField.classList.add('is-invalid');
-                            valid = false;
-                        }
-                    }
-                    
-                    if (!valid) {
-                        e.preventDefault();
-                        
-                        // Mostrar mensaje de error
-                        let errorMsg = document.querySelector('.alert');
-                        if (!errorMsg) {
-                            errorMsg = document.createElement('div');
-                            errorMsg.className = 'alert alert-danger mt-3';
-                            errorMsg.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Por favor, completa todos los campos requeridos correctamente.';
-                            form.insertBefore(errorMsg, form.querySelector('.btn-ktm'));
-                        }
+                    setTimeout(() => {
+                        window.location.href = "{{ route('carrito') }}";
+                    }, 3000);
+                    return;
+                } else {
+                    cartContainer.innerHTML = cartHTML;
+                }
+            }
+            
+            // Calcular totales
+            const tax = subtotal * taxRate;
+            const discount = discountApplied ? discountAmount : 0;
+            const total = subtotal + shippingCost - discount + tax;
+            
+            // Actualizar resumen
+            document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('summaryShipping').textContent = `$${shippingCost.toFixed(2)}`;
+            document.getElementById('summaryDiscount').textContent = `-$${discount.toFixed(2)}`;
+            document.getElementById('summaryTax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+            
+            // Configurar el botón de envío
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Función para mostrar mensaje
+            function showMessage(message, type = 'info') {
+                formMessage.innerHTML = `
+                    <div class="alert alert-${type} alert-dismissible fade show">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+            }
+            
+            // Función para validar email
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            // Función para validar formulario
+            function validateForm() {
+                let valid = true;
+                
+                // Remover errores anteriores
+                document.querySelectorAll('.form-control').forEach(field => {
+                    field.classList.remove('is-invalid');
+                });
+                
+                // Validar campos requeridos
+                const requiredFields = [
+                    { field: document.getElementById('nombre'), name: 'nombre' },
+                    { field: document.getElementById('documento'), name: 'documento' },
+                    { field: document.getElementById('telefono'), name: 'teléfono' },
+                    { field: document.getElementById('correo'), name: 'correo electrónico' }
+                ];
+                
+                requiredFields.forEach(item => {
+                    if (!item.field.value.trim()) {
+                        item.field.classList.add('is-invalid');
+                        valid = false;
                     }
                 });
                 
-                // Remover clase de error al escribir
-                form.querySelectorAll('input, textarea').forEach(field => {
-                    field.addEventListener('input', function() {
-                        this.classList.remove('is-invalid');
-                    });
-                });
+                // Validar email
+                const correo = document.getElementById('correo').value;
+                if (correo && !isValidEmail(correo)) {
+                    document.getElementById('correo').classList.add('is-invalid');
+                    valid = false;
+                    showMessage('Por favor ingresa un correo electrónico válido', 'danger');
+                }
+                
+                return valid;
+            }
+            
+            // Función para guardar datos y redirigir
+            function saveAndRedirect() {
+                if (!validateForm()) {
+                    showMessage('Por favor, completa todos los campos requeridos correctamente.', 'danger');
+                    return;
+                }
+                
+                // Deshabilitar botón
+                submitBtn.disabled = true;
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESANDO...';
+                
+                // Recopilar datos del formulario
+                const formData = {
+                    nombre: document.getElementById('nombre').value,
+                    documento: document.getElementById('documento').value,
+                    telefono: document.getElementById('telefono').value,
+                    correo: document.getElementById('correo').value,
+                    comentarios: document.getElementById('comentarios').value,
+                    carrito: cart,
+                    resumen: {
+                        subtotal: subtotal,
+                        envio: shippingCost,
+                        descuento: discount,
+                        impuestos: tax,
+                        total: total
+                    }
+                };
+                
+                // Guardar datos en localStorage
+                localStorage.setItem('clienteData', JSON.stringify(formData));
+                
+                // Mostrar mensaje de éxito
+                showMessage('Datos guardados correctamente. Redirigiendo a la confirmación...', 'success');
+                
+                // Redirigir después de 1.5 segundos
+                setTimeout(() => {
+                    window.location.href = "{{ route('confirmacion') }}";
+                }, 1500);
+            }
+            
+            // Asignar evento al botón
+            submitBtn.addEventListener('click', saveAndRedirect);
+            
+            // Cargar datos guardados si existen
+            const savedData = JSON.parse(localStorage.getItem('clienteData'));
+            if (savedData) {
+                document.getElementById('nombre').value = savedData.nombre || '';
+                document.getElementById('documento').value = savedData.documento || '';
+                document.getElementById('telefono').value = savedData.telefono || '';
+                document.getElementById('correo').value = savedData.correo || '';
+                document.getElementById('comentarios').value = savedData.comentarios || '';
             }
         });
     </script>

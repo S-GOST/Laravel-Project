@@ -762,8 +762,31 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-premium">
         <div class="container">
-            <div class="navbar-brand">
-                <img src="{{ asset('img/rock.png') }}" alt="KTM Rocket Service Logo">
+            <!-- Logo y buscador -->
+            <div class="navbar-left">
+                <div class="navbar-brand">
+                    <img src="{{ asset('img/rock.png') }}" alt="KTM Rocket Service Logo">
+                </div>
+                
+                <!-- Buscador KTM -->
+                <div class="ktm-search-container">
+                    <form class="ktm-search-form" id="searchForm">
+                        <div class="search-input-group">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" 
+                                   class="form-control ktm-search-input" 
+                                   id="searchInput" 
+                                   placeholder="Buscar servicios, repuestos, diagnósticos..."
+                                   aria-label="Buscar">
+                            <button type="submit" class="ktm-search-btn">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="search-suggestions" id="searchSuggestions">
+                            <!-- Sugerencias se cargarán aquí -->
+                        </div>
+                    </form>
+                </div>
             </div>
             
             <div class="nav-user-actions">
@@ -772,7 +795,7 @@
                     <span>Carrito</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
-                <a href="{{ route('login') }}" class="nav-btn btn-login">
+                <a href="{{ route('cliente.login') }}" class="nav-btn btn-login">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Iniciar Sesión</span>
                 </a>
@@ -1209,237 +1232,302 @@
             </div>
         </footer>
     </div>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // ==========================
-        // SISTEMA DE CARRITO PARA INDEX
-        // ==========================
+
+    <!-- Agregar CSS para el buscador -->
+    <style>
+        /* Estructura de la barra de navegación */
+        .navbar-premium .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
         
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Página index cargada");
-            
-            // Variables
-            let cart = JSON.parse(localStorage.getItem('ktmCart')) || {};
-            
-            // ==========================
-            // INICIALIZAR
-            // ==========================
-            initCart();
-            
-            function initCart() {
-                console.log("Inicializando carrito en index...");
-                console.log("Productos en carrito:", cart);
-                updateCartCount();
-                setupEventListeners();
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            gap: 20px;
+        }
+        
+        /* Buscador KTM */
+        .ktm-search-container {
+            flex: 1;
+            max-width: 500px;
+            min-width: 200px;
+            position: relative;
+        }
+        
+        .ktm-search-form {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-input-group {
+            display: flex;
+            align-items: center;
+            background: var(--ktm-gray);
+            border: 2px solid var(--ktm-orange);
+            border-radius: 30px;
+            padding: 5px 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 102, 0, 0.1);
+        }
+        
+        .search-input-group:focus-within {
+            border-color: var(--ktm-orange);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .search-icon {
+            color: var(--ktm-orange);
+            font-size: 1.2rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .ktm-search-input {
+            background: transparent;
+            border: none;
+            color: var(--ktm-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+        }
+        
+        .ktm-search-input::placeholder {
+            color: #888;
+        }
+        
+        .ktm-search-btn {
+            background: var(--ktm-orange);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ktm-black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 5px;
+        }
+        
+        .ktm-search-btn:hover {
+            background: var(--ktm-dark-orange);
+            transform: scale(1.05);
+        }
+        
+        .ktm-search-btn i {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Sugerencias de búsqueda */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--ktm-gray);
+            border: 2px solid var(--ktm-orange);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            margin-top: -2px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 15px;
+            color: var(--ktm-white);
+            border-bottom: 1px solid var(--ktm-light-gray);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-suggestion-item:hover {
+            background: rgba(255, 102, 0, 0.1);
+            color: var(--ktm-orange);
+        }
+        
+        .search-suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-icon {
+            color: var(--ktm-orange);
+            font-size: 1rem;
+        }
+        
+        .suggestion-text {
+            flex: 1;
+        }
+        
+        .suggestion-category {
+            background: rgba(255, 102, 0, 0.2);
+            color: var(--ktm-orange);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .navbar-left {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+                width: 100%;
+                margin-bottom: 15px;
             }
             
-            // ==========================
-            // ACTUALIZAR CONTADOR
-            // ==========================
-            function updateCartCount() {
-                let total = 0;
-                for (const id in cart) {
-                    total += cart[id].quantity;
+            .navbar-brand {
+                text-align: center;
+            }
+            
+            .ktm-search-container {
+                max-width: 100%;
+            }
+            
+            .nav-user-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-input-group {
+                padding: 5px 10px;
+            }
+            
+            .ktm-search-input {
+                font-size: 0.9rem;
+            }
+            
+            .ktm-search-btn {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+
+    <!-- JavaScript para el buscador -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchForm = document.getElementById('searchForm');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            
+            // Datos de ejemplo para sugerencias
+            const searchData = [
+                { id: 1, name: 'Mantenimiento Preventivo', category: 'Mantenimiento', icon: 'bi-shield-check' },
+                { id: 2, name: 'Mantenimiento Correctivo', category: 'Mantenimiento', icon: 'bi-wrench-adjustable' },
+                { id: 3, name: 'Mantenimiento Predictivo', category: 'Mantenimiento', icon: 'bi-graph-up-arrow' },
+                { id: 4, name: 'Mantenimiento Proactivo', category: 'Mantenimiento', icon: 'bi-lightning-charge' },
+                { id: 5, name: 'Reparaciones por Daños', category: 'Reparaciones', icon: 'bi-tools' },
+                { id: 6, name: 'Motorización y Transmisión', category: 'Reparaciones', icon: 'bi-gear' },
+                { id: 7, name: 'Electrónica y Sistemas de Control', category: 'Reparaciones', icon: 'bi-cpu' },
+                { id: 8, name: 'Carrocería y Personalización', category: 'Reparaciones', icon: 'bi-palette' },
+                { id: 9, name: 'Diagnóstico de Emisiones', category: 'Diagnósticos', icon: 'bi-speedometer2' },
+                { id: 10, name: 'Diagnóstico de Seguridad', category: 'Diagnósticos', icon: 'bi-shield-check' },
+                { id: 11, name: 'Diagnóstico Eléctrico', category: 'Diagnósticos', icon: 'bi-lightning-charge' },
+                { id: 12, name: 'Diagnóstico Mecánico', category: 'Diagnósticos', icon: 'bi-gear-wide' },
+                { id: 13, name: 'Instalación Personalizada', category: 'Instalaciones', icon: 'bi-wrench' },
+                { id: 14, name: 'Instalaciones de Seguridad', category: 'Instalaciones', icon: 'bi-shield-shaded' },
+                { id: 15, name: 'Instalaciones de Rendimiento', category: 'Instalaciones', icon: 'bi-graph-up' },
+                { id: 16, name: 'Accesorios Personalizados', category: 'Instalaciones', icon: 'bi-stars' }
+            ];
+            
+            // Función para filtrar sugerencias
+            function filterSuggestions(query) {
+                if (!query.trim()) {
+                    return [];
                 }
-                document.getElementById('cartCount').textContent = total;
+                
+                const lowerQuery = query.toLowerCase();
+                return searchData.filter(item => 
+                    item.name.toLowerCase().includes(lowerQuery) ||
+                    item.category.toLowerCase().includes(lowerQuery)
+                ).slice(0, 8); // Limitar a 8 resultados
             }
             
-            // ==========================
-            // GUARDAR CARRITO
-            // ==========================
-            function saveCart() {
-                localStorage.setItem('ktmCart', JSON.stringify(cart));
-                updateCartCount();
-            }
-            
-            // ==========================
-            // AGREGAR PRODUCTO
-            // ==========================
-            function addToCart(product) {
-                console.log("Agregando producto en index:", product);
+            // Función para mostrar sugerencias
+            function showSuggestions(suggestions) {
+                searchSuggestions.innerHTML = '';
                 
-                const { id, name, price, category } = product;
-                
-                if (cart[id]) {
-                    cart[id].quantity += 1;
-                } else {
-                    // Determinar icono basado en categoría
-                    let icon = 'box';
-                    if (category.includes('Mantenimiento')) icon = 'tools';
-                    else if (category.includes('Reparaciones')) icon = 'wrench';
-                    else if (category.includes('Diagnósticos')) icon = 'clipboard-check';
-                    else if (category.includes('Instalaciones')) icon = 'lightning-charge';
-                    
-                    cart[id] = {
-                        id: id,
-                        name: name,
-                        price: parseFloat(price),
-                        quantity: 1,
-                        category: category,
-                        icon: icon,
-                        description: `Servicio de ${category} para tu motocicleta KTM`
-                    };
+                if (suggestions.length === 0) {
+                    searchSuggestions.style.display = 'none';
+                    return;
                 }
                 
-                saveCart();
-                showNotification(`${name} agregado al carrito`, 'success');
-                updateButtonState(product.id, true);
-            }
-            
-            // ==========================
-            // NOTIFICACIONES
-            // ==========================
-            function showNotification(message, type = 'success') {
-                // Eliminar notificaciones anteriores
-                const oldNotifications = document.querySelectorAll('.notification');
-                oldNotifications.forEach(notif => notif.remove());
-                
-                // Crear notificación
-                const notification = document.createElement('div');
-                notification.className = `alert alert-${type === 'success' ? 'success' : 'warning'} notification`;
-                notification.innerHTML = `
-                    <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-left: 10px;"></button>
-                `;
-                
-                // Estilos
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 80px;
-                    right: 20px;
-                    z-index: 9999;
-                    min-width: 300px;
-                    animation: slideIn 0.3s ease-out;
-                    display: flex;
-                    align-items: center;
-                `;
-                
-                // Agregar al DOM
-                document.body.appendChild(notification);
-                
-                // Configurar botón de cerrar
-                const closeBtn = notification.querySelector('.btn-close');
-                closeBtn.addEventListener('click', () => {
-                    notification.style.animation = 'slideOut 0.3s ease-out';
-                    setTimeout(() => notification.remove(), 300);
-                });
-                
-                // Eliminar después de 3 segundos
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.style.animation = 'slideOut 0.3s ease-out';
-                        setTimeout(() => notification.remove(), 300);
-                    }
-                }, 3000);
-            }
-            
-            // ==========================
-            // ACTUALIZAR ESTADO DEL BOTÓN
-            // ==========================
-            function updateButtonState(productId, added = false) {
-                const button = document.querySelector(`.add-to-cart-btn[data-id="${productId}"]`);
-                if (!button) return;
-                
-                if (added) {
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = `
-                        <i class="bi bi-check-circle-fill"></i>
-                        Agregado
+                suggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'search-suggestion-item';
+                    suggestionItem.innerHTML = `
+                        <i class="bi ${suggestion.icon} suggestion-icon"></i>
+                        <div class="suggestion-text">${suggestion.name}</div>
+                        <div class="suggestion-category">${suggestion.category}</div>
                     `;
-                    button.style.background = 'rgba(76, 175, 80, 0.1)';
-                    button.style.borderColor = '#4CAF50';
-                    button.style.color = '#4CAF50';
                     
-                    // Restaurar después de 2 segundos
-                    setTimeout(() => {
-                        button.innerHTML = originalHTML;
-                        button.style.background = '';
-                        button.style.borderColor = '';
-                        button.style.color = '';
-                    }, 2000);
-                }
-            }
-            
-            // ==========================
-            // CONFIGURAR EVENT LISTENERS
-            // ==========================
-            function setupEventListeners() {
-                console.log("Configurando event listeners en index...");
-                
-                // Botones de agregar al carrito
-                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                    // Clonar y reemplazar para evitar duplicados
-                    button.replaceWith(button.cloneNode(true));
-                });
-                
-                // Re-asignar event listeners a los botones clonados
-                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        console.log("Botón de agregar clickeado en index");
-                        
-                        const product = {
-                            id: this.dataset.id,
-                            name: this.dataset.name,
-                            price: this.dataset.price,
-                            category: this.dataset.category
-                        };
-                        
-                        addToCart(product);
+                    suggestionItem.addEventListener('click', function() {
+                        searchInput.value = suggestion.name;
+                        searchSuggestions.style.display = 'none';
+                        // Aquí puedes redirigir o realizar la búsqueda
+                        alert(`Buscando: ${suggestion.name}`);
                     });
+                    
+                    searchSuggestions.appendChild(suggestionItem);
                 });
-            }
-            
-            // ==========================
-            // ANIMACIONES CSS
-            // ==========================
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-                .cart-count {
-                    transition: all 0.3s ease;
-                }
-                .cart-count.updated {
-                    animation: pulse 0.5s;
-                }
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.3); }
-                    100% { transform: scale(1); }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // ==========================
-            // EFECTO PARTÍCULAS
-            // ==========================
-            function createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                if (!particlesContainer) return;
                 
-                for (let i = 0; i < 50; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.top = `${Math.random() * 100}%`;
-                    particle.style.animationDelay = `${Math.random() * 5}s`;
-                    particle.style.animationDuration = `${5 + Math.random() * 10}s`;
-                    particlesContainer.appendChild(particle);
-                }
+                searchSuggestions.style.display = 'block';
             }
             
-            createParticles();
+            // Evento para input
+            searchInput.addEventListener('input', function() {
+                const query = this.value;
+                const suggestions = filterSuggestions(query);
+                showSuggestions(suggestions);
+            });
+            
+            // Evento para submit del formulario
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                
+                if (query) {
+                    // Aquí implementarías la lógica de búsqueda real
+                    alert(`Realizando búsqueda de: ${query}`);
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+            
+            // Ocultar sugerencias al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!searchForm.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+            
+            // Efecto focus en el input
+            searchInput.addEventListener('focus', function() {
+                const query = this.value;
+                const suggestions = filterSuggestions(query);
+                showSuggestions(suggestions);
+            });
         });
     </script>
 </body>

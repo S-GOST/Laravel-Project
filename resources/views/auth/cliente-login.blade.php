@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Administrador - KTM</title>
+    <title>Acceso Cliente - KTM Rocket Service</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
         .image-section {
             flex: 1;
             background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(26, 26, 26, 0.9)), 
-                        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=987&q=80');
+                        url('https://images.unsplash.com/photo-1566891439633-1837e8f6e227?auto=format&fit=crop&w=987&q=80');
             background-size: cover;
             background-position: center;
             display: none;
@@ -425,6 +425,23 @@
             text-decoration: underline;
         }
         
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .register-link a {
+            color: var(--ktm-orange);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .form-section {
@@ -449,19 +466,18 @@
     <div class="image-section animate-panel">
         <div class="image-overlay"></div>
         <div class="image-content">
-            <div class="ktm-badge-large">S-GOST</div>
-            <h1 class="image-title">Gestión <span>ordenes servicio</span> Técnicos ROCKET SERVICE</h1>
+            <div class="ktm-badge-large">CLIENTES</div>
+            <h1 class="image-title">Área de <span>Clientes</span> KTM Rocket Service</h1>
             <p class="image-subtitle">
-                Accede al panel de control completo para gestionar usuarios, 
-                configuraciones y monitorizar el rendimiento del sistema en tiempo real.
+                Accede a tu área personal para gestionar tus servicios, ver el historial de reparaciones y realizar nuevas solicitudes.
             </p>
             
             <ul class="features-list">
-                <li><i class="fas fa-tachometer-alt"></i>Panel de control en tiempo real</li>
-                <li><i class="fas fa-user-shield"></i>Gestión de usuarios y permisos</li>
-                <li><i class="fas fa-chart-line"></i>Reportes y estadísticas avanzadas</li>
-                <li><i class="fas fa-cogs"></i>Configuración del sistema</li>
-                <li><i class="fas fa-history"></i>Historial de actividades</li>
+                <li><i class="fas fa-history"></i>Historial completo de servicios</li>
+                <li><i class="fas fa-calendar-check"></i>Gestiona tus citas en línea</li>
+                <li><i class="fas fa-file-invoice"></i>Accede a tus facturas y presupuestos</li>
+                <li><i class="fas fa-headset"></i>Soporte prioritario para clientes</li>
+                <li><i class="fas fa-motorcycle"></i>Seguimiento de tu motocicleta en tiempo real</li>
             </ul>
         </div>
     </div>
@@ -474,8 +490,8 @@
                          alt="Rock Logo" 
                          class="mb-3"
                          style="width:70px; height:auto; filter: drop-shadow(0 0 8px #ff6600);">
-                    <h2 style="font-weight:700; color:#fff;">Acceso Administrador</h2>
-                    <p style="color:#ccc;">Credenciales Requeridas</p>
+                    <h2 style="font-weight:700; color:#fff;">Acceso Clientes</h2>
+                    <p style="color:#ccc;">Bienvenido de vuelta</p>
                 </div>
                 
                 <div class="login-body">
@@ -483,7 +499,7 @@
                         <div class="error-alert">
                             <strong>
                                 <i class="fas fa-exclamation-triangle me-2"></i>
-                                Credenciales incorrectas
+                                Error en el acceso
                             </strong>
                             <ul class="mt-2 mb-0">
                                 @foreach ($errors->all() as $error)
@@ -499,18 +515,18 @@
                         </div>
                     @endif
                     
-                    <form action="{{ route('admin.login.post') }}" method="POST" id="loginForm">
+                    <form action="{{ route('cliente.login.post') }}" method="POST" id="loginForm">
                         @csrf
                         
                         <div class="form-group">
-                            <label class="form-label">Usuario</label>
+                            <label class="form-label">Email o Usuario</label>
                             <div class="input-group-ktm">
-                                <i class="fas fa-user input-icon"></i>
+                                <i class="fas fa-envelope input-icon"></i>
                                 <input 
                                     type="text" 
                                     name="usuario" 
                                     class="form-control" 
-                                    placeholder="Ingresa tu usuario"
+                                    placeholder="Ingresa tu email o usuario"
                                     required
                                     value="{{ old('usuario') }}"
                                     autocomplete="username"
@@ -535,21 +551,29 @@
                             </div>
                         </div>
                         
-                        <div class="form-group form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Recordar mis datos</label>
+                        <div class="form-group form-check mb-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                <label class="form-check-label" for="remember">Recordar sesión</label>
+                            </div>
+                            <a href="{{ route('cliente.password.request') }}" style="font-size: 0.85rem; color: var(--ktm-orange);">¿Olvidaste tu contraseña?</a>
                         </div>
                         
                         <button type="submit" class="btn btn-ktm" id="submitBtn">
                             <div class="spinner"></div>
                             <span class="btn-text">
-                                <i class="fas fa-sign-in-alt"></i> Ingresar al Sistema
+                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                             </span>
                         </button>
+                        
+                        <div class="register-link">
+                            ¿No tienes una cuenta? 
+                            <a href="{{ route('cliente.registro') }}">Regístrate aquí</a>
+                        </div>
                     </form>
                     
                     <div class="login-footer">
-                        <p><i class="fas fa-shield-alt me-2"></i>Sistema seguro - Acceso restringido</p>
+                        <p><i class="fas fa-shield-alt me-2"></i>Tus datos están protegidos</p>
                         <div class="security-badge">
                             <i class="fas fa-lock"></i>
                             Conexión segura SSL
@@ -593,7 +617,7 @@
             }
             
             // Auto-focus on first input
-            const firstInput = document.querySelector('input[name="usuario"]');
+            const firstInput = document.querySelector('input[name="email"]');
             if (firstInput) {
                 firstInput.focus();
             }

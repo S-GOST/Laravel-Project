@@ -17,6 +17,10 @@
             --ktm-orange: #FF6600;
             --ktm-orange-glow: #FF8C00;
             --ktm-dark: #0A0A0A;
+            --ktm-black: #0A0A0A;
+            --ktm-white: #FFFFFF;
+            --ktm-light-gray: #2A2A2A;
+            --ktm-dark-orange: #E55A00;
             --ktm-dark-card: #111111;
             --ktm-gray-dark: #1A1A1A;
             --ktm-gray-medium: #2A2A2A;
@@ -228,14 +232,221 @@
             }
         }
         
-        /* Lista de productos */
-        .cart-items {
+        /* Items del carrito */
+        .cart-item {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: flex-start;
+            background: linear-gradient(145deg, rgba(17, 17, 17, 0.9), rgba(26, 26, 26, 0.9));
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 102, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .cart-empty {
+        .cart-item:hover {
+            border-color: var(--ktm-orange);
+            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.1);
+        }
+        
+        .cart-item.removing {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        
+        .item-image {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff6b00, #ff8c00);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .item-image i {
+            font-size: 30px;
+            color: white;
+            z-index: 1;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-header {
+            margin-bottom: 10px;
+        }
+        
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 0 5px 0;
+            letter-spacing: 0.5px;
+        }
+        
+        .item-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .item-category {
+            font-size: 14px;
+            color: #aaa;
+            font-style: italic;
+            background: #333;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .item-description {
+            font-size: 14px;
+            color: #bbb;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 6px;
+            border-left: 3px solid #ff6b00;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #2a2a2a;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        
+        .qty-btn {
+            width: 34px;
+            height: 34px;
+            border: 2px solid #444;
+            background: #333;
+            color: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .qty-btn:hover {
+            background: #ff6b00;
+            border-color: #ff6b00;
+            transform: scale(1.1);
+        }
+        
+        .qty-value {
+            font-size: 18px;
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .item-subtotal {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6b00;
+            text-align: right;
+            min-width: 90px;
+            background: #2a2a2a;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        
+        .item-subtotal span {
+            color: #ff6b00;
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+        }
+        
+        /* Botón eliminar - ESTILO MODERNO */
+        .delete-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+            z-index: 10;
+        }
+        
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #c82333, #b21f2d);
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+        }
+        
+        .delete-btn i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .delete-btn:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* Carrito vacío */
+        .empty-cart {
             background: linear-gradient(145deg, rgba(17, 17, 17, 0.9), rgba(26, 26, 26, 0.9));
             border-radius: 15px;
             padding: 60px 40px;
@@ -243,190 +454,35 @@
             text-align: center;
         }
         
-        .cart-empty-icon {
+        .empty-icon {
             font-size: 4rem;
             color: var(--ktm-gray-medium);
             margin-bottom: 20px;
         }
         
-        .cart-empty-title {
+        .empty-cart h3 {
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.8rem;
             color: var(--ktm-gray-light);
             margin-bottom: 15px;
         }
         
-        .cart-empty-text {
+        .empty-cart p {
             color: var(--ktm-gray-light);
             margin-bottom: 30px;
             font-size: 1.1rem;
         }
         
-        /* Tarjeta de producto */
-        .cart-item-card {
-            background: linear-gradient(145deg, rgba(17, 17, 17, 0.9), rgba(26, 26, 26, 0.9));
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid rgba(255, 102, 0, 0.15);
-            transition: all 0.3s ease;
-            display: flex;
-            gap: 20px;
-            position: relative;
-        }
-        
-        .cart-item-card:hover {
-            border-color: var(--ktm-orange);
-            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.1);
-        }
-        
-        .cart-item-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
-            background: rgba(255, 102, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--ktm-orange);
-            flex-shrink: 0;
-        }
-        
-        .cart-item-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .cart-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-        
-        .cart-item-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .cart-item-category {
-            font-size: 0.9rem;
-            color: var(--ktm-orange);
-            background: rgba(255, 102, 0, 0.1);
-            padding: 3px 10px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        
-        .cart-item-price {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            color: var(--ktm-orange);
-            font-weight: 700;
-            text-align: right;
-        }
-        
-        .cart-item-desc {
-            color: var(--ktm-gray-light);
-            margin-bottom: 20px;
-            line-height: 1.5;
-            flex: 1;
-        }
-        
-        .cart-item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .quantity-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: rgba(255, 102, 0, 0.1);
-            border: 1px solid rgba(255, 102, 0, 0.3);
-            color: var(--ktm-orange);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .quantity-btn:hover {
-            background: rgba(255, 102, 0, 0.2);
-            border-color: var(--ktm-orange);
-            transform: scale(1.1);
-        }
-        
-        .quantity-value {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.3rem;
-            color: white;
-            min-width: 40px;
-            text-align: center;
-        }
-        
-        .cart-item-subtotal {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.3rem;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .cart-item-actions {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .action-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--ktm-gray-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn:hover {
-            background: rgba(255, 102, 0, 0.2);
-            border-color: var(--ktm-orange);
-            color: var(--ktm-orange);
-        }
-        
-        .action-btn.delete:hover {
-            background: rgba(244, 67, 54, 0.2);
-            border-color: #F44336;
-            color: #F44336;
-        }
-        
-        /* Panel de resumen */
+        /* Resumen del pedido */
         .cart-summary {
-            background: linear-gradient(145deg, rgba(17, 17, 17, 0.95), rgba(10, 10, 10, 0.95));
+            background: linear-gradient(145deg, #1a1a1a, #222222);
             border-radius: 15px;
             padding: 30px;
             border: 1px solid rgba(255, 102, 0, 0.2);
             height: fit-content;
             position: sticky;
             top: 100px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
         
         .summary-title {
@@ -731,35 +787,32 @@
                 font-size: 2.2rem;
             }
             
-            .cart-item-card {
+            .cart-item {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
             
-            .cart-item-image {
+            .item-image {
                 width: 100px;
                 height: 100px;
+                margin-right: 0;
+                margin-bottom: 15px;
             }
             
-            .cart-item-header {
+            .item-header {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
             }
             
-            .cart-item-price {
-                text-align: center;
-            }
-            
-            .cart-item-footer {
+            .item-footer {
                 flex-direction: column;
                 gap: 20px;
             }
             
-            .cart-item-actions {
+            .delete-btn {
                 position: static;
-                justify-content: center;
                 margin-top: 15px;
             }
             
@@ -794,12 +847,36 @@
         }
         
         /* Notificaciones */
-        .notification {
+        .cart-notification {
             position: fixed;
             top: 100px;
             right: 20px;
             z-index: 9999;
             animation: slideIn 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .cart-notification.alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .cart-notification.alert-warning {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .cart-notification.alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
         
         @keyframes slideIn {
@@ -810,6 +887,153 @@
         @keyframes slideOut {
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* Botón de checkout oculto inicialmente */
+        #btnCheckout {
+            display: none;
+        }
+        
+        /* MODALES CON FONDO NEGRO SÓLIDO */
+        .modal-content {
+            background-color: #0A0A0A !important;
+            color: #fff !important;
+            border: 2px solid var(--ktm-orange) !important;
+            border-radius: 15px !important;
+            box-shadow: 0 10px 40px rgba(255, 102, 0, 0.2) !important;
+        }
+
+        .modal-header {
+            background-color: #111111 !important;
+            border-bottom: 2px solid var(--ktm-orange) !important;
+            padding: 20px !important;
+        }
+
+        .modal-body {
+            background-color: #0A0A0A !important;
+            padding: 30px 25px !important;
+            color: #fff !important;
+        }
+
+        .modal-footer {
+            background-color: #111111 !important;
+            border-top: 2px solid var(--ktm-orange) !important;
+            padding: 20px !important;
+        }
+
+        /* Estilos para el botón de cerrar */
+        .btn-close-white {
+            filter: invert(1) grayscale(100%) brightness(200%) !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 50% !important;
+            padding: 8px !important;
+            transition: all 0.3s !important;
+            opacity: 0.8 !important;
+        }
+
+        .btn-close-white:hover {
+            background-color: rgba(255, 102, 0, 0.3) !important;
+            opacity: 1 !important;
+        }
+
+        /* Estilos para botones dentro de modales */
+        .modal .btn-secondary {
+            background-color: #2A2A2A !important;
+            border: 1px solid #444 !important;
+            color: #fff !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s !important;
+        }
+
+        .modal .btn-secondary:hover {
+            background-color: #333 !important;
+            border-color: var(--ktm-orange) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .modal .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333) !important;
+            border: none !important;
+            color: white !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s !important;
+        }
+
+        .modal .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333, #b21f2d) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3) !important;
+        }
+
+        .modal .btn-ktm {
+            background: linear-gradient(90deg, var(--ktm-orange), var(--ktm-orange-glow)) !important;
+            border: none !important;
+            color: white !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s !important;
+        }
+
+        .modal .btn-ktm:hover {
+            background: linear-gradient(90deg, var(--ktm-orange-glow), #ffa64d) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3) !important;
+        }
+
+        /* Transiciones suaves */
+        .modal.fade .modal-content {
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Mejora de contrastes */
+        .modal-body p, .modal-body span, .modal-body h5, .modal-body h6 {
+            color: #fff !important;
+        }
+
+        .modal-body .text-muted {
+            color: #aaa !important;
+        }
+
+        /* Contenedor de resumen en el modal de checkout */
+        .checkout-summary {
+            background-color: #111111 !important;
+            border: 1px solid var(--ktm-orange) !important;
+            border-radius: 10px !important;
+            padding: 20px !important;
+            margin-bottom: 20px !important;
+        }
+
+        .checkout-summary hr {
+            border-color: #444 !important;
+            margin: 15px 0 !important;
+        }
+
+        /* Alert dentro del modal */
+        .modal-body .alert {
+            background-color: rgba(13, 110, 253, 0.15) !important;
+            border-color: rgba(13, 110, 253, 0.3) !important;
+            color: #b8daff !important;
+            border-radius: 8px !important;
+            padding: 15px !important;
+        }
+
+        /* Eliminar cualquier transparencia en los modales */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7) !important;
+        }
+
+        /* Asegurar que el modal sea completamente opaco */
+        .modal {
+            background-color: transparent !important;
         }
     </style>
 </head>
@@ -862,29 +1086,29 @@
                 <div class="summary-details">
                     <div class="summary-row">
                         <span class="summary-label">Subtotal:</span>
-                        <span class="summary-value" id="summarySubtotal">€0,00</span>
+                        <span class="summary-value" id="summarySubtotal">$0.00</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label">Envío:</span>
-                        <span class="summary-value" id="summaryEnvio">€9,99</span>
+                        <span class="summary-value" id="summaryEnvio">$9.99</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label">Descuento:</span>
-                        <span class="summary-value" style="color: var(--ktm-orange);" id="summaryDescuento">-€30,00</span>
+                        <span class="summary-value" style="color: var(--ktm-orange);" id="summaryDescuento">-$0.00</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label">Impuestos (21%):</span>
-                        <span class="summary-value" id="summaryImpuestos">€0,00</span>
+                        <span class="summary-value" id="summaryImpuestos">$0.00</span>
                     </div>
                 </div>
                 
                 <div class="summary-total">
                     <span class="total-label">TOTAL</span>
-                    <span class="total-value" id="summaryTotal">€0,00</span>
+                    <span class="total-value" id="summaryTotal">$0.00</span>
                 </div>
                 
                 <div class="summary-actions">
-                    <button id="btnCheckout" class="cart-btn btn-checkout" style="display: none;">
+                    <button id="btnCheckout" class="cart-btn btn-checkout">
                         <i class="bi bi-credit-card"></i>
                         PROCEDER AL PAGO
                     </button>
@@ -918,7 +1142,7 @@
                         <i class="bi bi-droplet-half"></i>
                     </div>
                     <h4 class="recommendation-name">Aceite Motorex 4T 10W-50</h4>
-                    <div class="recommendation-price">€75,00</div>
+                    <div class="recommendation-price">$75.00</div>
                     <button class="btn-recommendation add-to-cart-btn" data-id="oil1" data-price="75" data-name="Aceite Motorex 4T 10W-50" data-category="Lubricantes">
                         <i class="bi bi-cart-plus"></i>
                         Agregar
@@ -931,7 +1155,7 @@
                         <i class="bi bi-snow"></i>
                     </div>
                     <h4 class="recommendation-name">Refrigerante Ipone Coolant</h4>
-                    <div class="recommendation-price">€40,00</div>
+                    <div class="recommendation-price">$40.00</div>
                     <button class="btn-recommendation add-to-cart-btn" data-id="coolant1" data-price="40" data-name="Refrigerante Ipone Coolant" data-category="Refrigerantes">
                         <i class="bi bi-cart-plus"></i>
                         Agregar
@@ -944,7 +1168,7 @@
                         <i class="bi bi-lightbulb"></i>
                     </div>
                     <h4 class="recommendation-name">Direccional LED KTM Duke 200</h4>
-                    <div class="recommendation-price">€55,00</div>
+                    <div class="recommendation-price">$55.00</div>
                     <button class="btn-recommendation add-to-cart-btn" data-id="light1" data-price="55" data-name="Direccional LED KTM Duke 200" data-category="Accesorios">
                         <i class="bi bi-cart-plus"></i>
                         Agregar
@@ -957,7 +1181,7 @@
                         <i class="bi bi-brush"></i>
                     </div>
                     <h4 class="recommendation-name">Limpiador de Cadena Motul</h4>
-                    <div class="recommendation-price">€25,00</div>
+                    <div class="recommendation-price">$25.00</div>
                     <button class="btn-recommendation add-to-cart-btn" data-id="chain1" data-price="25" data-name="Limpiador de Cadena Motul" data-category="Limpieza">
                         <i class="bi bi-cart-plus"></i>
                         Agregar
@@ -970,7 +1194,7 @@
                         <i class="bi bi-battery-full"></i>
                     </div>
                     <h4 class="recommendation-name">Batería Yuasa YTZ7S</h4>
-                    <div class="recommendation-price">€95,00</div>
+                    <div class="recommendation-price">$95.00</div>
                     <button class="btn-recommendation add-to-cart-btn" data-id="battery1" data-price="95" data-name="Batería Yuasa YTZ7S" data-category="Electricidad">
                         <i class="bi bi-cart-plus"></i>
                         Agregar
@@ -1016,14 +1240,14 @@
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-   <script>
+        
+<script>
     // ==========================
-    // SISTEMA DE CARRITO MEJORADO
+    // SISTEMA DE CARRITO DE COMPRAS CON MODALS
     // ==========================
     
     document.addEventListener("DOMContentLoaded", function() {
-        console.log("Página del carrito cargada");
+        console.log("Sistema de carrito con modals inicializado");
         
         // Variables globales
         let cart = JSON.parse(localStorage.getItem('ktmCart')) || {};
@@ -1032,18 +1256,20 @@
         const discountAmount = 30.00;
         const taxRate = 0.21;
         
+        // Variables para controlar modals
+        let currentItemId = null;
+        
         // ==========================
-        // INICIALIZAR CARRITO
+        // INICIALIZACIÓN
         // ==========================
         initCart();
         
         function initCart() {
-            console.log("Inicializando carrito...");
             console.log("Productos en carrito:", cart);
             renderCart();
             updateCartCount();
             setupEventListeners();
-            setupCartItemEventDelegation(); // Configurar delegación de eventos UNA VEZ
+            setupModalListeners();
         }
         
         // ==========================
@@ -1054,15 +1280,15 @@
             
             if (Object.keys(cart).length === 0) {
                 container.innerHTML = `
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">
+                    <div class="empty-cart">
+                        <div class="empty-icon">
                             <i class="bi bi-cart-x"></i>
                         </div>
-                        <h3 class="cart-empty-title">Tu carrito está vacío</h3>
-                        <p class="cart-empty-text">Aún no has agregado servicios al carrito. Explora nuestro catálogo y encuentra el servicio perfecto para tu KTM.</p>
+                        <h3>Tu carrito está vacío</h3>
+                        <p>No has agregado productos al carrito. ¡Explora nuestros servicios KTM!</p>
                         <a href="{{ route('index') }}" class="cart-btn btn-continue">
                             <i class="bi bi-arrow-left"></i>
-                            Explorar Servicios
+                            Ver Servicios
                         </a>
                     </div>`;
                 
@@ -1077,45 +1303,40 @@
                 const subtotal = item.price * item.quantity;
                 
                 html += `
-                    <div class="cart-item-card" data-id="${id}">
-                        <div class="cart-item-image">
+                    <div class="cart-item" data-id="${id}">
+                        <div class="item-image">
                             <i class="bi bi-${item.icon || 'box'}"></i>
                         </div>
                         
-                        <div class="cart-item-content">
-                            <div class="cart-item-header">
-                                <div>
-                                    <h3 class="cart-item-title">${item.name}</h3>
-                                    <span class="cart-item-category">${item.category}</span>
+                        <div class="item-details">
+                            <div class="item-header">
+                                <h4 class="item-title">${item.name}</h4>
+                                <div class="item-info-row">
+                                    <span class="item-category">${item.category}</span>
                                 </div>
-                                <div class="cart-item-price">€${item.price.toFixed(2).replace('.', ',')}</div>
                             </div>
                             
-                            <p class="cart-item-desc">
-                                ${item.description || 'Producto de alta calidad para tu motocicleta KTM'}
-                            </p>
+                            <p class="item-description">${item.description || 'Producto premium para tu KTM'}</p>
                             
-                            <div class="cart-item-footer">
-                                <div class="quantity-controls">
-                                    <button class="quantity-btn decrease" data-id="${id}">
+                            <div class="item-footer">
+                                <div class="quantity-control">
+                                    <button class="qty-btn minus" data-id="${id}">
                                         <i class="bi bi-dash"></i>
                                     </button>
-                                    <span class="quantity-value">${item.quantity}</span>
-                                    <button class="quantity-btn increase" data-id="${id}">
+                                    <span class="qty-value">${item.quantity}</span>
+                                    <button class="qty-btn plus" data-id="${id}">
                                         <i class="bi bi-plus"></i>
                                     </button>
                                 </div>
-                                <div class="cart-item-subtotal">
-                                    Subtotal: <span>€${subtotal.toFixed(2).replace('.', ',')}</span>
+                                <div class="item-subtotal">
+                                    $${subtotal.toFixed(2)}
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="cart-item-actions">
-                            <button class="action-btn delete" data-id="${id}" title="Eliminar">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
+                        <button class="delete-btn" data-id="${id}" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </div>`;
             }
             
@@ -1123,45 +1344,159 @@
             document.getElementById('btnCheckout').style.display = 'flex';
             updateSummary();
             
-            // Restaurar estado del descuento si estaba aplicado
             if (discountApplied) {
                 document.getElementById('promoCode').value = 'KTM2024';
             }
         }
         
         // ==========================
-        // DELEGACIÓN DE EVENTOS PARA ITEMS DEL CARRITO (SOLUCIÓN AL PROBLEMA)
+        // CONFIGURAR EVENTOS
         // ==========================
-        function setupCartItemEventDelegation() {
-            // Usar delegación de eventos en el contenedor principal
-            // Esto funciona incluso para elementos creados dinámicamente
-            document.addEventListener('click', function(e) {
+        function setupEventListeners() {
+            // Delegación de eventos para elementos dinámicos
+            const cartContainer = document.getElementById('cartItemsContainer');
+            
+            cartContainer.addEventListener('click', function(e) {
                 const target = e.target;
                 
-                // Verificar si el clic fue en un botón de cantidad o eliminar
-                if (target.closest('.increase')) {
-                    const button = target.closest('.increase');
+                if (target.closest('.delete-btn')) {
+                    e.preventDefault();
+                    const button = target.closest('.delete-btn');
+                    currentItemId = button.dataset.id;
+                    
+                    // Actualizar mensaje del modal
+                    const itemName = cart[currentItemId]?.name || 'este producto';
+                    document.getElementById('deleteProductMessage').textContent = 
+                        `¿Estás seguro de eliminar "${itemName}" del carrito?`;
+                    return;
+                }
+                
+                if (target.closest('.plus')) {
+                    e.preventDefault();
+                    const button = target.closest('.plus');
                     const id = button.dataset.id;
                     updateQuantity(id, 1);
                     return;
                 }
                 
-                if (target.closest('.decrease')) {
-                    const button = target.closest('.decrease');
+                if (target.closest('.minus')) {
+                    e.preventDefault();
+                    const button = target.closest('.minus');
                     const id = button.dataset.id;
                     updateQuantity(id, -1);
                     return;
                 }
-                
-                if (target.closest('.delete')) {
-                    const button = target.closest('.delete');
-                    const id = button.dataset.id;
-                    if (confirm('¿Estás seguro de eliminar este producto del carrito?')) {
-                        removeFromCart(id);
+            });
+            
+            // Botones "Agregar al carrito" en la página
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const product = {
+                        id: this.dataset.id,
+                        name: this.dataset.name,
+                        price: this.dataset.price,
+                        category: this.dataset.category
+                    };
+                    
+                    addToCart(product);
+                });
+            });
+            
+            // Cupón de descuento
+            document.getElementById('applyPromo').addEventListener('click', applyDiscount);
+            document.getElementById('promoCode').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') applyDiscount();
+            });
+            
+            // Finalizar compra
+            const checkoutBtn = document.getElementById('btnCheckout');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    if (Object.keys(cart).length === 0) {
+                        showNotification('El carrito está vacío', 'warning');
+                        return;
                     }
-                    return;
+                    
+                    // Mostrar modal de confirmación
+                    const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutConfirmModal'));
+                    checkoutModal.show();
+                });
+            }
+            
+            // Vaciar carrito
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', function() {
+                    const clearModal = new bootstrap.Modal(document.getElementById('clearCartModal'));
+                    clearModal.show();
+                });
+            }
+        }
+        
+        // ==========================
+        // CONFIGURAR EVENTOS DE MODALS
+        // ==========================
+        function setupModalListeners() {
+            // Modal de eliminar producto
+            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                if (currentItemId) {
+                    removeFromCart(currentItemId);
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+                    modal.hide();
+                    currentItemId = null;
                 }
             });
+            
+            // Modal de checkout
+            document.getElementById('confirmCheckoutBtn').addEventListener('click', function() {
+                processCheckout();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('checkoutConfirmModal'));
+                modal.hide();
+            });
+            
+            // Modal de vaciar carrito
+            document.getElementById('confirmClearCartBtn').addEventListener('click', function() {
+                clearCart();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('clearCartModal'));
+                modal.hide();
+            });
+        }
+        
+        // ==========================
+        // PROCESAR CHECKOUT
+        // ==========================
+        function processCheckout() {
+            if (Object.keys(cart).length === 0) {
+                showNotification('El carrito está vacío', 'warning');
+                return;
+            }
+            
+            // Mostrar indicador de carga
+            const checkoutBtn = document.getElementById('btnCheckout');
+            const originalText = checkoutBtn.innerHTML;
+            checkoutBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i> PROCESANDO...';
+            checkoutBtn.disabled = true;
+            
+            // Guardar carrito para checkout
+            localStorage.setItem('checkoutCart', JSON.stringify(cart));
+            localStorage.setItem('checkoutDiscount', JSON.stringify(discountApplied));
+            
+            // Mostrar mensaje de redirección
+            showNotification('Redirigiendo al checkout...', 'success');
+            
+            // Redirigir después de un breve delay
+            setTimeout(() => {
+                // Usar la ruta de Laravel
+                window.location.href = "{{ route('checkout') }}";
+            }, 1500);
+            
+            // Restaurar botón después de 2 segundos (por si hay error)
+            setTimeout(() => {
+                checkoutBtn.innerHTML = originalText;
+                checkoutBtn.disabled = false;
+            }, 2000);
         }
         
         // ==========================
@@ -1180,11 +1515,19 @@
             const discount = discountApplied ? discountAmount : 0;
             const total = subtotal + shippingCost - discount + tax;
             
-            // Actualizar UI
-            document.getElementById('summarySubtotal').textContent = `€${subtotal.toFixed(2).replace('.', ',')}`;
-            document.getElementById('summaryImpuestos').textContent = `€${tax.toFixed(2).replace('.', ',')}`;
-            document.getElementById('summaryDescuento').textContent = `-€${discount.toFixed(2).replace('.', ',')}`;
-            document.getElementById('summaryTotal').textContent = `€${total.toFixed(2).replace('.', ',')}`;
+            // Actualizar valores en el resumen
+            document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('summaryEnvio').textContent = `$${shippingCost.toFixed(2)}`;
+            document.getElementById('summaryDescuento').textContent = `-$${discount.toFixed(2)}`;
+            document.getElementById('summaryImpuestos').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+            
+            // Actualizar resumen en modal de checkout
+            document.getElementById('modalSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('modalEnvio').textContent = `$${shippingCost.toFixed(2)}`;
+            document.getElementById('modalDescuento').textContent = `-$${discount.toFixed(2)}`;
+            document.getElementById('modalTotal').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('modalItemsCount').textContent = totalItems;
         }
         
         // ==========================
@@ -1208,23 +1551,21 @@
         }
         
         // ==========================
-        // AGREGAR PRODUCTO
+        // AGREGAR AL CARRITO
         // ==========================
         function addToCart(product) {
-            console.log("Agregando producto:", product);
-            
             const { id, name, price, category } = product;
             
             if (cart[id]) {
                 cart[id].quantity += 1;
             } else {
-                // Determinar icono basado en categoría
                 let icon = 'box';
                 if (category.includes('Lubricante')) icon = 'droplet-half';
                 else if (category.includes('Refrigerante')) icon = 'snow';
                 else if (category.includes('Accesorio') || category.includes('LED')) icon = 'lightbulb';
                 else if (category.includes('Limpieza')) icon = 'brush';
                 else if (category.includes('Electricidad') || category.includes('Batería')) icon = 'battery-full';
+                else if (category.includes('Mantenimiento')) icon = 'wrench';
                 
                 cart[id] = {
                     id: id,
@@ -1233,7 +1574,7 @@
                     quantity: 1,
                     category: category,
                     icon: icon,
-                    description: `Producto de ${category} para tu motocicleta KTM`
+                    description: `Servicio de ${category} para tu motocicleta KTM`
                 };
             }
             
@@ -1243,14 +1584,20 @@
         }
         
         // ==========================
-        // ELIMINAR PRODUCTO
+        // ELIMINAR DEL CARRITO
         // ==========================
         function removeFromCart(id) {
             if (cart[id]) {
-                delete cart[id];
-                saveCart();
-                renderCart();
-                showNotification('Producto eliminado del carrito', 'warning');
+                const itemElement = document.querySelector(`.cart-item[data-id="${id}"]`);
+                if (itemElement) {
+                    itemElement.classList.add('removing');
+                    setTimeout(() => {
+                        delete cart[id];
+                        saveCart();
+                        renderCart();
+                        showNotification('Producto eliminado', 'warning');
+                    }, 300);
+                }
             }
         }
         
@@ -1262,112 +1609,32 @@
                 cart[id].quantity += change;
                 
                 if (cart[id].quantity < 1) {
-                    removeFromCart(id);
+                    // Mostrar modal de eliminación en lugar de eliminar directamente
+                    currentItemId = id;
+                    const itemName = cart[id]?.name || 'este producto';
+                    document.getElementById('deleteProductMessage').textContent = 
+                        `¿Eliminar "${itemName}" del carrito? (La cantidad llegó a 0)`;
+                    
+                    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                    modal.show();
                 } else {
                     saveCart();
-                    renderCart(); // Solo renderizamos, no reconfiguramos eventos
-                }
-            }
-        }
-        
-        // ==========================
-        // NOTIFICACIONES
-        // ==========================
-        function showNotification(message, type = 'success') {
-            // Eliminar notificaciones anteriores
-            const oldNotifications = document.querySelectorAll('.notification');
-            oldNotifications.forEach(notif => notif.remove());
-            
-            // Crear notificación
-            const notification = document.createElement('div');
-            notification.className = `alert alert-${type === 'success' ? 'success' : 'warning'} notification`;
-            notification.innerHTML = `
-                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-left: 10px;"></button>
-            `;
-            
-            // Estilos
-            notification.style.cssText = `
-                position: fixed;
-                top: 80px;
-                right: 20px;
-                z-index: 9999;
-                min-width: 300px;
-                animation: slideIn 0.3s ease-out;
-                display: flex;
-                align-items: center;
-            `;
-            
-            // Agregar al DOM
-            document.body.appendChild(notification);
-            
-            // Configurar botón de cerrar
-            const closeBtn = notification.querySelector('.btn-close');
-            closeBtn.addEventListener('click', () => {
-                notification.style.animation = 'slideOut 0.3s ease-out';
-                setTimeout(() => notification.remove(), 300);
-            });
-            
-            // Eliminar después de 3 segundos
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.style.animation = 'slideOut 0.3s ease-out';
-                    setTimeout(() => notification.remove(), 300);
-                }
-            }, 3000);
-        }
-        
-        // ==========================
-        // CONFIGURAR EVENT LISTENERS
-        // ==========================
-        function setupEventListeners() {
-            console.log("Configurando event listeners...");
-            
-            // Botones de agregar al carrito (RECOMENDACIONES)
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                // Eliminar event listeners antiguos para evitar duplicados
-                button.replaceWith(button.cloneNode(true));
-            });
-            
-            // Re-asignar event listeners a los botones clonados
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log("Botón de agregar clickeado");
                     
-                    const product = {
-                        id: this.dataset.id,
-                        name: this.dataset.name,
-                        price: this.dataset.price,
-                        category: this.dataset.category
-                    };
-                    
-                    addToCart(product);
-                });
-            });
-            
-            // Código de descuento
-            document.getElementById('applyPromo').addEventListener('click', applyDiscount);
-            document.getElementById('promoCode').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') applyDiscount();
-            });
-            
-            // Botón de checkout
-            const checkoutBtn = document.getElementById('btnCheckout');
-            if (checkoutBtn) {
-                checkoutBtn.addEventListener('click', function() {
-                    if (Object.keys(cart).length === 0) {
-                        showNotification('Tu carrito está vacío', 'warning');
-                        return;
+                    // Actualizar solo elementos específicos para mejor rendimiento
+                    const itemElement = document.querySelector(`.cart-item[data-id="${id}"]`);
+                    if (itemElement) {
+                        const qtySpan = itemElement.querySelector('.qty-value');
+                        const subtotalSpan = itemElement.querySelector('.item-subtotal');
+                        
+                        if (qtySpan) qtySpan.textContent = cart[id].quantity;
+                        if (subtotalSpan) {
+                            const subtotal = cart[id].price * cart[id].quantity;
+                            subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+                        }
                     }
                     
-                    // Guardar carrito para checkout
-                    localStorage.setItem('checkoutCart', JSON.stringify(cart));
-                    
-                    // Redirigir a checkout
-                    window.location.href = "{{ route('checkout') }}";
-                });
+                    updateSummary();
+                }
             }
         }
         
@@ -1379,77 +1646,238 @@
             
             if (promoCode === 'KTM2024' || promoCode === 'KTM2025') {
                 discountApplied = true;
-                saveCart(); // Guardar el estado del descuento
+                saveCart();
                 updateSummary();
-                showNotification('¡Código de descuento aplicado! -€30,00', 'success');
+                showNotification('¡Descuento aplicado! -$30.00', 'success');
             } else {
                 discountApplied = false;
                 saveCart();
                 updateSummary();
-                showNotification('Código inválido. Usa: KTM2024 o KTM2025', 'warning');
+                showNotification('Código no válido', 'warning');
             }
         }
         
         // ==========================
-        // LIMPIAR CARRITO (opcional)
+        // NOTIFICACIONES
+        // ==========================
+        function showNotification(message, type = 'success') {
+            // Eliminar notificaciones anteriores
+            const oldNotifications = document.querySelectorAll('.cart-notification');
+            oldNotifications.forEach(notif => notif.remove());
+            
+            // Determinar icono y clase según tipo
+            let icon = 'check-circle';
+            if (type === 'warning') icon = 'exclamation-triangle';
+            if (type === 'info') icon = 'info-circle';
+            
+            // Crear nueva notificación
+            const notification = document.createElement('div');
+            notification.className = `cart-notification alert-${type}`;
+            notification.innerHTML = `
+                <i class="bi bi-${icon}"></i>
+                <span>${message}</span>
+                <button class="close-notification">&times;</button>
+            `;
+            
+            // Estilos según tipo
+            if (type === 'success') {
+                notification.style.background = '#d4edda';
+                notification.style.color = '#155724';
+                notification.style.border = '1px solid #c3e6cb';
+            } else if (type === 'warning') {
+                notification.style.background = '#f8d7da';
+                notification.style.color = '#721c24';
+                notification.style.border = '1px solid #f5c6cb';
+            } else {
+                notification.style.background = '#d1ecf1';
+                notification.style.color = '#0c5460';
+                notification.style.border = '1px solid #bee5eb';
+            }
+            
+            notification.style.cssText += `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Botón para cerrar
+            const closeBtn = notification.querySelector('.close-notification');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Auto-eliminar después de 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        }
+        
+        // ==========================
+        // VACIAR CARRITO
         // ==========================
         function clearCart() {
-            if (confirm('¿Estás seguro de vaciar todo el carrito?')) {
-                cart = {};
-                discountApplied = false;
-                saveCart();
-                renderCart();
-                showNotification('Carrito vaciado', 'warning');
+            if (Object.keys(cart).length === 0) {
+                showNotification('El carrito ya está vacío', 'info');
+                return;
             }
+            
+            cart = {};
+            discountApplied = false;
+            saveCart();
+            renderCart();
+            showNotification('Carrito vaciado', 'warning');
         }
         
-        // ==========================
-        // ANIMACIONES CSS
-        // ==========================
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            .cart-item-card {
-                transition: all 0.3s ease;
-            }
-            .cart-item-card.removing {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // ==========================
-        // TEST: Agregar algunos productos de ejemplo al carrito
-        // ==========================
-        // Descomenta estas líneas si quieres productos de prueba
+        // Inicializar con algunos productos de prueba (opcional)
         /*
         if (Object.keys(cart).length === 0) {
             setTimeout(() => {
                 addToCart({
-                    id: 'test1',
-                    name: 'Aceite Motorex 4T 10W-50',
-                    price: 75,
-                    category: 'Lubricantes'
+                    id: 'light1',
+                    name: 'Direccional LED KTM Duke 200',
+                    price: '55',
+                    category: 'Accesorios'
                 });
                 
                 addToCart({
                     id: 'test2',
-                    name: 'Refrigerante Ipone Coolant',
-                    price: 40,
-                    category: 'Refrigerantes'
+                    name: 'Mantenimiento Preventivo',
+                    price: '120',
+                    category: 'Mantenimiento'
                 });
-            }, 1000);
+            }, 500);
         }
         */
     });
 </script>
+
+<!-- MODALS -->
+<!-- Modal para eliminar producto -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle me-2"></i>Eliminar Producto
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-trash mb-3" style="font-size: 3rem; color: var(--ktm-orange);"></i>
+                <p id="deleteProductMessage">¿Estás seguro de eliminar este producto del carrito?</p>
+                <p class="text-muted small mt-3">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="bi bi-trash me-2"></i>Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para proceder al pago -->
+<div class="modal fade" id="checkoutConfirmModal" tabindex="-1" aria-labelledby="checkoutConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <i class="bi bi-credit-card me-2"></i>Proceder al Pago
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-cart-check mb-3" style="font-size: 3rem; color: var(--ktm-orange);"></i>
+                    <h5>¿Confirmar compra?</h5>
+                    <p class="text-muted">Serás redirigido a la página de checkout para completar tus datos.</p>
+                </div>
+                
+                <div class="checkout-summary mb-4 p-3">
+                    <h6 class="mb-3">Resumen del pedido:</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Productos:</span>
+                        <span id="modalItemsCount">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span id="modalSubtotal">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Envío:</span>
+                        <span id="modalEnvio">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Descuento:</span>
+                        <span id="modalDescuento">-$0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>TOTAL:</span>
+                        <span id="modalTotal" style="color: var(--ktm-orange); font-size: 1.2rem;">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <small>Recuerda que puedes aplicar códigos de descuento en la siguiente página.</small>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left me-2"></i>Seguir comprando
+                </button>
+                <button type="button" class="btn btn-ktm" id="confirmCheckoutBtn">
+                    <i class="bi bi-arrow-right me-2"></i>Continuar al pago
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para vaciar carrito (opcional) -->
+<div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle me-2"></i>Vaciar Carrito
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-cart-x mb-3" style="font-size: 3rem; color: var(--ktm-orange);"></i>
+                <p>¿Estás seguro de vaciar todo el carrito?</p>
+                <p class="text-muted small mt-3">Se eliminarán todos los productos de tu carrito.</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmClearCartBtn">
+                    <i class="bi bi-trash me-2"></i>Vaciar Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

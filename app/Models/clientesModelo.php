@@ -3,27 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class clientesModelo extends Model
+class clientesModelo extends Authenticatable
 {
     protected $table = 'clientes';
     protected $primaryKey = 'ID_CLIENTES';
     public $incrementing = false;
-    protected $keyType = 'int'; // o 'int' si documentoCliente es número
+    protected $keyType = 'string'; // o 'int' si documentoCliente es número
     public $timestamps = false;
     protected $fillable=[
         'ID_CLIENTES',
         'Ubicacion',
         'Nombre',
+        'usuario',
+        'contrasena',
         'TipoDocumento',
         'Correo',
         'Telefono'
     ];
-        public function motos()
+    public function getAuthPassword()
     {
-        return $this->hasMany(motosModelo::class, 'ID_CLIENTES', 'ID_CLIENTES');
+        return $this->contrasena; // nombre EXACTO de la columna
     }
 }
 
