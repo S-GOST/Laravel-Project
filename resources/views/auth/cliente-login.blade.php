@@ -462,12 +462,21 @@
 <body>
     <!-- Partículas de fondo -->
     <div class="particles-background" id="particles"></div>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <div class="image-section animate-panel">
         <div class="image-overlay"></div>
         <div class="image-content">
-            <div class="ktm-badge-large">CLIENTES</div>
-            <h1 class="image-title">Área de <span>Clientes</span> KTM Rocket Service</h1>
+        <a href="{{ route('index') }}" 
+        class="ktm-badge-large"
+        style="display:inline-flex; align-items:center; gap:8px; background:#ff6600; color:white;
+                padding:12px 24px; font-weight:bold; border-radius:10px; text-decoration:none;">
+            <i class="bi bi-house-door-fill"></i>
+            INICIO
+        </a>
+
+
+            <h1 class="image-title">Bienvenido <span>Inicia Sesion</span> ó Registrate</h1>
             <p class="image-subtitle">
                 Accede a tu área personal para gestionar tus servicios, ver el historial de reparaciones y realizar nuevas solicitudes.
             </p>
@@ -491,7 +500,7 @@
                          class="mb-3"
                          style="width:70px; height:auto; filter: drop-shadow(0 0 8px #ff6600);">
                     <h2 style="font-weight:700; color:#fff;">Acceso Clientes</h2>
-                    <p style="color:#ccc;">Bienvenido de vuelta</p>
+                    <p style="color:#ccc;">Bienvenido de Nuevo</p>
                 </div>
                 
                 <div class="login-body">

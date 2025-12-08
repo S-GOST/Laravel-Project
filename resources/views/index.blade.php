@@ -383,6 +383,8 @@
             font-weight: 600;
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
         
         .btn-service:hover {
@@ -754,6 +756,198 @@
             }
         }
     </style>
+    
+    <!-- Agregar CSS para el buscador -->
+    <style>
+        /* Estructura de la barra de navegación */
+        .navbar-premium .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            gap: 20px;
+        }
+        
+        /* Buscador KTM */
+        .ktm-search-container {
+            flex: 1;
+            max-width: 500px;
+            min-width: 200px;
+            position: relative;
+        }
+        
+        .ktm-search-form {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-input-group {
+            display: flex;
+            align-items: center;
+            background: var(--ktm-gray-medium);
+            border: 2px solid rgba(255, 102, 0, 0.3);
+            border-radius: 30px;
+            padding: 5px 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 102, 0, 0.1);
+        }
+        
+        .search-input-group:focus-within {
+            border-color: var(--ktm-orange);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .search-icon {
+            color: var(--ktm-orange);
+            font-size: 1.2rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .ktm-search-input {
+            background: transparent;
+            border: none;
+            color: var(--ktm-gray-light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+        }
+        
+        .ktm-search-input::placeholder {
+            color: #888;
+        }
+        
+        .ktm-search-btn {
+            background: var(--ktm-orange);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 5px;
+        }
+        
+        .ktm-search-btn:hover {
+            background: var(--ktm-orange-glow);
+            transform: scale(1.05);
+        }
+        
+        .ktm-search-btn i {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Sugerencias de búsqueda */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--ktm-gray-dark);
+            border: 2px solid var(--ktm-orange);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            margin-top: -2px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 15px;
+            color: var(--ktm-gray-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-suggestion-item:hover {
+            background: rgba(255, 102, 0, 0.1);
+            color: var(--ktm-orange);
+        }
+        
+        .search-suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-icon {
+            color: var(--ktm-orange);
+            font-size: 1rem;
+        }
+        
+        .suggestion-text {
+            flex: 1;
+        }
+        
+        .suggestion-category {
+            background: rgba(255, 102, 0, 0.2);
+            color: var(--ktm-orange);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .navbar-left {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .navbar-brand {
+                text-align: center;
+            }
+            
+            .ktm-search-container {
+                max-width: 100%;
+            }
+            
+            .nav-user-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-input-group {
+                padding: 5px 10px;
+            }
+            
+            .ktm-search-input {
+                font-size: 0.9rem;
+            }
+            
+            .ktm-search-btn {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Partículas de fondo -->
@@ -799,7 +993,7 @@
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Iniciar Sesión</span>
                 </a>
-                <a href="{{ route('admin.registro') }}" class="nav-btn btn-register">
+                <a href="{{ route('cliente.registro') }}" class="nav-btn btn-register">
                     <i class="bi bi-person-plus"></i>
                     <span>Registrarse</span>
                 </a>
@@ -838,14 +1032,14 @@
                             <h4 class="service-name">Mantenimiento Preventivo</h4>
                             <p class="service-desc">Inspecciones programadas y mantenimiento regular para prevenir fallos y optimizar el rendimiento de tu motocicleta.</p>
                             <div class="service-price">€120.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn" 
+                            <button class="btn-service add-to-cart-btn" 
                                data-id="mantenimiento_preventivo"
                                data-name="Mantenimiento Preventivo"
                                data-price="120.00"
                                data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -855,14 +1049,14 @@
                             <h4 class="service-name">Mantenimiento Correctivo</h4>
                             <p class="service-desc">Reparación de fallas y averías existentes para restaurar la funcionalidad completa de tu motocicleta.</p>
                             <div class="service-price">€200.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="mantenimiento_correctivo"
                                data-name="Mantenimiento Correctivo"
                                data-price="200.00"
                                data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -872,14 +1066,14 @@
                             <h4 class="service-name">Mantenimiento Predictivo</h4>
                             <p class="service-desc">Monitoreo y análisis avanzado para anticipar fallas y programar intervenciones antes de que ocurran problemas.</p>
                             <div class="service-price">€180.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="mantenimiento_predictivo"
                                data-name="Mantenimiento Predictivo"
                                data-price="180.00"
                                data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -889,14 +1083,14 @@
                             <h4 class="service-name">Mantenimiento Proactivo</h4>
                             <p class="service-desc">Mejoras continuas y optimización del rendimiento para maximizar la vida útil y el desempeño de tu motocicleta.</p>
                             <div class="service-price">€250.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="mantenimiento_proactivo"
                                data-name="Mantenimiento Proactivo"
                                data-price="250.00"
                                data-category="Mantenimiento">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -918,14 +1112,14 @@
                             <h4 class="service-name">Reparaciones por Daños</h4>
                             <p class="service-desc">Reparación integral de daños estructurales y funcionales causados por accidentes o uso intensivo.</p>
                             <div class="service-price">€350.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="reparaciones_danios"
                                data-name="Reparaciones por Daños"
                                data-price="350.00"
                                data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -935,14 +1129,14 @@
                             <h4 class="service-name">Motorización y Transmisión</h4>
                             <p class="service-desc">Reparación y ajuste de motores, cajas de cambios, embragues y sistemas de transmisión completa.</p>
                             <div class="service-price">€500.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="motorizacion_transmision"
                                data-name="Motorización y Transmisión"
                                data-price="500.00"
                                data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -952,14 +1146,14 @@
                             <h4 class="service-name">Electrónica y Sistemas de Control</h4>
                             <p class="service-desc">Diagnóstico y reparación de sistemas electrónicos, ECU, inyección electrónica y controles digitales.</p>
                             <div class="service-price">€300.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="electronica_control"
                                data-name="Electrónica y Sistemas de Control"
                                data-price="300.00"
                                data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -969,14 +1163,14 @@
                             <h4 class="service-name">Carrocería y Personalización</h4>
                             <p class="service-desc">Reparación de carrocería, pintura personalizada y modificaciones estéticas a medida.</p>
                             <div class="service-price">€400.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="carroceria_personalizacion"
                                data-name="Carrocería y Personalización"
                                data-price="400.00"
                                data-category="Reparaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -998,14 +1192,14 @@
                             <h4 class="service-name">Diagnóstico de Emisiones y Rendimiento</h4>
                             <p class="service-desc">Análisis de emisiones, consumo de combustible y rendimiento general del motor.</p>
                             <div class="service-price">€150.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="diagnostico_emisiones"
                                data-name="Diagnóstico de Emisiones y Rendimiento"
                                data-price="150.00"
                                data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1015,14 +1209,14 @@
                             <h4 class="service-name">Diagnóstico de Seguridad y Dinámica</h4>
                             <p class="service-desc">Evaluación de sistemas de frenos, suspensión, neumáticos y estabilidad dinámica.</p>
                             <div class="service-price">€180.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="diagnostico_seguridad"
                                data-name="Diagnóstico de Seguridad y Dinámica"
                                data-price="180.00"
                                data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1032,14 +1226,14 @@
                             <h4 class="service-name">Diagnóstico Eléctrico</h4>
                             <p class="service-desc">Comprobación de sistemas eléctricos, batería, alternador y cableado completo.</p>
                             <div class="service-price">€120.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="diagnostico_electrico"
                                data-name="Diagnóstico Eléctrico"
                                data-price="120.00"
                                data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1049,14 +1243,14 @@
                             <h4 class="service-name">Diagnóstico Mecánico</h4>
                             <p class="service-desc">Inspección completa de componentes mecánicos, desgastes y ajustes necesarios.</p>
                             <div class="service-price">€160.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="diagnostico_mecanico"
                                data-name="Diagnóstico Mecánico"
                                data-price="160.00"
                                data-category="Diagnósticos">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -1078,14 +1272,14 @@
                             <h4 class="service-name">Instalación Personalizada</h4>
                             <p class="service-desc">Instalación de componentes y accesorios específicos según tus necesidades y preferencias.</p>
                             <div class="service-price">€100.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="instalacion_personalizada"
                                data-name="Instalación Personalizada"
                                data-price="100.00"
                                data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1095,14 +1289,14 @@
                             <h4 class="service-name">Instalaciones de Seguridad</h4>
                             <p class="service-desc">Montaje de sistemas de seguridad, alarmas, bloqueadores y dispositivos antitheft.</p>
                             <div class="service-price">€200.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="instalaciones_seguridad"
                                data-name="Instalaciones de Seguridad"
                                data-price="200.00"
                                data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1112,14 +1306,14 @@
                             <h4 class="service-name">Instalaciones de Rendimiento</h4>
                             <p class="service-desc">Montaje de componentes para mejorar el rendimiento: escapes, filtros, reprogramaciones.</p>
                             <div class="service-price">€350.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="instalaciones_rendimiento"
                                data-name="Instalaciones de Rendimiento"
                                data-price="350.00"
                                data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                         
                         <div class="service-card">
@@ -1129,14 +1323,14 @@
                             <h4 class="service-name">Accesorios Personalizados</h4>
                             <p class="service-desc">Instalación de accesorios estéticos y funcionales para personalizar tu motocicleta.</p>
                             <div class="service-price">€150.00</div>
-                            <a href="#" class="btn-service add-to-cart-btn"
+                            <button class="btn-service add-to-cart-btn"
                                data-id="accesorios_personalizados"
                                data-name="Accesorios Personalizados"
                                data-price="150.00"
                                data-category="Instalaciones">
                                 <i class="bi bi-cart-plus"></i>
                                 Agregar al Carrito
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -1233,223 +1427,172 @@
         </footer>
     </div>
 
-    <!-- Agregar CSS para el buscador -->
-    <style>
-        /* Estructura de la barra de navegación */
-        .navbar-premium .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .navbar-left {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            min-width: 0;
-            gap: 20px;
-        }
-        
-        /* Buscador KTM */
-        .ktm-search-container {
-            flex: 1;
-            max-width: 500px;
-            min-width: 200px;
-            position: relative;
-        }
-        
-        .ktm-search-form {
-            position: relative;
-            width: 100%;
-        }
-        
-        .search-input-group {
-            display: flex;
-            align-items: center;
-            background: var(--ktm-gray);
-            border: 2px solid var(--ktm-orange);
-            border-radius: 30px;
-            padding: 5px 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(255, 102, 0, 0.1);
-        }
-        
-        .search-input-group:focus-within {
-            border-color: var(--ktm-orange);
-            box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
-            transform: translateY(-1px);
-        }
-        
-        .search-icon {
-            color: var(--ktm-orange);
-            font-size: 1.2rem;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        
-        .ktm-search-input {
-            background: transparent;
-            border: none;
-            color: var(--ktm-white);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            padding: 8px 0;
-            width: 100%;
-            outline: none;
-        }
-        
-        .ktm-search-input::placeholder {
-            color: #888;
-        }
-        
-        .ktm-search-btn {
-            background: var(--ktm-orange);
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--ktm-black);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-            margin-left: 5px;
-        }
-        
-        .ktm-search-btn:hover {
-            background: var(--ktm-dark-orange);
-            transform: scale(1.05);
-        }
-        
-        .ktm-search-btn i {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        
-        /* Sugerencias de búsqueda */
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--ktm-gray);
-            border: 2px solid var(--ktm-orange);
-            border-top: none;
-            border-radius: 0 0 15px 15px;
-            margin-top: -2px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .search-suggestion-item {
-            padding: 12px 15px;
-            color: var(--ktm-white);
-            border-bottom: 1px solid var(--ktm-light-gray);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .search-suggestion-item:hover {
-            background: rgba(255, 102, 0, 0.1);
-            color: var(--ktm-orange);
-        }
-        
-        .search-suggestion-item:last-child {
-            border-bottom: none;
-        }
-        
-        .suggestion-icon {
-            color: var(--ktm-orange);
-            font-size: 1rem;
-        }
-        
-        .suggestion-text {
-            flex: 1;
-        }
-        
-        .suggestion-category {
-            background: rgba(255, 102, 0, 0.2);
-            color: var(--ktm-orange);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .navbar-left {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-                width: 100%;
-                margin-bottom: 15px;
-            }
-            
-            .navbar-brand {
-                text-align: center;
-            }
-            
-            .ktm-search-container {
-                max-width: 100%;
-            }
-            
-            .nav-user-actions {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .search-input-group {
-                padding: 5px 10px;
-            }
-            
-            .ktm-search-input {
-                font-size: 0.9rem;
-            }
-            
-            .ktm-search-btn {
-                width: 32px;
-                height: 32px;
-            }
-        }
-    </style>
-
-    <!-- JavaScript para el buscador -->
+    <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // ==========================
+        // SISTEMA DE CARRITO PARA PÁGINA PRINCIPAL
+        // ==========================
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Sistema de carrito - Index inicializado");
+            
+            // Variables del carrito
+            let cart = JSON.parse(localStorage.getItem('ktmCart')) || {};
+            
+            // Función para actualizar contador del carrito
+            function updateCartCount() {
+                let total = 0;
+                for (const id in cart) {
+                    total += cart[id].quantity;
+                }
+                const cartCountElement = document.getElementById('cartCount');
+                if (cartCountElement) {
+                    cartCountElement.textContent = total;
+                }
+            }
+            
+            // Función para guardar carrito
+            function saveCart() {
+                localStorage.setItem('ktmCart', JSON.stringify(cart));
+                updateCartCount();
+            }
+            
+            // Función para agregar producto
+            function addToCart(product) {
+                const { id, name, price, category } = product;
+                
+                if (cart[id]) {
+                    cart[id].quantity += 1;
+                } else {
+                    // Determinar icono según categoría
+                    let icon = 'box';
+                    if (category.includes('Mantenimiento')) icon = 'wrench';
+                    else if (category.includes('Reparaciones')) icon = 'tools';
+                    else if (category.includes('Diagnósticos')) icon = 'clipboard-pulse';
+                    else if (category.includes('Instalaciones')) icon = 'gear';
+                    
+                    cart[id] = {
+                        id: id,
+                        name: name,
+                        price: parseFloat(price),
+                        quantity: 1,
+                        category: category,
+                        icon: icon,
+                        description: `Servicio de ${category} para tu motocicleta KTM`
+                    };
+                }
+                
+                saveCart();
+                showNotification(`${name} agregado al carrito`, 'success');
+            }
+            
+            // Función para mostrar notificaciones
+            function showNotification(message, type = 'success') {
+                // Crear notificación
+                const notification = document.createElement('div');
+                notification.className = `cart-notification alert-${type}`;
+                notification.innerHTML = `
+                    <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                    <span>${message}</span>
+                    <button class="close-notification">&times;</button>
+                `;
+                
+                // Estilos de notificación
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    z-index: 9999;
+                    animation: slideIn 0.3s ease-out;
+                    background: ${type === 'success' ? '#d4edda' : '#f8d7da'};
+                    color: ${type === 'success' ? '#155724' : '#721c24'};
+                    border: 1px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'};
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Botón para cerrar
+                const closeBtn = notification.querySelector('.close-notification');
+                closeBtn.addEventListener('click', () => {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => notification.remove(), 300);
+                });
+                
+                // Auto-eliminar después de 3 segundos
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.style.animation = 'slideOut 0.3s ease-out';
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 3000);
+            }
+            
+            // Agregar estilos CSS para notificaciones
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Asignar eventos a los botones de agregar al carrito
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const product = {
+                        id: this.dataset.id,
+                        name: this.dataset.name,
+                        price: this.dataset.price,
+                        category: this.dataset.category
+                    };
+                    
+                    addToCart(product);
+                });
+            });
+            
+            // Inicializar contador del carrito
+            updateCartCount();
+            
+            // ==========================
+            // SISTEMA DE BÚSQUEDA
+            // ==========================
+            
             const searchInput = document.getElementById('searchInput');
             const searchForm = document.getElementById('searchForm');
             const searchSuggestions = document.getElementById('searchSuggestions');
             
             // Datos de ejemplo para sugerencias
             const searchData = [
-                { id: 1, name: 'Mantenimiento Preventivo', category: 'Mantenimiento', icon: 'bi-shield-check' },
-                { id: 2, name: 'Mantenimiento Correctivo', category: 'Mantenimiento', icon: 'bi-wrench-adjustable' },
-                { id: 3, name: 'Mantenimiento Predictivo', category: 'Mantenimiento', icon: 'bi-graph-up-arrow' },
-                { id: 4, name: 'Mantenimiento Proactivo', category: 'Mantenimiento', icon: 'bi-lightning-charge' },
-                { id: 5, name: 'Reparaciones por Daños', category: 'Reparaciones', icon: 'bi-tools' },
-                { id: 6, name: 'Motorización y Transmisión', category: 'Reparaciones', icon: 'bi-gear' },
-                { id: 7, name: 'Electrónica y Sistemas de Control', category: 'Reparaciones', icon: 'bi-cpu' },
-                { id: 8, name: 'Carrocería y Personalización', category: 'Reparaciones', icon: 'bi-palette' },
-                { id: 9, name: 'Diagnóstico de Emisiones', category: 'Diagnósticos', icon: 'bi-speedometer2' },
-                { id: 10, name: 'Diagnóstico de Seguridad', category: 'Diagnósticos', icon: 'bi-shield-check' },
-                { id: 11, name: 'Diagnóstico Eléctrico', category: 'Diagnósticos', icon: 'bi-lightning-charge' },
-                { id: 12, name: 'Diagnóstico Mecánico', category: 'Diagnósticos', icon: 'bi-gear-wide' },
-                { id: 13, name: 'Instalación Personalizada', category: 'Instalaciones', icon: 'bi-wrench' },
-                { id: 14, name: 'Instalaciones de Seguridad', category: 'Instalaciones', icon: 'bi-shield-shaded' },
-                { id: 15, name: 'Instalaciones de Rendimiento', category: 'Instalaciones', icon: 'bi-graph-up' },
-                { id: 16, name: 'Accesorios Personalizados', category: 'Instalaciones', icon: 'bi-stars' }
+                { id: 1, name: 'Mantenimiento Preventivo', category: 'Mantenimiento', icon: 'bi-shield-check', price: '120.00' },
+                { id: 2, name: 'Mantenimiento Correctivo', category: 'Mantenimiento', icon: 'bi-wrench-adjustable', price: '200.00' },
+                { id: 3, name: 'Mantenimiento Predictivo', category: 'Mantenimiento', icon: 'bi-graph-up-arrow', price: '180.00' },
+                { id: 4, name: 'Mantenimiento Proactivo', category: 'Mantenimiento', icon: 'bi-lightning-charge', price: '250.00' },
+                { id: 5, name: 'Reparaciones por Daños', category: 'Reparaciones', icon: 'bi-tools', price: '350.00' },
+                { id: 6, name: 'Motorización y Transmisión', category: 'Reparaciones', icon: 'bi-gear', price: '500.00' },
+                { id: 7, name: 'Electrónica y Sistemas de Control', category: 'Reparaciones', icon: 'bi-cpu', price: '300.00' },
+                { id: 8, name: 'Carrocería y Personalización', category: 'Reparaciones', icon: 'bi-palette', price: '400.00' },
+                { id: 9, name: 'Diagnóstico de Emisiones y Rendimiento', category: 'Diagnósticos', icon: 'bi-speedometer2', price: '150.00' },
+                { id: 10, name: 'Diagnóstico de Seguridad y Dinámica', category: 'Diagnósticos', icon: 'bi-shield-check', price: '180.00' },
+                { id: 11, name: 'Diagnóstico Eléctrico', category: 'Diagnósticos', icon: 'bi-lightning-charge', price: '120.00' },
+                { id: 12, name: 'Diagnóstico Mecánico', category: 'Diagnósticos', icon: 'bi-gear-wide', price: '160.00' },
+                { id: 13, name: 'Instalación Personalizada', category: 'Instalaciones', icon: 'bi-wrench', price: '100.00' },
+                { id: 14, name: 'Instalaciones de Seguridad', category: 'Instalaciones', icon: 'bi-shield-shaded', price: '200.00' },
+                { id: 15, name: 'Instalaciones de Rendimiento', category: 'Instalaciones', icon: 'bi-graph-up', price: '350.00' },
+                { id: 16, name: 'Accesorios Personalizados', category: 'Instalaciones', icon: 'bi-stars', price: '150.00' }
             ];
             
             // Función para filtrar sugerencias
@@ -1486,8 +1629,14 @@
                     suggestionItem.addEventListener('click', function() {
                         searchInput.value = suggestion.name;
                         searchSuggestions.style.display = 'none';
-                        // Aquí puedes redirigir o realizar la búsqueda
-                        alert(`Buscando: ${suggestion.name}`);
+                        
+                        // Agregar al carrito
+                        addToCart({
+                            id: suggestion.id,
+                            name: suggestion.name,
+                            price: suggestion.price,
+                            category: suggestion.category
+                        });
                     });
                     
                     searchSuggestions.appendChild(suggestionItem);
@@ -1509,8 +1658,21 @@
                 const query = searchInput.value.trim();
                 
                 if (query) {
-                    // Aquí implementarías la lógica de búsqueda real
-                    alert(`Realizando búsqueda de: ${query}`);
+                    const suggestions = filterSuggestions(query);
+                    if (suggestions.length > 0) {
+                        // Agregar el primer resultado al carrito
+                        const firstSuggestion = suggestions[0];
+                        addToCart({
+                            id: firstSuggestion.id,
+                            name: firstSuggestion.name,
+                            price: firstSuggestion.price,
+                            category: firstSuggestion.category
+                        });
+                        searchInput.value = '';
+                    } else {
+                        showNotification('No se encontraron resultados para tu búsqueda', 'warning');
+                    }
+                    
                     searchSuggestions.style.display = 'none';
                 }
             });

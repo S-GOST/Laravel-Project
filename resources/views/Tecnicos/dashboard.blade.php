@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - SOMEMAS</title>
+    <title>Panel Tecnicos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -454,7 +454,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/rock.png') }}" alt="Rock Logo" class="logo-img">
-                S-GOST System
+                ¡Hola! BIENVENIDO
             </a>
             
             <div class="navbar-nav ms-auto align-items-center">
@@ -505,7 +505,7 @@
                         <div class="user-role">
                             <i class="fas fa-shield-alt me-2"></i>
                             @if(Auth::guard('admin')->check())
-                                Administrador del Sistema
+                                Tecnico del Sistema
                             @elseif(Auth::check())
                                 Usuario Autenticado
                             @else

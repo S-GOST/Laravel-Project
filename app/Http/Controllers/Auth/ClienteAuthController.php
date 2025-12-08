@@ -15,6 +15,17 @@ class ClienteAuthController extends Controller
         return view('auth.cliente-login');
     }
 
+            public function showRegistroForm()
+    {
+        return view('auth.cliente-registro');
+    }
+
+        public function showPasswordRequestForm()
+    {
+        return view('Clientes.recuperar-contrasena'); // o la vista que tengas
+    }
+
+
     public function login(Request $request)
     {
         // Validación
@@ -45,7 +56,7 @@ class ClienteAuthController extends Controller
 
         return redirect()->route('cliente.dashboard');
     }
-
+     // Cerrar sesión usando el guard de clientes
     public function logout()
     {
         Auth::guard('cliente')->logout();

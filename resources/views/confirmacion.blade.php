@@ -545,9 +545,9 @@
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-ktm w-100" id="goToRegisterBtn">
-                                <i class="fas fa-user-plus me-2"></i> ¡SÍ, QUIERO REGISTRARME!
-                            </button>
+                        <a href="{{ route('cliente.registro') }}" class="btn btn-ktm w-100" id="goToRegisterBtn">
+                        <i class="fas fa-user-plus me-2"></i> ¡SÍ, QUIERO REGISTRARME!
+                        </a>
                         </div>
                     </div>
                     <div class="text-center mt-3">

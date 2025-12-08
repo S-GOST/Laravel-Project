@@ -12,13 +12,11 @@ class ClienteController extends Controller
 {
 
     
-    
     /**
      * Mostrar dashboard del cliente
      */
     public function dashboard(Request $request)
     {
-        // Verificar autenticación manualmente
         if (!Auth::guard('cliente')->check()) {
             return redirect()->route('cliente.login');
         }
@@ -40,7 +38,6 @@ class ClienteController extends Controller
      */
     public function perfil(Request $request)
     {
-        // Verificar autenticación manualmente
         if (!Auth::guard('cliente')->check()) {
             return redirect()->route('cliente.login');
         }
@@ -65,7 +62,6 @@ class ClienteController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:clientes,email,' . $cliente->id,
             'telefono' => 'nullable|string|max:20',
-            'direccion' => 'nullable|string|max:255',
             'dni' => 'nullable|string|max:15',
         ]);
         
@@ -102,7 +98,7 @@ class ClienteController extends Controller
     }
     
     /**
-     * Mostrar informes y avances
+     * Mostrar informes y avances - CORREGIDO
      */
     public function informes(Request $request)
     {
@@ -114,6 +110,17 @@ class ClienteController extends Controller
         return view('clientes.informes', compact('cliente'));
     }
     
+    public function verInforme($id)
+    {
+        if (!Auth::guard('cliente')->check()) {
+            return redirect()->route('cliente.login');
+        }
+        
+        $cliente = Auth::guard('cliente')->user();
+        // En producción, aquí buscarías el informe específico por ID
+        return view('clientes.informe.detalle', compact('cliente'));
+    }
+
     /**
      * Mostrar historial de servicios
      */
@@ -154,7 +161,7 @@ class ClienteController extends Controller
     }
     
     /**
-     * Mostrar servicios del cliente
+     * Mostrar servicios del cliente - CORREGIDO
      */
     public function servicios(Request $request)
     {
@@ -163,7 +170,7 @@ class ClienteController extends Controller
         }
         
         $cliente = Auth::guard('cliente')->user();
-        return view('clientes.servicio', compact('cliente'));
+        return view('clientes.servicios', compact('cliente'));
     }
     
     /**

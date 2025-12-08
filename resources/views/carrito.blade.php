@@ -1056,7 +1056,7 @@
                     <span>Carrito</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
-                <a href="{{ route('login') }}" class="nav-btn btn-login">
+                <a href="{{ route('cliente.login') }}" class="nav-btn btn-login">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Iniciar Sesión</span>
                 </a>

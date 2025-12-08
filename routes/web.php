@@ -43,17 +43,16 @@ Route::post('/checkout', [CheckoutController::class, 'store'])
 Route::get('/confirmacion', fn() => view('confirmacion'))
     ->name('confirmacion');
 
+
 // =======================================
 // AUTENTICACIÓN — ADMIN
 // =======================================
 Route::prefix('admin')->group(function () {
-
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
     Route::get('/registro', [AdminAuthController::class, 'showRegisterForm'])->name('admin.registro');
     Route::post('/registro', [AdminAuthController::class, 'registro'])->name('admin.registro.post');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
 });
 
 
@@ -62,31 +61,35 @@ Route::prefix('admin')->group(function () {
 // AUTENTICACIÓN — TÉCNICO
 // =======================================
 Route::prefix('tecnico')->group(function () {
-
     Route::get('/login', [TecnicoAuthController::class, 'showLoginForm'])->name('tecnico.login');
     Route::post('/login', [TecnicoAuthController::class, 'login'])->name('tecnico.login.post');
     Route::post('/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
-
 });
+
 
 
 // =======================================
 // AUTENTICACIÓN — CLIENTE
-// =======================================
-
+// ======================================= 
 Route::prefix('cliente')->group(function () {
+    Route::get('/login', [ClienteAuthController::class, 'showLoginForm'])->name('cliente.login');
+    Route::post('/login', [ClienteAuthController::class, 'login'])->name('cliente.login.post');
 
-    Route::get('/dashboard', fn() => view('clientes.dashboard'))->name('cliente.dashboard');
+    Route::get('/registro', [ClienteAuthController::class, 'showRegistroForm'])->name('cliente.registro');
+    Route::post('/registro', [ClienteAuthController::class, 'register'])->name('cliente.registro.post');
 
-    
+    Route::get('/recuperar-contrasena', [ClienteAuthController::class, 'showPasswordRequestForm'])->name('cliente.password.request');
+    Route::post('/recuperar-contrasena', [ClienteAuthController::class, 'sendPasswordResetEmail'])->name('cliente.password.email');
 
+    Route::post('/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
 });
+
+
 
 // =======================================
 // ÁREA ADMIN — PROTEGIDA CON auth:admin
 // =======================================
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
-
     Route::get('/dashboard', fn() => view('administradores.dashboard'))->name('admin.dashboard');
     Route::get('/panel', fn() => view('layouts.Panel'))->name('panel');
 
@@ -100,48 +103,33 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 // =======================================
 // ÁREA TÉCNICO — PROTEGIDA CON auth:tecnico
 // =======================================
-
-
 Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
-
     Route::get('/dashboard', fn() => view('tecnicos.dashboard'))->name('tecnico.dashboard');
+    
     // PERFIL
-
-
     Route::resource('tecnicos', TecnicosController::class)
         ->parameters(['tecnicos' => 'idT']);
 });
 
 
 
-// =======================================
-// ÁREA CLIENTE — PROTEGIDA CON auth:cliente
-// =======================================
-Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
+    // =======================================
+    // ÁREA CLIENTE — PROTEGIDA CON auth:cliente
+    // =======================================
+    Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
+    Route::get('/dashboard', [ClienteController::class, 'dashboard'])->name('cliente.dashboard');
 
-    Route::get('/perfil', [ClienteController::class, 'perfil'])
-    ->name('cliente.perfil');
-
-        Route::get('/login', [ClienteAuthController::class, 'showLoginForm'])->name('cliente.login');
-    Route::post('/login', [ClienteAuthController::class, 'login'])->name('cliente.login.post');
-
-    Route::get('/registro', [ClienteAuthController::class, 'showRegistroForm'])->name('cliente.registro');
-    Route::post('/registro', [ClienteAuthController::class, 'register'])->name('cliente.registro.post');
-
-    Route::get('/recuperar-contrasena', [ClienteAuthController::class, 'showPasswordRequestForm'])->name('cliente.password.request');
-    Route::post('/recuperar-contrasena', [ClienteAuthController::class, 'sendPasswordResetEmail'])->name('cliente.password.email');
-
-    Route::post('/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
-
+    // PERFIL
+    Route::get('/perfil', [ClienteController::class, 'perfil'])->name('cliente.perfil');
     Route::post('/perfil/actualizar', [ClienteController::class, 'actualizarPerfil'])->name('cliente.perfil.actualizar');
-    
-            // Gestión de órdenes
+
+    // Gestión de órdenes
     Route::get('/orden/nueva', [ClienteController::class, 'nuevaOrden'])->name('cliente.orden.nueva');
     Route::post('/orden/crear', [ClienteController::class, 'crearOrden'])->name('orden.crear');
     Route::get('/orden/estado', [ClienteController::class, 'estadoOrden'])->name('cliente.orden.estado');
     Route::get('/orden/detalle/{id}', [ClienteController::class, 'detalleOrden'])->name('orden.detalle');
     
-    // Informes y avances
+    // Informes y avances - CORREGIDO
     Route::get('/informes', [ClienteController::class, 'informes'])->name('cliente.informes');
     Route::get('/informe/{id}', [ClienteController::class, 'verInforme'])->name('informe.ver');
     
@@ -155,7 +143,7 @@ Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
     // Productos del cliente
     Route::get('/productos', [ClienteController::class, 'productos'])->name('cliente.productos');
     
-    // Servicios del cliente
+    // Servicios del cliente - CORREGIDO
     Route::get('/servicios', [ClienteController::class, 'servicios'])->name('cliente.servicios');
     
     // Cerrar sesión
