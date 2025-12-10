@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Servicios - KTM Rocket Service</title>
+    <title>Historial de Servicios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
@@ -230,7 +230,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('cliente.dashboard') }}">
                 <img src="{{ asset('img/rock.png') }}" alt="KTM Logo">
-                <span class="ms-2">KTM Rocket Service</span>
+                <span class="ms-2">ROCKECT SERVICE</span>
             </a>
             
             <div class="d-flex align-items-center">
@@ -238,8 +238,7 @@
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
                        id="userDropdown" data-bs-toggle="dropdown">
                         <div class="me-3">
-                            <div class="fw-bold">{{ $cliente->nombre ?? 'Nombre de Cliente' }}</div>
-                            <div class="small">Cliente</div>
+                            <strong>{{ Auth::user()->Nombre ?? Auth::guard('admin')->user()->Nombre ?? 'Usuario' }}</strong>
                         </div>
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
@@ -265,14 +264,20 @@
             <!-- Sidebar -->
             <div class="col-lg-3 col-md-4">
                 <div class="sidebar">
-                    <div class="user-info">
-                        <i class="fas fa-user-circle fa-4x text-muted"></i>
-                        <div class="user-name">{{ $cliente->nombre ?? 'Nombre de Cliente' }}</div>
-                        <div class="user-email">{{ $cliente->email ?? 'cliente@ejemplo.com' }}</div>
-                        <div class="mt-2">
-                            <span class="badge bg-success">Cliente Activo</span>
-                        </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle fa-4x text-muted"></i>
+
+                    @php
+                        $clienteAuth = Auth::guard('cliente')->user();
+                    @endphp
+
+                    <div class="user-name">{{ $clienteAuth->Nombre ?? 'Nombre de Cliente' }}</div>
+                    <div class="user-email">{{ $clienteAuth->Correo ?? 'cliente@ejemplo.com' }}</div>
+
+                    <div class="mt-2">
+                        <span class="status-badge status-active">Cliente Activo</span>
                     </div>
+                </div>
                     
                     <ul class="nav-menu mt-4">
                         <li>

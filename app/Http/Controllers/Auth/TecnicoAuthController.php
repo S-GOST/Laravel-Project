@@ -35,9 +35,16 @@ class TecnicoAuthController extends Controller
         return redirect()->route('tecnico.dashboard');
     }
 
-    public function logout()
+    /**
+     * Cerrar sesión del cliente
+     */
+    public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('tecnico')->logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
         return redirect()->route('tecnico.login');
     }
 }

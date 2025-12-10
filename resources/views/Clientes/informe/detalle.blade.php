@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Informe - KTM Rocket Service</title>
+    <title>Detalle de Informe</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -322,7 +322,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('cliente.dashboard') }}">
                 <img src="{{ asset('img/rock.png') }}" alt="KTM Logo">
-                <span class="ms-2">KTM Rocket Service</span>
+                <span class="ms-2">ROCKECT SERVICE</span>
             </a>
             
             <div class="d-flex align-items-center">

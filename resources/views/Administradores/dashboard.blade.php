@@ -446,20 +446,24 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/rock.png') }}" alt="Rock Logo" class="logo-img">
-                ¡Hola! <span class="ms-2 ktm-badge">BIENVENIDO</span>
+                ¡Hola!<span class="ms-2 ktm-badge">BIENVENIDO</span>
             </a>
             
             <div class="navbar-nav ms-auto align-items-center">
                 <div class="nav-item">
-                    <span class="navbar-text me-4 d-none d-md-block">
+                    <span class="navbar-text me-4 d-none d-md-block user-info-navbar">
                         <i class="fas fa-user-circle me-2"></i>
+                        <strong>{{ Auth::user()->Nombre ?? Auth::guard('admin')->user()->Nombre ?? 'Usuario' }}</strong>
                     </span>
                 </div>
                 
                 <div class="nav-item">
-                    <button type="button" id="btnSalir" class="btn btn-logout">
-                        <i class="fa-solid fa-power-off me-2"></i> Cerrar sesión
-                    </button>
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="button" id="btnSalir" class="btn btn-logout">
+                            <i class="fa-solid fa-power-off me-2"></i> Cerrar sesión
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -473,11 +477,32 @@
                 <div class="sidebar">
                     <div class="user-profile">
                         <div class="user-avatar">
-                            SP
+                            <!-- Mostrar iniciales del usuario -->
+                            @php
+                                $userName = Auth::user()->Nombre ?? Auth::guard('admin')->user()->Nombre ?? 'Usuario';
+                                $initials = '';
+                                $nameParts = explode(' ', $userName);
+                                foreach($nameParts as $part) {
+                                    if(!empty($part)) {
+                                        $initials .= strtoupper(substr($part, 0, 1));
+                                    }
+                                }
+                                if(strlen($initials) > 2) {
+                                    $initials = substr($initials, 0, 2);
+                                }
+                            @endphp
+                            {{ $initials }}
                         </div>
-                        <h2 class="user-name"></h2>
+                        <h2 class="user-name">{{ $userName }}</h2>
                         <div class="user-role">
-                            <i class="fas fa-shield-alt me-2"></i>Administrador del Sistema
+                            <i class="fas fa-shield-alt me-2"></i>
+                            @if(Auth::guard('admin')->check())
+                                Administrador del Sistema
+                            @elseif(Auth::check())
+                                Usuario Autenticado
+                            @else
+                                Invitado
+                            @endif
                         </div>
                     </div>
 

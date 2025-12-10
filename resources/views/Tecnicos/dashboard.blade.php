@@ -461,7 +461,7 @@
                 <div class="nav-item">
                     <span class="navbar-text me-4 d-none d-md-block user-info-navbar">
                         <i class="fas fa-user-circle me-2"></i>
-                        <strong>{{ Auth::user()->Nombre ?? Auth::guard('admin')->user()->Nombre ?? 'Usuario' }}</strong>
+                        <strong>{{ Auth::user()->Nombre ?? Auth::guard('tecnico')->user()->Nombre ?? 'Usuario' }}</strong>
                     </span>
                 </div>
                 

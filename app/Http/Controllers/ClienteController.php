@@ -11,7 +11,33 @@ use Illuminate\Support\Facades\DB;
 class ClienteController extends Controller
 {
 
-    
+    /**
+     * Mostrar formulario de login
+     */
+
+        public function login(Request $request)
+        {
+            $credentials = $request->validate([
+                'usuario' => 'required|string',
+                'contrasena' => 'required|string',
+            ]);
+
+            if (Auth::guard('cliente')->attempt([
+                'usuario' => $credentials['usuario'],
+                'password' => $credentials['contrasena'], // Laravel usa "password" como clave
+            ])) {
+                $request->session()->regenerate();
+                return redirect()->route('cliente.panel');
+            }
+
+            return back()->withErrors([
+                'usuario' => 'Usuario o contraseña incorrectos.',
+            ]);
+        }
+
+
+
+
     /**
      * Mostrar dashboard del cliente
      */
@@ -32,133 +58,139 @@ class ClienteController extends Controller
         
         return view('clientes.dashboard', compact('cliente', 'datosDashboard'));
     }
-    
+
+        public function panel()
+        {
+            $cliente = Auth::guard('cliente')->user();
+            return view('cliente.panel', compact('cliente'));
+        }
+
     /**
      * Mostrar perfil del cliente
-     */
-    public function perfil(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        */
+        public function perfil(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            
+            return view('clientes.perfil', compact('cliente'));
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        
-        return view('clientes.perfil', compact('cliente'));
-    }
     
     /**
      * Actualizar perfil del cliente
      */
-    public function actualizarPerfil(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function actualizarPerfil(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            
+            $validated = $request->validate([
+                'Nombre' => 'required|string|max:255',
+                'Correo' => 'required|email|max:255|unique:clientes,Correo,' . $cliente->id,
+                'Telefono' => 'nullable|string|max:20',
+                'dni' => 'nullable|string|max:15',
+            ]);
+            
+            $cliente->update($validated);
+            
+            return redirect()->route('cliente.perfil')
+                ->with('success', 'Perfil actualizado correctamente');
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        
-        $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:clientes,email,' . $cliente->id,
-            'telefono' => 'nullable|string|max:20',
-            'dni' => 'nullable|string|max:15',
-        ]);
-        
-        $cliente->update($validated);
-        
-        return redirect()->route('cliente.perfil')
-            ->with('success', 'Perfil actualizado correctamente');
-    }
     
     /**
      * Mostrar formulario para nueva orden
      */
-    public function nuevaOrden(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function nuevaOrden(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.orden.nueva', compact('cliente'));
         }
         
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.orden.nueva', compact('cliente'));
-    }
-    
     /**
      * Mostrar estado de las órdenes
      */
-    public function estadoOrden(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function estadoOrden(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.orden.estado', compact('cliente'));
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.orden.estado', compact('cliente'));
-    }
     
     /**
      * Mostrar informes y avances - CORREGIDO
      */
-    public function informes(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function informes(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.informes', compact('cliente'));
         }
         
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.informes', compact('cliente'));
-    }
-    
-    public function verInforme($id)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function verInforme($id)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            // En producción, aquí buscarías el informe específico por ID
+            return view('clientes.informe.detalle', compact('cliente'));
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        // En producción, aquí buscarías el informe específico por ID
-        return view('clientes.informe.detalle', compact('cliente'));
-    }
 
     /**
      * Mostrar historial de servicios
      */
-    public function historial(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function historial(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.historial', compact('cliente'));
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.historial', compact('cliente'));
-    }
     
     /**
      * Mostrar gestión de citas
      */
-    public function citas(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        public function citas(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.citas', compact('cliente'));
         }
         
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.citas', compact('cliente'));
-    }
-    
-    /**
-     * Mostrar productos del cliente
-     */
-    public function productos(Request $request)
-    {
-        if (!Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.login');
+        /**
+         * Mostrar productos del cliente
+         */
+        public function productos(Request $request)
+        {
+            if (!Auth::guard('cliente')->check()) {
+                return redirect()->route('cliente.login');
+            }
+            
+            $cliente = Auth::guard('cliente')->user();
+            return view('clientes.productos', compact('cliente'));
         }
-        
-        $cliente = Auth::guard('cliente')->user();
-        return view('clientes.productos', compact('cliente'));
-    }
     
     /**
      * Mostrar servicios del cliente - CORREGIDO
@@ -172,19 +204,7 @@ class ClienteController extends Controller
         $cliente = Auth::guard('cliente')->user();
         return view('clientes.servicios', compact('cliente'));
     }
-    
-    /**
-     * Mostrar formulario de login
-     */
-    public function login()
-    {
-        if (Auth::guard('cliente')->check()) {
-            return redirect()->route('cliente.dashboard');
-        }
         
-        return view('clientes.login');
-    }
-    
     /**
      * Procesar login
      */

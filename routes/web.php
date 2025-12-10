@@ -35,7 +35,7 @@ Route::get('/checkout', fn() => view('checkout'))->name('checkout');
 
 
 // =======================================
-// CHECKOUT – DATOS DEL CLIENTE (MEJORADO)
+// CHECKOUT – DATOS DEL CLIENTE 
 // =======================================
 Route::post('/checkout', [CheckoutController::class, 'store'])
     ->name('checkout.store');
