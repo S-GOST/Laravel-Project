@@ -277,9 +277,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('cliente.dashboard') }}">
+            <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/rock.png') }}" alt="KTM Logo">
-                <span class="ms-2">ROCKECT SERVICE</span>
+                <span class="ms-2"> ROCKET SERVICE</span>
             </a>
             
             <div class="d-flex align-items-center">
@@ -294,7 +294,14 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="{{ route('cliente.perfil') }}"><i class="fas fa-user me-2"></i> Mi Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('cliente.logout') }}"><i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión</a></li>
+                        <li>
+                            <form id="logout-form" action="{{ route('cliente.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -55,7 +55,17 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
+// =======================================
+// ÁREA ADMIN — PROTEGIDA CON auth:admin
+// =======================================
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/dashboard', fn() => view('administradores.dashboard'))->name('admin.dashboard');
+    Route::get('/panel', fn() => view('layouts.Panel'))->name('panel');
 
+    // CRUD Administradores
+    Route::resource('administradores', AdministradoresController::class)
+        ->parameters(['administradores' => 'idA']);
+});
 
 // =======================================
 // AUTENTICACIÓN — TÉCNICO
@@ -66,9 +76,17 @@ Route::prefix('tecnico')->group(function () {
     Route::post('/logout', [TecnicoAuthController::class, 'logout'])->name('tecnico.logout');
 });
 
-
-
 // =======================================
+// ÁREA TÉCNICO — PROTEGIDA CON auth:tecnico
+// =======================================
+Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
+    Route::get('/dashboard', fn() => view('tecnicos.dashboard'))->name('tecnico.dashboard');
+    
+    // PERFIL
+    Route::resource('tecnicos', TecnicosController::class)
+        ->parameters(['tecnicos' => 'idT']);
+});
+    // =======================================
 // AUTENTICACIÓN — CLIENTE
 // ======================================= 
 Route::prefix('cliente')->group(function () {
@@ -83,35 +101,6 @@ Route::prefix('cliente')->group(function () {
 
     Route::post('/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
 });
-
-
-
-// =======================================
-// ÁREA ADMIN — PROTEGIDA CON auth:admin
-// =======================================
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
-    Route::get('/dashboard', fn() => view('administradores.dashboard'))->name('admin.dashboard');
-    Route::get('/panel', fn() => view('layouts.Panel'))->name('panel');
-
-    // CRUD Administradores
-    Route::resource('administradores', AdministradoresController::class)
-        ->parameters(['administradores' => 'idA']);
-});
-
-
-
-// =======================================
-// ÁREA TÉCNICO — PROTEGIDA CON auth:tecnico
-// =======================================
-Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
-    Route::get('/dashboard', fn() => view('tecnicos.dashboard'))->name('tecnico.dashboard');
-    
-    // PERFIL
-    Route::resource('tecnicos', TecnicosController::class)
-        ->parameters(['tecnicos' => 'idT']);
-});
-
-
 
     // =======================================
     // ÁREA CLIENTE — PROTEGIDA CON auth:cliente
@@ -146,9 +135,6 @@ Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
     // Servicios del cliente - CORREGIDO
     Route::get('/servicios', [ClienteController::class, 'servicios'])->name('cliente.servicios');
     
-    // Cerrar sesión
-    Route::post('/logout', [ClienteController::class, 'logout'])->name('cliente.logout');
-
     // CRUD CLIENTE
     Route::resource('clientes', ClienteController::class)
         ->parameters(['clientes' => 'id']);

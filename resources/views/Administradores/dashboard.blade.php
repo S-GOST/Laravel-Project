@@ -442,11 +442,11 @@
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-ktm sticky-top">
+   <nav class="navbar navbar-expand-lg navbar-ktm sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/rock.png') }}" alt="Rock Logo" class="logo-img">
-                ¡Hola!<span class="ms-2 ktm-badge">BIENVENIDO</span>
+                ¡Hola! BIENVENIDO
             </a>
             
             <div class="navbar-nav ms-auto align-items-center">
@@ -757,8 +757,7 @@
                     cancelButtonColor: '#555',
                 }).then(result => {
                     if(result.isConfirmed) {
-                        // Aquí iría la lógica de logout
-                        window.location.href = '/login';
+                        logoutForm.submit();
                     }
                 });
             });

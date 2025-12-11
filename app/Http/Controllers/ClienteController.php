@@ -228,13 +228,5 @@ class ClienteController extends Controller
     /**
      * Cerrar sesión del cliente
      */
-    public function logout(Request $request)
-    {
-        Auth::guard('cliente')->logout();
-        
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        
-        return redirect()->route('cliente.login');
-    }
+
 }
