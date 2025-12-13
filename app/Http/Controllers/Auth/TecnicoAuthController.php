@@ -32,7 +32,7 @@ class TecnicoAuthController extends Controller
         // Login
         Auth::guard('tecnico')->login($tecnico);
 
-        return redirect()->route('tecnico.dashboard');
+        return redirect()->route('Tecnicos.dashboard');
     }
 
     /**

@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-body bg-light text-dark">
-                <form action="{{ route('tecnicos.store') }}" method="POST">
+                <form action="{{ route('admin.tecnicos.store') }}" method="POST">
                     @csrf
 
                     <div class="row">

@@ -410,9 +410,6 @@
         <h5 class="text-center">MENÚ DE GESTIÓN</h5>
 
         <a href="/admin/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
-        <a href="{{ route('tecnico.login') }}" class="menu-link">
-    <i class="fa-solid fa-user-gear"></i> Técnicos</a>
-
         <a href="/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
         <a href="/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
         <a href="/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
@@ -424,48 +421,36 @@
         <a href="/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
     </nav>
 
-    <div id="content">
-
-        <h1 class="mb-4"></h1>
-
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="metric-card">
-                    <div class="metric-label">Gestionar Usuarios</div>
-                    <i class="fa-solid fa-file-lines metric-icon"></i>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="metric-card">
-                    <div class="metric-label">Ordenes servicio</div>
-                    <i class="fa-solid fa-users metric-icon"></i>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="metric-card">
-                    <div class="metric-label">Gestionar Tecnicos</div>
-                    <i class="fa-solid fa-user-gear metric-icon"></i>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="metric-card">
-                    <div class="metric-label">Gestionar Productos</div>
-                    <i class="fa-solid fa-dollar-sign metric-icon"></i>
-                </div>
+<div id="content">
+    <h1 class="mb-4"></h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-label">Gestionar Usuarios</div>
+                <i class="fa-solid fa-file-lines metric-icon"></i>
             </div>
         </div>
-
-        <div id="workspace" class="p-4">
-            
-            @yield('content')
-            
-            <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-ktm"><i class="fa-solid fa-plus me-2"></i> Nueva Orden</button>
-                <button class="btn btn-ktm-outline"><i class="fa-solid fa-download me-2"></i> Exportar Datos</button>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-label">Ordenes servicio</div>
+                <i class="fa-solid fa-users metric-icon"></i>
             </div>
         </div>
-
+        <div class="col-md-3">
+            <a href="{{ route('admin.tecnicos.index') }}" class="metric-card d-block text-decoration-none">
+                <div class="metric-label">Gestionar Técnicos</div>
+                <i class="fas fa-user-cog metric-icon"></i>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-label">Gestionar Productos</div>
+                <i class="fa-solid fa-dollar-sign metric-icon"></i>
+            </div>
+        </div>
     </div>
+</div>
 
 </div>
 <div id="ktmMessage" class="ktm-alert" style="display:none;">

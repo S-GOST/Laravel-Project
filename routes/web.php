@@ -59,12 +59,36 @@ Route::prefix('admin')->group(function () {
 // ÁREA ADMIN — PROTEGIDA CON auth:admin
 // =======================================
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
-    Route::get('/dashboard', fn() => view('administradores.dashboard'))->name('admin.dashboard');
-    Route::get('/panel', fn() => view('layouts.Panel'))->name('panel');
+
+    Route::get('/panel', fn() => view('layouts.panel'))->name('panel');
 
     // CRUD Administradores
     Route::resource('administradores', AdministradoresController::class)
         ->parameters(['administradores' => 'idA']);
+
+    // CRUD TÉCNICOS COMPLETO (ÁREA ADMIN)
+    Route::prefix('tecnicos')->name('admin.tecnicos.')->group(function () {
+        // Listar técnicos
+        Route::get('/', [TecnicosController::class, 'index'])->name('index');
+        
+        // Crear técnico (formulario)
+        Route::get('/crear', [TecnicosController::class, 'create'])->name('create');
+        
+        // Guardar técnico
+        Route::post('/', [TecnicosController::class, 'store'])->name('store');
+        
+        // Mostrar técnico específico
+        Route::get('/{idT}', [TecnicosController::class, 'show'])->name('show');
+        
+        // Editar técnico (formulario)
+        Route::get('/{idT}/editar', [TecnicosController::class, 'edit'])->name('edit');
+        
+        // Actualizar técnico
+        Route::put('/{idT}', [TecnicosController::class, 'update'])->name('update');
+        
+        // Eliminar técnico
+        Route::delete('/{idT}', [TecnicosController::class, 'destroy'])->name('destroy');
+    });
 });
 
 // =======================================
@@ -80,13 +104,14 @@ Route::prefix('tecnico')->group(function () {
 // ÁREA TÉCNICO — PROTEGIDA CON auth:tecnico
 // =======================================
 Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
-    Route::get('/dashboard', fn() => view('tecnicos.dashboard'))->name('tecnico.dashboard');
+    Route::get('/dashboard', fn() => view('Administradores.Tecnicos.dashboard'))->name('tecnico.dashboard');
     
-    // PERFIL
-    Route::resource('tecnicos', TecnicosController::class)
-        ->parameters(['tecnicos' => 'idT']);
+    // PERFIL DEL TÉCNICO (SOLO SU PROPIO PERFIL)
+    Route::get('/perfil', [TecnicosController::class, 'perfil'])->name('tecnico.perfil');
+    Route::put('/perfil/actualizar', [TecnicosController::class, 'actualizarPerfil'])->name('tecnico.perfil.actualizar');
 });
-    // =======================================
+
+// =======================================
 // AUTENTICACIÓN — CLIENTE
 // ======================================= 
 Route::prefix('cliente')->group(function () {
@@ -102,10 +127,10 @@ Route::prefix('cliente')->group(function () {
     Route::post('/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
 });
 
-    // =======================================
-    // ÁREA CLIENTE — PROTEGIDA CON auth:cliente
-    // =======================================
-    Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
+// =======================================
+// ÁREA CLIENTE — PROTEGIDA CON auth:cliente
+// =======================================
+Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
     Route::get('/dashboard', [ClienteController::class, 'dashboard'])->name('cliente.dashboard');
 
     // PERFIL
@@ -118,7 +143,7 @@ Route::prefix('cliente')->group(function () {
     Route::get('/orden/estado', [ClienteController::class, 'estadoOrden'])->name('cliente.orden.estado');
     Route::get('/orden/detalle/{id}', [ClienteController::class, 'detalleOrden'])->name('orden.detalle');
     
-    // Informes y avances - CORREGIDO
+    // Informes y avances
     Route::get('/informes', [ClienteController::class, 'informes'])->name('cliente.informes');
     Route::get('/informe/{id}', [ClienteController::class, 'verInforme'])->name('informe.ver');
     
@@ -132,18 +157,17 @@ Route::prefix('cliente')->group(function () {
     // Productos del cliente
     Route::get('/productos', [ClienteController::class, 'productos'])->name('cliente.productos');
     
-    // Servicios del cliente - CORREGIDO
+    // Servicios del cliente
     Route::get('/servicios', [ClienteController::class, 'servicios'])->name('cliente.servicios');
     
-    // CRUD CLIENTE
-    Route::resource('clientes', ClienteController::class)
-        ->parameters(['clientes' => 'id']);
+    // CRUD CLIENTE (SOLO PARA ADMIN - REMOVER DE ÁREA CLIENTE)
+    // Este resource debería estar en área admin, no en área cliente
+    // Route::resource('clientes', ClienteController::class)
+    //     ->parameters(['clientes' => 'id']);
 
     // Ver motos del cliente
     Route::get('/clientes/{id}/motos', [ClienteController::class, 'verMotosCliente'])->name('vermotosCliente');
 });
-
-
 
 // =======================================
 // CRUD GENERALES (ACCESO PÚBLICO O PROTEGIDO SI LO DEFINES)

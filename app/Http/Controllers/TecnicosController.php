@@ -4,74 +4,79 @@ namespace App\Http\Controllers;
 
 use App\Models\tecnicosModelo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class tecnicosController extends Controller
+class TecnicosController extends Controller
 {
-    // Buscar y Paginar
+    /* =============================
+       LISTAR + BUSCAR + PAGINAR
+    ==============================*/
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $query = DB::table('tecnicos');
+        $search = $request->search;
 
-        if($search){
-            $query->where(function($q) use ($search){
-                $q->where('ID_TECNICOS', 'LIKE', "%{$search}%")
-                ->orwhere('Nombre', 'LIKE', "%{$search}%")
-                ->orwhere('TipoDocumento','LIKE', "%{$search}");
-            });
-        }
-        $datos = $query->paginate(10);
-        return view("Tecnicos.tecnicos")->with("datos", $datos);
+        $datos = tecnicosModelo::when($search, function ($query) use ($search) {
+            $query->where('Nombre', 'like', "%$search%")
+                  ->orWhere('ID_TECNICOS', 'like', "%$search%")
+                  ->orWhere('Correo', 'like', "%$search%")
+                  ->orWhere('Telefono', 'like', "%$search%")
+                  ->orWhere('TipoDocumento', 'like', "%$search%");
+        })
+        ->orderBy('ID_TECNICOS', 'desc')
+        ->paginate(10);
+
+        // Asegúrate de que esta vista exista o cámbiala por la correcta
+        return view('Administradores.Tecnicos.tecnicos', compact('datos'));
     }
 
-    // Insertar Datos
-    public function store(Request $request){
+    /* =============================
+       CREAR TÉCNICO
+    ==============================*/
+    public function store(Request $request)
+    {
         $request->validate([
-            'ID_TECNICOS' => 'required|unique:tecnicos,ID_TECNICOS',
-            'Nombre' => 'required',
-            'TipoDocumento' => 'required',
-            'Correo' => 'required',
-            'Telefono' => 'required|numeric',
-        ],[
-            'ID_TECNICOS.unique' => 'El tecnico con este documento ya existe en la plataforma.',
+            'ID_TECNICOS'   => 'required|unique:tecnicos,ID_TECNICOS',
+            'Nombre'        => 'required|string|max:255',
+            'TipoDocumento' => 'required|string|max:50',
+            'Correo'        => 'required|email|unique:tecnicos,Correo',
+            'Telefono'      => 'required|string|max:20',
         ]);
 
         tecnicosModelo::create($request->all());
-        return redirect()->route('tecnicos.index')->with('success','Tecnico Registrado en la Plataforma');
+
+        // Redirige a la ruta nombrada correcta
+        return redirect()->route('admin.tecnicos.index')
+            ->with('success', 'Técnico registrado correctamente');
     }
 
-    // Update - Versión SEGURA (sin Rule)
+    /* =============================
+       ACTUALIZAR TÉCNICO
+    ==============================*/
     public function update(Request $request, $idT)
     {
         $request->validate([
-            'ID_TECNICOS' => 'required|unique:tecnicos,ID_TECNICOS,' . $idT . ',ID_TECNICOS',
-            'Nombre' => 'required',
-            'TipoDocumento' => 'required',
-            'Correo' => 'required',
-            'Telefono' => 'required|numeric',
-        ], [
-            'ID_TECNICOS.unique' => 'El tecnico con este documento ya existe en la plataforma.',
+            'Nombre'        => 'required|string|max:255',
+            'TipoDocumento' => 'required|string|max:50',
+            'Correo'        => 'required|email|unique:tecnicos,Correo,' . $idT . ',ID_TECNICOS',
+            'Telefono'      => 'required|string|max:20',
         ]);
 
         $tecnico = tecnicosModelo::findOrFail($idT);
-        $tecnico->update([
-            'ID_TECNICOS' => $request->ID_TECNICOS,
-            'Nombre' => $request->Nombre,
-            'TipoDocumento' => $request->TipoDocumento,
-            'Correo' => $request->Correo,
-            'Telefono' => $request->Telefono,
-        ]);
+        $tecnico->update($request->all());
 
-        return redirect()->route('tecnicos.index')->with('success', 'Tecnico Actualizado en la Plataforma');
+        // Redirige a la ruta nombrada correcta
+        return redirect()->route('admin.tecnicos.index')
+            ->with('success', 'Técnico actualizado correctamente');
     }
 
-    // Destroy
-        public function destroy($idT)
-        {
-            $tecnico = tecnicosModelo::findOrFail($idT);
-            $tecnico->delete();
+    /* =============================
+       ELIMINAR TÉCNICO
+    ==============================*/
+    public function destroy($idT)
+    {
+        tecnicosModelo::findOrFail($idT)->delete();
 
-            return redirect()->route('tecnicos.index')->with('success', 'Tecnico eliminado correctamente');
-        }
+        // Redirige a la ruta nombrada correcta
+        return redirect()->route('admin.tecnicos.index')
+            ->with('success', 'Técnico eliminado correctamente');
+    }
 }
