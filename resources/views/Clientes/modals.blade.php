@@ -1,183 +1,183 @@
-{{-- MODAL AGREGAR --}}
+<!-- MODAL AGREGAR -->
 <div class="modal fade" id="AgregarModal" tabindex="-1" aria-labelledby="AgregarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-
-            <div class="modal-header bg-primary text-white">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--ktm-gray); color: white;">
+            <div class="modal-header" style="background: linear-gradient(90deg, var(--ktm-orange) 0%, var(--ktm-orange-light) 100%);">
                 <h5 class="modal-title fw-bold">
-                    <i class="fa-solid fa-user-plus me-2"></i> Crear Cliente
+                    <i class="fa-solid fa-user-plus me-2"></i> Nuevo Cliente
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-
-            <div class="modal-body bg-light text-dark">
-                <form action="{{ route('clientes.store') }}" method="POST">
+            <div class="modal-body">
+                <form action="{{ route('admin.clientes.store') }}" method="POST">
                     @csrf
-
+                    
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">ID Cliente</label>
-                            <input type="text" class="form-control border-primary shadow-sm" name="ID_CLIENTES" required>
+                            <label class="form-label fw-semibold">ID Cliente *</label>
+                            <input type="text" class="form-control" name="ID_CLIENTES" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                         </div>
-
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Ubicación</label>
-                            <input type="text" class="form-control border-primary shadow-sm" name="Ubicacion" required>
+                            <label class="form-label fw-semibold">Nombre Completo *</label>
+                            <input type="text" class="form-control" name="Nombre" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Nombre</label>
-                            <input type="text" class="form-control border-primary shadow-sm" name="Nombre" required>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Tipo Documento</label>
-                            <select class="form-select border-primary shadow-sm" name="TipoDocumento" required>
+                            <label class="form-label fw-semibold">Tipo de Documento *</label>
+                            <select class="form-select" name="TipoDocumento" required 
+                                    style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                                 <option value="">[Seleccione]</option>
-                                <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                                <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                                <option value="Nit">NIT</option>
-                                <option value="Rut">RUT</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="CE">Carnet Extranjería</option>
                             </select>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Número de Documento *</label>
+                            <input type="text" class="form-control" name="dni" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                        </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Correo</label>
-                            <input type="email" class="form-control border-primary shadow-sm" name="Correo" required>
+                            <label class="form-label fw-semibold">Correo Electrónico *</label>
+                            <input type="email" class="form-control" name="Correo" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                         </div>
-
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Teléfono</label>
-                            <input type="number" class="form-control border-primary shadow-sm" name="Telefono" required>
+                            <input type="text" class="form-control" name="Telefono" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                         </div>
                     </div>
 
-                    <div class="modal-footer bg-light border-top-0">
-                        <button type="button" class="btn btn-secondary rounded-pill px-3" data-bs-dismiss="modal">
-                            <i class="fa-solid fa-xmark me-1"></i> Cerrar
-                        </button>
-                        <button type="submit" class="btn btn-primary rounded-pill px-3">
-                            <i class="fa-solid fa-floppy-disk me-1"></i> Guardar
-                        </button>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Ubicación</label>
+                            <input type="text" class="form-control" name="Ubicacion" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Usuario</label>
+                            <input type="text" class="form-control" name="usuario" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Contraseña</label>
+                            <input type="password" class="form-control" name="contrasena"
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                            <small class="text-muted" style="color: #999 !important;">Dejar en blanco para no establecer contraseña</small>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="border-top: 1px solid rgba(255, 109, 31, 0.2);">
+                        <button type="button" class="btn btn-ktm-outline" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-xmark me-1"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-ktm">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Cliente
+                        </button>
+                    </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 
-
-
-{{-- MODAL EDITAR --}}
+<!-- MODAL EDITAR -->
 <div class="modal fade" id="EditarModal" tabindex="-1" aria-labelledby="EditarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-
-            <div class="modal-header bg-success text-white">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--ktm-gray); color: white;">
+            <div class="modal-header" style="background: linear-gradient(90deg, #28a745 0%, #20c997 100%);">
                 <h5 class="modal-title fw-bold">
-                    <i class="fa-solid fa-user-pen me-2"></i> Editar Cliente
+                    <i class="fa-solid fa-pen-to-square me-2"></i> Editar Cliente
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-
-            <div class="modal-body bg-light text-dark">
+            <div class="modal-body">
                 <form id="editForm" method="POST">
                     @csrf
                     @method('PUT')
+                    
+                    <!-- Campo oculto para ID -->
+                    <input type="hidden" id="editID_CLIENTES" name="ID_CLIENTES">
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">ID Cliente</label>
-                            <input type="text" class="form-control border-success shadow-sm" id="editID_CLIENTES" name="ID_CLIENTES" required>
+                            <label class="form-label fw-semibold">Nombre Completo *</label>
+                            <input type="text" class="form-control" id="editNombre" name="Nombre" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
-
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Ubicación</label>
-                            <input type="text" class="form-control border-success shadow-sm" id="editUbicacion" name="Ubicacion" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Nombre</label>
-                            <input type="text" class="form-control border-success shadow-sm" id="editNombre" name="Nombre" required>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Tipo Documento</label>
-                            <select class="form-select border-success shadow-sm" id="editTipoDocumento" name="TipoDocumento" required>
-                                <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                                <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                                <option value="Nit">NIT</option>
-                                <option value="Rut">RUT</option>
+                            <label class="form-label fw-semibold">Tipo de Documento *</label>
+                            <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required 
+                                    style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
+                                <option value="">[Seleccione]</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="CE">Carnet Extranjería</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Correo</label>
-                            <input type="email" class="form-control border-success shadow-sm" id="editCorreo" name="Correo" required>
+                            <label class="form-label fw-semibold">Número de Documento *</label>
+                            <input type="text" class="form-control" id="editDni" name="dni" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Correo Electrónico *</label>
+                            <input type="email" class="form-control" id="editCorreo" name="Correo" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
+                        </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Teléfono</label>
-                            <input type="number" class="form-control border-success shadow-sm" id="editTelefono" name="Telefono" required>
+                            <input type="text" class="form-control" id="editTelefono" name="Telefono" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Ubicación</label>
+                            <input type="text" class="form-control" id="editUbicacion" name="Ubicacion" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
                     </div>
 
-                    <div class="modal-footer bg-light border-top-0">
-                        <button type="button" class="btn btn-secondary rounded-pill px-3" data-bs-dismiss="modal">
-                            <i class="fa-solid fa-xmark me-1"></i> Cerrar
-                        </button>
-                        <button type="submit" class="btn btn-success rounded-pill px-3">
-                            <i class="fa-solid fa-floppy-disk me-1"></i> Guardar cambios
-                        </button>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Usuario</label>
+                            <input type="text" class="form-control" id="editUsuario" name="usuario" 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Contraseña</label>
+                            <input type="password" class="form-control" name="contrasena"
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
+                            <small class="text-muted" style="color: #999 !important;">Dejar en blanco para no cambiar la contraseña</small>
+                        </div>
                     </div>
 
+                    <div class="modal-footer" style="border-top: 1px solid rgba(40, 167, 69, 0.2);">
+                        <button type="button" class="btn btn-ktm-outline" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-xmark me-1"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    var editarModal = document.getElementById('EditarModal');
-
-    editarModal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget;
-
-        // Obtener datos del botón
-        document.getElementById('editID_CLIENTES').value   = button.getAttribute('data-idc');
-        document.getElementById('editUbicacion').value     = button.getAttribute('data-ubicacion');
-        document.getElementById('editNombre').value        = button.getAttribute('data-nombre');
-        document.getElementById('editTipoDocumento').value = button.getAttribute('data-tipo');
-        document.getElementById('editCorreo').value        = button.getAttribute('data-correo');
-        document.getElementById('editTelefono').value      = button.getAttribute('data-telefono');
-
-        // Ruta del formulario (PUT)
-        document.getElementById('editForm').action = '/clientes/' + button.getAttribute('data-idc');
-    });
-
-    // Confirmación de eliminación
-    window.confirmarEliminar = function(event) {
-        if (!confirm('¿Seguro deseas eliminar este cliente?')) {
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    };
-
-});
-</script>
-

@@ -8,21 +8,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\TecnicosController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\motosController;
-use App\Http\Controllers\serviciosController;
-use App\Http\Controllers\productosController;
-use App\Http\Controllers\orden_servicioController;
-use App\Http\Controllers\detalles_orden_servicioController;
-use App\Http\Controllers\informeController;
-use App\Http\Controllers\comprobanteController;
-use App\Http\Controllers\historialController;
+use App\Http\Controllers\MotosController;
+use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\OrdenServicioController;
+use App\Http\Controllers\DetallesOrdenServicioController;
+use App\Http\Controllers\InformeController;
+use App\Http\Controllers\ComprobanteController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\TecnicoAuthController;
 use App\Http\Controllers\Auth\ClienteAuthController;
-
 
 // =======================================
 // RUTAS PÚBLICAS
@@ -33,6 +32,12 @@ Route::get('/home', fn() => view('index'))->name('home');
 Route::get('/carrito', fn() => view('carrito'))->name('carrito');
 Route::get('/checkout', fn() => view('checkout'))->name('checkout');
 
+// =======================================
+// RUTA PARA EL ERROR DE "LOGIN" (añade esto)
+// =======================================
+Route::get('/login', function() {
+    return redirect()->route('cliente.login');
+})->name('login');
 
 // =======================================
 // CHECKOUT – DATOS DEL CLIENTE 
@@ -42,7 +47,6 @@ Route::post('/checkout', [CheckoutController::class, 'store'])
 
 Route::get('/confirmacion', fn() => view('confirmacion'))
     ->name('confirmacion');
-
 
 // =======================================
 // AUTENTICACIÓN — ADMIN
@@ -62,32 +66,36 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::get('/panel', fn() => view('layouts.panel'))->name('panel');
 
+    // CORRECCIÓN: Agregar la ruta del dashboard del admin
+    Route::get('/dashboard', fn() => view('Administradores.administradores'))->name('admin.dashboard');
+
     // CRUD Administradores
     Route::resource('administradores', AdministradoresController::class)
         ->parameters(['administradores' => 'idA']);
 
     // CRUD TÉCNICOS COMPLETO (ÁREA ADMIN)
     Route::prefix('tecnicos')->name('admin.tecnicos.')->group(function () {
-        // Listar técnicos
         Route::get('/', [TecnicosController::class, 'index'])->name('index');
-        
-        // Crear técnico (formulario)
         Route::get('/crear', [TecnicosController::class, 'create'])->name('create');
-        
-        // Guardar técnico
         Route::post('/', [TecnicosController::class, 'store'])->name('store');
-        
-        // Mostrar técnico específico
         Route::get('/{idT}', [TecnicosController::class, 'show'])->name('show');
-        
-        // Editar técnico (formulario)
         Route::get('/{idT}/editar', [TecnicosController::class, 'edit'])->name('edit');
-        
-        // Actualizar técnico
         Route::put('/{idT}', [TecnicosController::class, 'update'])->name('update');
-        
-        // Eliminar técnico
         Route::delete('/{idT}', [TecnicosController::class, 'destroy'])->name('destroy');
+    });
+
+    // CRUD CLIENTES COMPLETO (SOLO PARA ADMIN)
+    Route::prefix('clientes')->name('admin.clientes.')->group(function () {
+        Route::get('/', [ClienteController::class, 'index'])->name('index');
+        Route::get('/crear', [ClienteController::class, 'create'])->name('create');
+        Route::post('/', [ClienteController::class, 'store'])->name('store');
+        Route::get('/{id}', [ClienteController::class, 'show'])->name('show');
+        Route::get('/{id}/editar', [ClienteController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ClienteController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('destroy');
+        
+        // Ruta para ver motos del cliente (específica para admin)
+        Route::get('/{id}/motos', [ClienteController::class, 'verMotosCliente'])->name('motos');
     });
 });
 
@@ -106,7 +114,6 @@ Route::prefix('tecnico')->group(function () {
 Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
     Route::get('/dashboard', fn() => view('Administradores.Tecnicos.dashboard'))->name('tecnico.dashboard');
     
-    // PERFIL DEL TÉCNICO (SOLO SU PROPIO PERFIL)
     Route::get('/perfil', [TecnicosController::class, 'perfil'])->name('tecnico.perfil');
     Route::put('/perfil/actualizar', [TecnicosController::class, 'actualizarPerfil'])->name('tecnico.perfil.actualizar');
 });
@@ -160,13 +167,8 @@ Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
     // Servicios del cliente
     Route::get('/servicios', [ClienteController::class, 'servicios'])->name('cliente.servicios');
     
-    // CRUD CLIENTE (SOLO PARA ADMIN - REMOVER DE ÁREA CLIENTE)
-    // Este resource debería estar en área admin, no en área cliente
-    // Route::resource('clientes', ClienteController::class)
-    //     ->parameters(['clientes' => 'id']);
-
-    // Ver motos del cliente
-    Route::get('/clientes/{id}/motos', [ClienteController::class, 'verMotosCliente'])->name('vermotosCliente');
+    // Ver motos del cliente autenticado
+    Route::get('/mis-motos', [ClienteController::class, 'verMisMotos'])->name('cliente.mis.motos');
 });
 
 // =======================================
@@ -174,25 +176,25 @@ Route::prefix('cliente')->middleware('auth:cliente')->group(function () {
 // =======================================
 
 // MOTOS
-Route::resource('motos', motosController::class)->parameters(['motos' => 'idM']);
+Route::resource('motos', MotosController::class)->parameters(['motos' => 'idM']);
 
 // SERVICIOS
-Route::resource('servicios', serviciosController::class)->parameters(['servicios' => 'idS']);
+Route::resource('servicios', ServiciosController::class)->parameters(['servicios' => 'idS']);
 
 // PRODUCTOS
-Route::resource('productos', productosController::class)->parameters(['productos' => 'idP']);
+Route::resource('productos', ProductosController::class)->parameters(['productos' => 'idP']);
 
 // ORDEN SERVICIO
-Route::resource('orden_servicio', orden_servicioController::class)->parameters(['orden_servicio' => 'idO']);
+Route::resource('orden_servicio', OrdenServicioController::class)->parameters(['orden_servicio' => 'idO']);
 
 // DETALLES ORDEN
-Route::resource('detalles_orden_servicio', detalles_orden_servicioController::class)->parameters(['detalles_orden_servicio' => 'idDOS']);
+Route::resource('detalles_orden_servicio', DetallesOrdenServicioController::class)->parameters(['detalles_orden_servicio' => 'idDOS']);
 
 // INFORME
-Route::resource('informe', informeController::class)->parameters(['informe' => 'idI']);
+Route::resource('informe', InformeController::class)->parameters(['informe' => 'idI']);
 
 // COMPROBANTE
-Route::resource('comprobante', comprobanteController::class)->parameters(['comprobante' => 'idC']);
+Route::resource('comprobante', ComprobanteController::class)->parameters(['comprobante' => 'idC']);
 
 // HISTORIAL
-Route::resource('historial', historialController::class)->parameters(['historial' => 'idH']);
+Route::resource('historial', HistorialController::class)->parameters(['historial' => 'idH']);

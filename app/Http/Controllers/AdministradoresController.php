@@ -30,7 +30,7 @@ class administradoresController extends Controller
         $request->validate([
             'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR',
             'Nombre' => 'required',
-            'Correo' => 'required',
+            'Correo' => 'required|email',
             'TipoDocumento' => 'required',
             'Telefono' => 'required|numeric',
         ],[
@@ -41,13 +41,13 @@ class administradoresController extends Controller
         return redirect()->route('administradores.index')->with('success','Administrador Registrado en la Plataforma');
     }
 
-    // Update - Versión SEGURA (sin Rule)
+    // Update
     public function update(Request $request, $idA)
     {
         $request->validate([
             'ID_ADMINISTRADOR' => 'required|unique:administradores,ID_ADMINISTRADOR,' . $idA . ',ID_ADMINISTRADOR',
             'Nombre' => 'required',
-            'Correo' => 'required',
+            'Correo' => 'required|email',
             'TipoDocumento' => 'required',
             'Telefono' => 'required|numeric',
         ], [
@@ -67,15 +67,11 @@ class administradoresController extends Controller
     }
 
     // Destroy
-        public function destroy($idA)
-        {
-            $administrador = administradoresModelo::findOrFail($idA);
-            $administrador->delete();
+    public function destroy($idA)
+    {
+        $administrador = administradoresModelo::findOrFail($idA);
+        $administrador->delete();
 
-            return redirect()->route('administradores.index')->with('success', 'Administrador eliminado correctamente');
-        }
-
-            /**
-     * Cerrar sesión del cliente
-     */
+        return redirect()->route('administradores.index')->with('success', 'Administrador eliminado correctamente');
     }
+}

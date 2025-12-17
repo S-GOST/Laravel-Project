@@ -361,25 +361,25 @@
             animation: glow 2s infinite;
         }
         .ktm-alert {
-    background: #ff6600;
-    color: #fff;
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-    animation: vibrar 0.2s linear 3, fadeOut 1s ease 2s forwards;
-}
+            background: #ff6600;
+            color: #fff;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: vibrar 0.2s linear 3, fadeOut 1s ease 2s forwards;
+        }
 
-@keyframes vibrar {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    20% { transform: translate(-2px, 0px) rotate(1deg); }
-    40% { transform: translate(2px, -1px) rotate(-1deg); }
-}
+        @keyframes vibrar {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-2px, 0px) rotate(1deg); }
+            40% { transform: translate(2px, -1px) rotate(-1deg); }
+        }
 
-@keyframes fadeOut {
-    to { opacity: 0; }
-}
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
     </style>
 </head>
 
@@ -403,63 +403,59 @@
     </div>
 </header>
 
-
 <div class="wrapper">
-
     <nav id="sidebar">
         <h5 class="text-center">MENÚ DE GESTIÓN</h5>
 
-        <a href="/admin/administradores" class="menu-link active"><i class="fa-solid fa-user-shield"></i> Administradores</a>
-        <a href="/clientes" class="menu-link"><i class="fa-solid fa-users"></i> Clientes</a>
-        <a href="/motos" class="menu-link"><i class="fa-solid fa-motorcycle"></i> Motos</a>
-        <a href="/servicios" class="menu-link"><i class="fa-solid fa-screwdriver-wrench"></i> Servicios</a>
-        <a href="/productos" class="menu-link"><i class="fa-solid fa-box"></i> Productos</a>
-        <a href="/orden_servicio" class="menu-link"><i class="fa-solid fa-file-signature"></i> Órdenes de Servicio</a>
-        <a href="/detalles_orden_servicio" class="menu-link"><i class="fa-solid fa-list-check"></i> Detalles Orden</a>
-        <a href="/informe" class="menu-link"><i class="fa-solid fa-chart-pie"></i> Informe</a>
-        <a href="/comprobante" class="menu-link"><i class="fa-solid fa-receipt"></i> Comprobantes</a>
-        <a href="/historial" class="menu-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+        <a href="{{ route('admin.dashboard') }}" class="menu-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+            <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+        <a href="{{ route('administradores.index') }}" class="menu-link {{ request()->is('admin/administradores*') ? 'active' : '' }}">
+            <i class="fa-solid fa-user-shield"></i> Administradores
+        </a>
+        <a href="{{ route('admin.tecnicos.index') }}" class="menu-link {{ request()->is('admin/tecnicos*') ? 'active' : '' }}">
+            <i class="fa-solid fa-user-gear"></i> Técnicos
+        </a>
+        <a href="{{ route('admin.clientes.index') }}" class="menu-link {{ request()->is('admin/clientes*') ? 'active' : '' }}">
+            <i class="fa-solid fa-users"></i> Clientes
+        </a>
+        <a href="{{ route('motos.index') }}" class="menu-link {{ request()->is('motos*') ? 'active' : '' }}">
+            <i class="fa-solid fa-motorcycle"></i> Motos
+        </a>
+        <a href="{{ route('servicios.index') }}" class="menu-link {{ request()->is('servicios*') ? 'active' : '' }}">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Servicios
+        </a>
+        <a href="{{ route('productos.index') }}" class="menu-link {{ request()->is('productos*') ? 'active' : '' }}">
+            <i class="fa-solid fa-box"></i> Productos
+        </a>
+        <a href="{{ route('orden_servicio.index') }}" class="menu-link {{ request()->is('orden_servicio*') ? 'active' : '' }}">
+            <i class="fa-solid fa-file-signature"></i> Órdenes de Servicio
+        </a>
+        <a href="{{ route('detalles_orden_servicio.index') }}" class="menu-link {{ request()->is('detalles_orden_servicio*') ? 'active' : '' }}">
+            <i class="fa-solid fa-list-check"></i> Detalles Orden
+        </a>
+        <a href="{{ route('informe.index') }}" class="menu-link {{ request()->is('informe*') ? 'active' : '' }}">
+            <i class="fa-solid fa-chart-pie"></i> Informe
+        </a>
+        <a href="{{ route('comprobante.index') }}" class="menu-link {{ request()->is('comprobante*') ? 'active' : '' }}">
+            <i class="fa-solid fa-receipt"></i> Comprobantes
+        </a>
+        <a href="{{ route('historial.index') }}" class="menu-link {{ request()->is('historial*') ? 'active' : '' }}">
+            <i class="fa-solid fa-clock-rotate-left"></i> Historial
+        </a>
     </nav>
 
-<div id="content">
-    <h1 class="mb-4"></h1>
-    
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="metric-card">
-                <div class="metric-label">Gestionar Usuarios</div>
-                <i class="fa-solid fa-file-lines metric-icon"></i>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="metric-card">
-                <div class="metric-label">Ordenes servicio</div>
-                <i class="fa-solid fa-users metric-icon"></i>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <a href="{{ route('admin.tecnicos.index') }}" class="metric-card d-block text-decoration-none">
-                <div class="metric-label">Gestionar Técnicos</div>
-                <i class="fas fa-user-cog metric-icon"></i>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <div class="metric-card">
-                <div class="metric-label">Gestionar Productos</div>
-                <i class="fa-solid fa-dollar-sign metric-icon"></i>
-            </div>
-        </div>
+    <div id="content">
+        @yield('content')
     </div>
 </div>
 
-</div>
 <div id="ktmMessage" class="ktm-alert" style="display:none;">
     Acción realizada con éxito 🏍️🔥
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 <script>
     // Activar elemento del menú al hacer clic
@@ -473,28 +469,157 @@
             });
         });
     });
+    
     document.getElementById('btnSalir').addEventListener('click', function () {
-
-    Swal.fire({
-        title: "¿Salir del sistema?",
-        text: "Tu sesión será cerrada.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#FF6D1F",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Sí, salir",
-        cancelButtonText: "Cancelar"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('logout-form').submit();
-        }
+        Swal.fire({
+            title: "¿Salir del sistema?",
+            text: "Tu sesión será cerrada.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#FF6D1F",
+            cancelButtonColor: "#333",
+            confirmButtonText: "Sí, salir",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
     });
-
-});
-function showKTMMessage() {
-    document.getElementById('ktmMessage').style.display = 'block';
-}
+    
+    function showKTMMessage() {
+        document.getElementById('ktmMessage').style.display = 'block';
+    }
+    
+    // Verificar si hay mensajes de éxito en la sesión
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#FF6D1F',
+            timer: 3000
+        });
+    @endif
+    
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            confirmButtonColor: '#FF6D1F'
+        });
+    @endif
 </script>
+<!-- MODAL DASHBOARD -->
+<div class="modal fade" id="dashboardModal" tabindex="-1" aria-labelledby="dashboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden" style="background: var(--ktm-gray); color: white;">
+            <div class="modal-header" style="background: linear-gradient(90deg, var(--ktm-orange) 0%, var(--ktm-orange-light) 100%);">
+                <h5 class="modal-title fw-bold">
+                    <i class="fa-solid fa-gauge-high me-2"></i> Dashboard - Resumen del Sistema
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Estadísticas principales -->
+                    <div class="col-md-3 mb-4">
+                        <div class="metric-card text-center">
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="metric-value" id="clientesCount">0</div>
+                            <div class="metric-label">Clientes</div>
+                            <small class="text-muted">Registrados en el sistema</small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="metric-card text-center">
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-motorcycle"></i>
+                            </div>
+                            <div class="metric-value" id="motosCount">0</div>
+                            <div class="metric-label">Motos</div>
+                            <small class="text-muted">Registradas</small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="metric-card text-center">
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <div class="metric-value" id="serviciosCount">0</div>
+                            <div class="metric-label">Servicios</div>
+                            <small class="text-muted">Realizados este mes</small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 mb-4">
+                        <div class="metric-card text-center">
+                            <div class="metric-icon">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="metric-value" id="ordenesCount">0</div>
+                            <div class="metric-label">Órdenes</div>
+                            <small class="text-muted">Pendientes</small>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow" style="background: var(--ktm-gray-light);">
+                            <div class="card-header" style="background: rgba(255, 109, 31, 0.2);">
+                                <h6 class="mb-0"><i class="fa-solid fa-chart-line me-2"></i> Actividad Reciente</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush" id="actividadList">
+                                    <li class="list-group-item" style="background: transparent; color: #ccc; border-color: rgba(255,255,255,0.1);">
+                                        <i class="fa-solid fa-clock me-2"></i> Cargando actividad...
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow" style="background: var(--ktm-gray-light);">
+                            <div class="card-header" style="background: rgba(255, 109, 31, 0.2);">
+                                <h6 class="mb-0"><i class="fa-solid fa-bell me-2"></i> Notificaciones</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush" id="notificacionesList">
+                                    <li class="list-group-item" style="background: transparent; color: #ccc; border-color: rgba(255,255,255,0.1);">
+                                        <i class="fa-solid fa-check-circle me-2"></i> Sistema funcionando correctamente
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="alert alert-info border-0" style="background: rgba(23, 162, 184, 0.2);">
+                            <i class="fa-solid fa-lightbulb me-2"></i>
+                            <strong>Consejo:</strong> Usa el menú lateral para navegar entre las diferentes secciones del sistema.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid rgba(255, 109, 31, 0.2);">
+                <button type="button" class="btn btn-ktm-outline" data-bs-dismiss="modal">
+                    <i class="fa-solid fa-xmark me-1"></i> Cerrar
+                </button>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-ktm">
+                    <i class="fa-solid fa-external-link-alt me-1"></i> Ir al Dashboard Completo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

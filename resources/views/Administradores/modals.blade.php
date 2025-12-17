@@ -5,7 +5,7 @@
 
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title fw-bold">
-                    <i class="fa-solid fa-user-plus me-2"></i> Crear Técnico
+                    <i class="fa-solid fa-user-plus me-2"></i> Crear Administrador <!-- Corregido: estaba "Crear Técnico" -->
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
@@ -87,7 +87,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">ID Administrador</label>
-                            <input type="text" class="form-control border-success shadow-sm" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required>
+                            <input type="text" class="form-control border-success shadow-sm" id="editID_ADMINISTRADOR" name="ID_ADMINISTRADOR" required readonly> <!-- Añadido: readonly -->
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -111,6 +111,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Tipo Documento</label>
                         <select class="form-select border-success shadow-sm" id="editTipoDocumento" name="TipoDocumento" required>
+                            <option value="">[Seleccione]</option> <!-- Añadida opción vacía -->
                             <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
                             <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                             <option value="Pasaporte">Pasaporte</option>
@@ -136,24 +137,39 @@
 </div>
 
 
-{{-- SCRIPT JS --}}
+{{-- SCRIPT JS CORREGIDO --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var editarModal = document.getElementById('EditarModal');
 
-        editarModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
+        if (editarModal) {
+            editarModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
 
-            // Obtener datos del técnico
-            document.getElementById('editID_ADMINISTRADOR').value = button.getAttribute('data-id');
-            document.getElementById('editNombre').value = button.getAttribute('data-nombre');
-            document.getElementById('editCorreo').value = button.getAttribute('data-correo');
-            document.getElementById('editTipoDocumento').value = button.getAttribute('data-tipo');
-            document.getElementById('editTelefono').value = button.getAttribute('data-telefono');
+                // Obtener datos del administrador
+                var id = button.getAttribute('data-id');
+                var nombre = button.getAttribute('data-nombre');
+                var correo = button.getAttribute('data-correo');
+                var tipo = button.getAttribute('data-tipo');
+                var telefono = button.getAttribute('data-telefono');
 
-            // Asignar ruta al form
-            document.getElementById('editForm').action = '{{ url('administradores') }}/' + button.getAttribute('data-id');
-        });
+                // Asignar valores a los campos del formulario
+                document.getElementById('editID_ADMINISTRADOR').value = id;
+                document.getElementById('editNombre').value = nombre;
+                document.getElementById('editCorreo').value = correo;
+                document.getElementById('editTipoDocumento').value = tipo;
+                document.getElementById('editTelefono').value = telefono;
+
+                // CORRECCIÓN: Usar la ruta de Laravel con el parámetro correcto
+                var form = document.getElementById('editForm');
+                // Crear la ruta dinámica con Blade
+                var baseRoute = "{{ route('administradores.update', ':id') }}";
+                var finalRoute = baseRoute.replace(':id', encodeURIComponent(id));
+                form.action = finalRoute;
+                
+                console.log('Ruta de actualización:', finalRoute); // Para debugging
+            });
+        }
 
         // Confirmar eliminación
         window.confirmarEliminar = function(event) {
@@ -163,5 +179,8 @@
             }
             return true;
         }
+        
+        // Para debugging
+        console.log('Modal de administradores cargado correctamente');
     });
 </script>
