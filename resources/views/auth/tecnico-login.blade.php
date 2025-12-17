@@ -26,7 +26,7 @@
             --ktm-dark: #0a0a0a;
             --ktm-gray: #1a1a1a;
             --ktm-border: #333;
-            --text-light: #e0e0e0;
+            --text-light: #ffffff; /* Cambiado a blanco puro */
         }
 
         * {
@@ -38,13 +38,42 @@
         body {
             background-color: var(--ktm-black);
             font-family: 'Rajdhani', sans-serif;
-            color: var(--text-light);
+            color: var(--text-light); /* Ahora es blanco */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Botón de volver al inicio */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 102, 0, 0.2);
+            border: 2px solid var(--ktm-orange);
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: white; /* Cambiado a blanco */
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
+        }
+
+        .home-btn:hover {
+            background: var(--ktm-orange);
+            color: white; /* Se mantiene blanco en hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
         }
 
         /* Efecto de partículas animadas */
@@ -104,6 +133,7 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             animation: cardAppear 0.8s ease-out forwards;
             opacity: 0;
+            color: white; /* Asegurar que todo el texto sea blanco */
         }
 
         .login-card:hover {
@@ -189,18 +219,17 @@
             font-weight: 700;
             font-size: 2.2rem;
             letter-spacing: 1px;
-            background: #000000ff;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: white; /* Cambiado a blanco */
             text-transform: uppercase;
             margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
         }
 
         .login-header p {
-            color: #000000ff;
+            color: white; /* Cambiado a blanco */
             font-size: 1rem;
             letter-spacing: 0.5px;
+            opacity: 0.9;
         }
 
         /* Estilos de alerta */
@@ -214,6 +243,7 @@
             align-items: center;
             animation: shake 0.5s ease;
             backdrop-filter: blur(5px);
+            color: white; /* Texto de alerta en blanco */
         }
 
         @keyframes shake {
@@ -223,7 +253,7 @@
         }
 
         .alert-danger i {
-            color: #ffffffff;
+            color: white; /* Ícono en blanco */
             margin-right: 12px;
             font-size: 1.2rem;
         }
@@ -252,7 +282,7 @@
             background-color: rgba(255, 255, 255, 0.05);
             border: 2px solid var(--ktm-border);
             border-radius: 12px;
-            color: var(--text-light);
+            color: white; /* Texto de input en blanco */
             padding: 16px 20px 16px 55px;
             font-size: 1.1rem;
             font-weight: 500;
@@ -262,7 +292,7 @@
         }
 
         .form-control::placeholder {
-            color: #888;
+            color: rgba(255, 255, 255, 0.6); /* Placeholder más claro */
         }
 
         .form-control:focus {
@@ -270,6 +300,7 @@
             border-color: var(--ktm-orange);
             box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
             outline: none;
+            color: white; /* Mantener blanco al focus */
         }
 
         .form-control:focus + .input-icon {
@@ -294,7 +325,7 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #777;
+            color: rgba(255, 255, 255, 0.7); /* Icono en blanco semitransparente */
             cursor: pointer;
             font-size: 1.2rem;
             transition: color 0.3s ease;
@@ -302,13 +333,13 @@
         }
 
         .toggle-password:hover {
-            color: var(--ktm-orange);
+            color: white; /* Blanco sólido al hover */
         }
 
         /* Botón de envío */
         .btn-ktm {
-            background:  #000000ff;
-            color: white;
+            background: linear-gradient(135deg, var(--ktm-orange), #ff5500);
+            color: white; /* Texto del botón en blanco */
             border: none;
             border-radius: 12px;
             font-weight: 700;
@@ -339,6 +370,7 @@
             background: linear-gradient(135deg, #ff8533, #ff5500);
             box-shadow: 0 10px 25px rgba(255, 102, 0, 0.4);
             transform: translateY(-3px);
+            color: white; /* Mantener blanco en hover */
         }
 
         .btn-ktm:hover::before {
@@ -351,6 +383,7 @@
 
         .btn-ktm i {
             margin-right: 10px;
+            color: white; /* Icono del botón en blanco */
         }
 
         /* Pie de página */
@@ -359,8 +392,9 @@
             margin-top: 30px;
             padding-top: 25px;
             border-top: 1px solid rgba(255, 102, 0, 0.2);
-            color: #777;
+            color: white; /* Cambiado a blanco */
             font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         .login-footer span {
@@ -402,6 +436,13 @@
                 width: 70px;
                 height: 70px;
             }
+            
+            .home-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
         }
 
         /* Modo oscuro adicional */
@@ -409,7 +450,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            color: var(--ktm-orange);
+            color: white; /* Icono en blanco */
             font-size: 1.5rem;
             cursor: pointer;
             z-index: 100;
@@ -417,6 +458,11 @@
     </style>
 </head>
 <body>
+    <!-- Botón para volver al inicio -->
+    <a href="{{ route('index') }}" class="home-btn">
+        <i class="fas fa-home"></i> Volver al Inicio
+    </a>
+
     <!-- Botón para modo oscuro (opcional) -->
     <div class="dark-mode-toggle" id="darkModeToggle">
         <i class="bi bi-moon-stars"></i>

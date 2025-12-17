@@ -26,7 +26,6 @@ class ClienteController extends Controller
                   ->orWhere('TipoDocumento', 'LIKE', "%{$search}%")
                   ->orWhere('Telefono','LIKE', "%{$search}%")
                   ->orWhere('Correo','LIKE', "%{$search}%")
-                  ->orWhere('dni','LIKE', "%{$search}%")
                   ->orWhere('usuario','LIKE', "%{$search}%");
             });
         }
@@ -51,7 +50,6 @@ class ClienteController extends Controller
         $validated = $request->validate([
             'Nombre' => 'required|string|max:255',
             'TipoDocumento' => 'required|string|max:20',
-            'dni' => 'required|string|max:15|unique:clientes,dni',
             'Correo' => 'required|email|max:255|unique:clientes,Correo',
             'Telefono' => 'nullable|string|max:20',
             'Ubicacion' => 'nullable|string|max:255',
@@ -98,7 +96,6 @@ class ClienteController extends Controller
         $validated = $request->validate([
             'Nombre' => 'required|string|max:255',
             'TipoDocumento' => 'required|string|max:20',
-            'dni' => 'required|string|max:15|unique:clientes,dni,' . $id . ',ID_CLIENTES',
             'Correo' => 'required|email|max:255|unique:clientes,Correo,' . $id . ',ID_CLIENTES',
             'Telefono' => 'nullable|string|max:20',
             'Ubicacion' => 'nullable|string|max:255',
@@ -237,7 +234,6 @@ class ClienteController extends Controller
             'Nombre' => 'required|string|max:255',
             'Correo' => 'required|email|max:255|unique:clientes,Correo,' . $cliente->ID_CLIENTES . ',ID_CLIENTES',
             'Telefono' => 'nullable|string|max:20',
-            'dni' => 'required|string|max:15|unique:clientes,dni,' . $cliente->ID_CLIENTES . ',ID_CLIENTES',
             'Ubicacion' => 'nullable|string|max:255',
         ]);
         

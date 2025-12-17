@@ -13,15 +13,32 @@
                     @csrf
                     
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label class="form-label fw-semibold">ID Cliente *</label>
                             <input type="text" class="form-control" name="ID_CLIENTES" required 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Ej: CL11, CL12">
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-8 mb-3">
                             <label class="form-label fw-semibold">Nombre Completo *</label>
                             <input type="text" class="form-control" name="Nombre" required 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Ej: Bok, Rosa, Teodoro">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Usuario *</label>
+                            <input type="text" class="form-control" name="usuario" required 
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Ej: bok1, Rosa2, teodoro3">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Contraseña *</label>
+                            <input type="password" class="form-control" name="contrasena" required
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Mínimo 6 caracteres">
                         </div>
                     </div>
 
@@ -31,15 +48,16 @@
                             <select class="form-select" name="TipoDocumento" required 
                                     style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
                                 <option value="">[Seleccione]</option>
-                                <option value="DNI">DNI</option>
-                                <option value="RUC">RUC</option>
-                                <option value="CE">Carnet Extranjería</option>
+                                <option value="Nit">Nit</option>
+                                <option value="Cedula de Ciudadanía">Cédula de Ciudadanía</option>
+                                <option value="Pasaporte">Pasaporte</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Número de Documento *</label>
-                            <input type="text" class="form-control" name="dni" required 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                            <label class="form-label fw-semibold">Teléfono *</label>
+                            <input type="text" class="form-control" name="Telefono" required
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Ej: 3002125478, 3112025477">
                         </div>
                     </div>
 
@@ -47,34 +65,14 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Correo Electrónico *</label>
                             <input type="email" class="form-control" name="Correo" required 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="ejemplo@gmail.com">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Teléfono</label>
-                            <input type="text" class="form-control" name="Telefono" 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Ubicación</label>
-                            <input type="text" class="form-control" name="Ubicacion" 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Usuario</label>
-                            <input type="text" class="form-control" name="usuario" 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Contraseña</label>
-                            <input type="password" class="form-control" name="contrasena"
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);">
-                            <small class="text-muted" style="color: #999 !important;">Dejar en blanco para no establecer contraseña</small>
+                            <label class="form-label fw-semibold">Ubicación *</label>
+                            <input type="text" class="form-control" name="Ubicacion" required
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(255, 109, 31, 0.3);"
+                                   placeholder="Ej: Bogota, Cundinamarca">
                         </div>
                     </div>
 
@@ -111,60 +109,46 @@
                     <input type="hidden" id="editID_CLIENTES" name="ID_CLIENTES">
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-semibold">ID Cliente</label>
+                            <input type="text" class="form-control" id="editID_CLIENTES_display" required
+                                   style="background: var(--ktm-gray-light); color: #aaa; border: 1px solid rgba(40, 167, 69, 0.3);">
+                        </div>
+                        <div class="col-md-8 mb-3">
                             <label class="form-label fw-semibold">Nombre Completo *</label>
                             <input type="text" class="form-control" id="editNombre" name="Nombre" required 
                                    style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Tipo de Documento *</label>
                             <select class="form-select" id="editTipoDocumento" name="TipoDocumento" required 
                                     style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                                 <option value="">[Seleccione]</option>
-                                <option value="DNI">DNI</option>
-                                <option value="RUC">RUC</option>
-                                <option value="CE">Carnet Extranjería</option>
+                                <option value="Nit">Nit</option>
+                                <option value="Cedula de Ciudadanía">Cédula de Ciudadanía</option>
+                                <option value="Pasaporte">Pasaporte</option>
                             </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Teléfono *</label>
+                            <input type="text" class="form-control" id="editTelefono" name="Telefono" required
+                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Número de Documento *</label>
-                            <input type="text" class="form-control" id="editDni" name="dni" required 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
-                        </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Correo Electrónico *</label>
                             <input type="email" class="form-control" id="editCorreo" name="Correo" required 
                                    style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Teléfono</label>
-                            <input type="text" class="form-control" id="editTelefono" name="Telefono" 
+                            <label class="form-label fw-semibold">Ubicación *</label>
+                            <input type="text" class="form-control" id="editUbicacion" name="Ubicacion" required
                                    style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Ubicación</label>
-                            <input type="text" class="form-control" id="editUbicacion" name="Ubicacion" 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Usuario</label>
-                            <input type="text" class="form-control" id="editUsuario" name="usuario" 
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Contraseña</label>
-                            <input type="password" class="form-control" name="contrasena"
-                                   style="background: var(--ktm-gray-light); color: white; border: 1px solid rgba(40, 167, 69, 0.3);">
-                            <small class="text-muted" style="color: #999 !important;">Dejar en blanco para no cambiar la contraseña</small>
                         </div>
                     </div>
 
@@ -181,3 +165,39 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript para manejar los modales -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Manejar el modal de edición
+    var editarModal = document.getElementById('EditarModal');
+    
+    if (editarModal) {
+        editarModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            
+            // Obtener datos del cliente (EXACTAMENTE como están en tu tabla)
+            var id = button.getAttribute('data-id');
+            var ubicacion = button.getAttribute('data-ubicacion');
+            var nombre = button.getAttribute('data-nombre');
+            var correo = button.getAttribute('data-correo');
+            var tipo = button.getAttribute('data-tipo');
+            var telefono = button.getAttribute('data-telefono');
+            
+            // Asignar valores a los campos del formulario
+            document.getElementById('editID_CLIENTES').value = id;
+            document.getElementById('editNombre').value = nombre || '';
+            document.getElementById('editTipoDocumento').value = tipo || '';
+            document.getElementById('editCorreo').value = correo || '';
+            document.getElementById('editTelefono').value = telefono || '';
+            document.getElementById('editUbicacion').value = ubicacion || '';
+            
+            // Actualizar la acción del formulario con el ID correcto
+            var editForm = document.getElementById('editForm');
+            editForm.action = "{{ url('admin/clientes') }}/" + id;
+            
+            console.log('Editando cliente ID:', id);
+        });
+    }
+});
+</script>

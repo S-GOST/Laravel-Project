@@ -23,6 +23,14 @@ class TecnicoAuthController extends Controller
 
         $tecnico = TecnicosModelo::where('usuario', $request->usuario)->first();
 
+        // Verificar si el técnico existe
+        if (!$tecnico) {
+            return back()->withErrors([
+                'usuario' => 'Usuario no encontrado.',
+            ])->withInput();
+        }
+
+        // Verificar contraseña
         if (!Hash::check($request->contrasena, $tecnico->contrasena)) {
             return back()->withErrors([
                 'contrasena' => 'Contraseña incorrecta.',
@@ -32,11 +40,12 @@ class TecnicoAuthController extends Controller
         // Login
         Auth::guard('tecnico')->login($tecnico);
 
-        return redirect()->route('Tecnicos.dashboard');
+        // CORRECCIÓN: Usar el nombre correcto de la ruta
+        return redirect()->route('Administradores.Tecnicos.dashboard');
     }
 
     /**
-     * Cerrar sesión del cliente
+     * Cerrar sesión del técnico
      */
     public function logout(Request $request)
     {

@@ -26,7 +26,6 @@
             <div class="row">
                 <div class="col-md-4">
                     <p><strong>Cliente:</strong> {{ $cliente->Nombre }}</p>
-                    <p><strong>DNI:</strong> {{ $cliente->dni }}</p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Teléfono:</strong> {{ $cliente->Telefono }}</p>

@@ -392,7 +392,10 @@
     </div>
 
     <div class="d-flex align-items-center">
-        <span class="me-3 d-none d-md-block">Administrador</span>
+                    <span class="navbar-text me-4 d-none d-md-block user-info-navbar">
+                        <i class="fas fa-user-circle me-2"></i>
+                        <strong>{{ Auth::user()->Nombre ?? Auth::guard('tecnico')->user()->Nombre ?? 'Usuario' }}</strong>
+                    </span>     
 
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-inline">
             @csrf

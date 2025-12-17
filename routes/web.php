@@ -33,7 +33,7 @@ Route::get('/carrito', fn() => view('carrito'))->name('carrito');
 Route::get('/checkout', fn() => view('checkout'))->name('checkout');
 
 // =======================================
-// RUTA PARA EL ERROR DE "LOGIN" (añade esto)
+// RUTA PARA EL ERROR DE "LOGIN" 
 // =======================================
 Route::get('/login', function() {
     return redirect()->route('cliente.login');
@@ -112,7 +112,7 @@ Route::prefix('tecnico')->group(function () {
 // ÁREA TÉCNICO — PROTEGIDA CON auth:tecnico
 // =======================================
 Route::prefix('tecnico')->middleware('auth:tecnico')->group(function () {
-    Route::get('/dashboard', fn() => view('Administradores.Tecnicos.dashboard'))->name('tecnico.dashboard');
+    Route::get('/dashboard', fn() => view('Administradores.Tecnicos.dashboard'))->name('Administradores.Tecnicos.dashboard');
     
     Route::get('/perfil', [TecnicosController::class, 'perfil'])->name('tecnico.perfil');
     Route::put('/perfil/actualizar', [TecnicosController::class, 'actualizarPerfil'])->name('tecnico.perfil.actualizar');
@@ -185,10 +185,10 @@ Route::resource('servicios', ServiciosController::class)->parameters(['servicios
 Route::resource('productos', ProductosController::class)->parameters(['productos' => 'idP']);
 
 // ORDEN SERVICIO
-Route::resource('orden_servicio', OrdenServicioController::class)->parameters(['orden_servicio' => 'idO']);
+Route::resource('orden_servicio', orden_servicioController::class)->parameters(['orden_servicio' => 'idO']);
 
 // DETALLES ORDEN
-Route::resource('detalles_orden_servicio', DetallesOrdenServicioController::class)->parameters(['detalles_orden_servicio' => 'idDOS']);
+Route::resource('detalles_orden_servicio', detalles_orden_servicioController::class)->parameters(['detalles_orden_servicio' => 'idDOS']);
 
 // INFORME
 Route::resource('informe', InformeController::class)->parameters(['informe' => 'idI']);
